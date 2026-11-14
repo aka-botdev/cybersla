@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberSLA // Код. Звук. Смысл.</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bg: #0a0a0f;
+    --bg-soft: #12121a;
+    --red: #c8102e;
+    --violet: #6b2d7a;
+    --text: #d4d4d8;
+    --dim: #6b6b7b;
+    --glow: rgba(200, 16, 46, 0.4);
+  }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', 'Consolas', monospace;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(107, 45, 122, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(200, 16, 46, 0.1) 0%, transparent 50%);
+  }
+  
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 60px 0;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.02) 2px,
+      rgba(255,255,255,0.02) 4px
+    );
+    pointer-events: none;
+  }
+  
+  .hero-content { position: relative; z-index: 1; }
+  
+  .tag {
+    color: var(--red);
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+  
+  h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 0.95;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #fff 0%, var(--red) 60%, var(--violet) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px var(--glow);
+  }
+  
+  .subtitle {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--dim);
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+  
+  .subtitle span { color: var(--text); }
+  
+  .cta {
+    display: inline-block;
+    padding: 14px 32px;
+    background: transparent;
+    border: 1px solid var(--red);
+    color: var(--text);
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  
+  .cta:hover {
+    background: var(--red);
+    box-shadow: 0 0 30px var(--glow);
+    color: #fff;
+  }
+  
+  section { padding: 100px 0; position: relative; }
+  
+  .section-title {
+    font-size: 14px;
+    color: var(--red);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  
+  .section-heading {
+    font-size: clamp(28px, 4vw, 42px);
+    margin-bottom: 60px;
+    color: #fff;
+    font-weight: 700;
+  }
+  
+  .services {
+    background: var(--bg-soft);
+    border-top: 1px solid rgba(200, 16, 46, 0.2);
+    border-bottom: 1px solid rgba(107, 45, 122, 0.2);
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+  
+  .card {
+    padding: 32px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+  }
+  
+  .card:hover {
+    border-color: var(--red);
+    transform: tranSLAteY(-4px);
+    box-shadow: 0 10px 40px rgba(200, 16, 46, 0.15);
+  }
+  
+  .card-num {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--violet);
+    opacity: 0.4;
+    margin-bottom: 16px;
+  }
+  
+  .card h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  
+  .card p { color: var(--dim); font-size: 15px; }
+  
+  .bots { background: var(--bg); }
+  
+  .bot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .bot-item {
+    padding: 28px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-left: 3px solid var(--violet);
+    transition: all 0.3s;
+  }
+  
+  .bot-item:hover {
+    border-left-color: var(--red);
+    background: rgba(200, 16, 46, 0.05);
+  }
+  
+  .bot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .bot-name {
+    font-size: 20px;
+    color: #fff;
+    font-weight: 700;
+  }
+  
+  .bot-status {
+    font-size: 12px;
+    color: var(--red);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  .bot-desc {
+    color: var(--dim);
+    font-size: 15px;
+  }
+  
+  .music {
+    background: var(--bg-soft);
+    text-align: center;
+    border-top: 1px solid rgba(107, 45, 122, 0.2);
+  }
+  
+  .music-block {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .music-desc {
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+  
+  .music-cta {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--violet);
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    border: 1px solid var(--violet);
+  }
+  
+  .music-cta:hover {
+    background: transparent;
+    box-shadow: 0 0 30px rgba(107, 45, 122, 0.4);
+  }
+  
+  .philosophy {
+    text-align: center;
+    padding: 120px 0;
+  }
+  
+  .philosophy blockquote {
+    font-size: clamp(20px, 3vw, 28px);
+    font-style: italic;
+    color: var(--text);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.5;
+    position: relative;
+    padding: 40px 0;
+  }
+  
+  .philosophy blockquote::before,
+  .philosophy blockquote::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: tranSLAteX(-50%);
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+  
+  .philosophy blockquote::before { top: 0; }
+  .philosophy blockquote::after { bottom: 0; }
+  
+  .contact {
+    background: var(--bg);
+    text-align: center;
+  }
+  
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  
+  .contact-link {
+    display: inline-block;
+    padding: 16px 32px;
+    background: transparent;
+    border: 1px solid var(--red);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  
+  .contact-link:hover {
+    background: var(--red);
+    box-shadow: 0 0 30px var(--glow);
+    color: #fff;
+  }
+  
+  footer {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--dim);
+    font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  footer .sig { color: var(--red); }
+  
+  @media (max-width: 600px) {
+    section { padding: 60px 0; }
+    .hero { min-height: 80vh; }
+    .bot-header { flex-direction: column; align-items: flex-start; }
+    .contact-links { flex-direction: column; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container hero-content">
+    <div class="tag">// SYSTEM ONLINE</div>
+    <h1>CyberSLA</h1>
+    <p class="subtitle">
+      <span>Код. Звук. Смысл.</span><br>
+      Мы — гибриды. Технари с пульсом. Автоматизируем рутину, строим цифровые убежища и превращаем хаос в ритм.
+    </p>
+    <a href="#contact" class="cta">Обсудить у костра →</a>
+  </div>
+</section>
+
+<section class="services">
+  <div class="container">
+    <div class="section-title">// 01 — НАВИГАЦИЯ</div>
+    <h2 class="section-heading">Что мы делаем</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-num">01</div>
+        <h3>Архитектура кода</h3>
+        <p>Боты (Telegram, Discord), парсинг данных, десктопные и веб-приложения. Вытаскиваем смыслы из информационного шума и автоматизируем то, что должно работать само.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <h3>Цифровые убежища</h3>
+        <p>Сайты, которые работают и чувствуются. От мрачных одностраничников до функциональных порталов. Быстро, адаптивно, с душой.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <h3>Голос и смысл</h3>
+        <p>Сценарии, тексты, музыка под ключ. От идеи до готового трека. Мы не генерим контент — мы создаём нарратив. Энигматика, психоделика, транс.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bots">
+  <div class="container">
+    <div class="section-title">// 02 — АРСЕНАЛ</div>
+    <h2 class="section-heading">Наши боты</h2>
+    <div class="bot-list">
+      <div class="bot-item">
+        <div class="bot-header">
+          <div class="bot-name">@example_bot</div>
+          <div class="bot-status">[ACTIVE]</div>
+        </div>
+        <div class="bot-desc">
+          Парсер контента из социальных сетей. Собирает посты, комментарии, статистику. Выгружает в JSON/CSV. Работает по расписанию или по команде.
+        </div>
+      </div>
+      
+      <div class="bot-item">
+        <div class="bot-header">
+          <div class="bot-name">@another_bot</div>
+          <div class="bot-status">[ACTIVE]</div>
+        </div>
+        <div class="bot-desc">
+          Автоматизация уведомлений. Отправляет алерты в Telegram при изменении данных на сайте, появлении новых заказов, изменении курса.
+        </div>
+      </div>
+      
+      <div class="bot-item">
+        <div class="bot-header">
+          <div class="bot-name">[В РАЗРАБОТКЕ]</div>
+          <div class="bot-status">[COMING SOON]</div>
+        </div>
+        <div class="bot-desc">
+          Здесь будет твой следующий проект. Напиши нам — и мы создадим бота под твои задачи.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="music">
+  <div class="container">
+    <div class="section-title">// 03 — ЗВУК</div>
+    <h2 class="section-heading">SLAmedia</h2>
+    <div class="music-block">
+      <p class="music-desc">
+        Музыкальные эксперименты на стыке энигматики, психоделики и транса. Атмосферные саундскейпы, нарративные треки, голос как инструмент.<br><br>
+        Слушай в нашем сообществе VK.
+      </p>
+      <a href="https://vk.com/SLAmedia" target="_blank" class="music-cta">Перейти в SLAmedia →</a>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy">
+  <div class="container">
+    <div class="section-title">// 04 — ФИЛОСОФИЯ</div>
+    <blockquote>
+      Нет чёткого ТЗ? Идеально.<br>
+      Мы не бюрократы. Приходи с хаосом — обсудим его у костра и превратим в структуру. Бюджет на старте? Найдём решение. Главное — замысел.
+    </blockquote>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-title">// 05 — СВЯЗЬ</div>
+    <h2 class="section-heading">Напиши в логово</h2>
+    <div class="contact-links">
+      <a href="mailto:your@email.com" class="contact-link">Email →</a>
+      <a href="https://vk.com/SLAmedia" target="_blank" class="contact-link">VK →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 <span class="sig">CyberSLA</span> // Код. Звук. Смысл.</p>
+  </div>
+</footer>
+
+</body>
+</html>

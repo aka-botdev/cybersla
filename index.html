@@ -9,6 +9,7 @@
         :root {
             --bg: #0a0a0f; --bg-soft: #12121a; --red: #c8102e; --violet: #6b2d7a;
             --text: #d4d4d8; --dim: #6b6b7b; --glow: rgba(200, 16, 46, 0.4);
+            --terminal-green: #00ff41; --terminal-bg: #0d1117;
         }
         body { background: var(--bg); color: var(--text); font-family: 'Courier New', Consolas, monospace; line-height: 1.6; overflow-x: hidden; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
@@ -17,32 +18,19 @@
         .hero-content { position: relative; z-index: 2; }
         .tag { color: var(--red); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; opacity: 0.8; }
 
-        /* === ПОЯВЛЕНИЕ БУКВ СО ВСПЫШКОЙ === */
         .glitch-wrap { position: relative; display: inline-block; padding: 20px 40px; cursor: pointer; }
         .glitch {
-            font-size: clamp(48px, 8vw, 96px);
-            font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 0.95;
-            margin-bottom: 24px;
-            display: flex;
-            gap: 0;
-            position: relative;
-            perspective: 1200px;
+            font-size: clamp(48px, 8vw, 96px); font-weight: 900; letter-spacing: -2px; line-height: 0.95;
+            margin-bottom: 24px; display: flex; gap: 0; position: relative; perspective: 1200px;
         }
         .letter {
             display: inline-block;
             background: linear-gradient(135deg, #fff 0%, var(--red) 60%, var(--violet) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            opacity: 0;
-            transform: translateY(30px) scale(0.5);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            position: relative; opacity: 0; transform: translateY(30px) scale(0.5);
             animation: letterAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, letterDance 2s ease-in-out infinite 2s;
             transition: filter 0.3s;
         }
-        /* Задержка для каждой буквы */
         .letter:nth-child(1) { animation-delay: 0.1s, 2s; }
         .letter:nth-child(2) { animation-delay: 0.3s, 2s; }
         .letter:nth-child(3) { animation-delay: 0.5s, 2s; }
@@ -52,59 +40,26 @@
         .letter:nth-child(7) { animation-delay: 1.3s, 2s; }
         .letter:nth-child(8) { animation-delay: 1.5s, 2s; }
 
-        /* Анимация появления со вспышкой */
         @keyframes letterAppear {
-            0% {
-                opacity: 0;
-                transform: translateY(30px) scale(0.5);
-                filter: brightness(3) drop-shadow(0 0 30px #fff) drop-shadow(0 0 60px var(--red));
-            }
-            50% {
-                opacity: 1;
-                transform: translateY(-10px) scale(1.2);
-                filter: brightness(2) drop-shadow(0 0 20px var(--red)) drop-shadow(0 0 40px var(--violet));
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: brightness(1) drop-shadow(0 0 15px rgba(200,16,46,0.5));
-            }
+            0% { opacity: 0; transform: translateY(30px) scale(0.5); filter: brightness(3) drop-shadow(0 0 30px #fff) drop-shadow(0 0 60px var(--red)); }
+            50% { opacity: 1; transform: translateY(-10px) scale(1.2); filter: brightness(2) drop-shadow(0 0 20px var(--red)) drop-shadow(0 0 40px var(--violet)); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: brightness(1) drop-shadow(0 0 15px rgba(200,16,46,0.5)); }
         }
-
-        /* Танец после появления */
         @keyframes letterDance {
             0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
             25% { transform: translateY(-15px) rotate(5deg) scale(1.1); }
             50% { transform: translateY(-5px) rotate(-3deg) scale(0.95); }
             75% { transform: translateY(-20px) rotate(8deg) scale(1.05); }
         }
+        .glitch-wrap:hover .letter { animation: spinAxis 1.2s linear infinite; filter: drop-shadow(0 0 20px rgba(200,16,46,0.6)); }
+        .glitch-wrap:hover .letter:nth-child(odd) { animation: spinAxisReverse 0.9s linear infinite; }
+        @keyframes spinAxis { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
+        @keyframes spinAxisReverse { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-360deg); } }
 
-        /* ВРАЩЕНИЕ ВОКРУГ ОСИ ПРИ НАВЕДЕНИИ */
-        .glitch-wrap:hover .letter {
-            animation: spinAxis 1.2s linear infinite;
-            filter: drop-shadow(0 0 20px rgba(200,16,46,0.6));
-        }
-        .glitch-wrap:hover .letter:nth-child(odd) {
-            animation: spinAxisReverse 0.9s linear infinite;
-        }
-        @keyframes spinAxis {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        @keyframes spinAxisReverse {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(-360deg); }
-        }
-
-        /* Случайные искажения букв */
         .letter::before {
-            content: attr(data-char);
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            animation: letterGlitch 5s infinite;
+            content: attr(data-char); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            opacity: 0; animation: letterGlitch 5s infinite;
         }
         .letter:nth-child(odd)::before { color: #ff0040; }
         .letter:nth-child(even)::before { color: #00e5ff; }
@@ -116,20 +71,16 @@
         }
 
         .scanline {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
-            pointer-events: none;
-            animation: scan 1.5s linear infinite;
-            mix-blend-mode: overlay;
+            pointer-events: none; animation: scan 1.5s linear infinite; mix-blend-mode: overlay;
         }
         @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
         
         .spark-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
         .spark {
             position: absolute; width: 3px; height: 3px; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 6px #c8102e, 0 0 12px #6b2d7a; opacity: 0;
-            animation: sparkFly 1.2s ease-out infinite;
+            box-shadow: 0 0 6px #c8102e, 0 0 12px #6b2d7a; opacity: 0; animation: sparkFly 1.2s ease-out infinite;
         }
         @keyframes sparkFly {
             0% { opacity: 1; transform: translate(0,0) scale(1); }
@@ -189,29 +140,166 @@
         .contact-link:hover { background: var(--red); box-shadow: 0 0 30px var(--glow); color: #fff; }
         footer { padding: 40px 0; text-align: center; color: var(--dim); font-size: 13px; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 2; }
         footer .sig { color: var(--red); }
-        @media (max-width: 600px) { section { padding: 60px 0; } .hero { min-height: 80vh; } .bot-header { flex-direction: column; align-items: flex-start; } .contact-links { flex-direction: column; gap: 20px; } }
+        .privacy-link { 
+            color: var(--dim); text-decoration: none; margin-top: 16px; display: inline-block;
+            transition: all 0.2s; cursor: pointer;
+        }
+        .privacy-link:hover { color: var(--terminal-green); text-shadow: 0 0 8px var(--terminal-green); }
 
         /* === ПОМОЩНИК "ТЕНЬ" === */
-        .shadow-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--red); border: 2px solid var(--violet); color: #fff; font-size: 24px; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px var(--glow); transition: all 0.3s; animation: pulse 2s infinite; }
+        .shadow-btn { 
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
+            border-radius: 50%; background: var(--red); border: 2px solid var(--violet); 
+            color: #fff; font-size: 24px; cursor: pointer; z-index: 10000; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 0 30px var(--glow); transition: all 0.3s; animation: pulse 2s infinite; 
+        }
         .shadow-btn:hover { transform: scale(1.1); }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 20px var(--glow); } 50% { box-shadow: 0 0 40px var(--glow), 0 0 60px rgba(107,45,122,0.4); } }
-        .shadow-window { position: fixed; bottom: 100px; right: 30px; width: 340px; max-width: calc(100vw - 60px); height: 450px; max-height: calc(100vh - 140px); background: var(--bg-soft); border: 1px solid var(--red); box-shadow: 0 0 40px rgba(0,0,0,0.8), 0 0 20px var(--glow); z-index: 9998; display: none; flex-direction: column; overflow: hidden; }
-        .shadow-window.open { display: flex; }
-        .shadow-header { padding: 14px 18px; background: rgba(200,16,46,0.15); border-bottom: 1px solid var(--red); display: flex; justify-content: space-between; align-items: center; }
-        .shadow-header-title { color: var(--red); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
-        .shadow-close { background: none; border: none; color: var(--dim); font-size: 20px; cursor: pointer; }
-        .shadow-close:hover { color: var(--red); }
-        .shadow-body { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .shadow-msg { padding: 10px 14px; font-size: 14px; line-height: 1.5; max-width: 85%; }
-        .shadow-msg.bot { background: rgba(107,45,122,0.2); border-left: 2px solid var(--violet); color: var(--text); align-self: flex-start; }
-        .shadow-msg.user { background: rgba(200,16,46,0.15); border-right: 2px solid var(--red); color: var(--text); align-self: flex-end; text-align: right; }
-        .shadow-options { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-        .shadow-opt { padding: 10px 14px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text); font-family: inherit; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.2s; }
-        .shadow-opt:hover { border-color: var(--red); background: rgba(200,16,46,0.1); }
-        .shadow-opt.direct { border-color: var(--red); color: var(--red); text-align: center; font-weight: 700; letter-spacing: 1px; }
-        .shadow-opt.direct:hover { background: var(--red); color: #fff; }
+        .shadow-btn.active { background: var(--violet); }
+        @keyframes pulse { 
+            0%, 100% { box-shadow: 0 0 20px var(--glow); } 
+            50% { box-shadow: 0 0 40px var(--glow), 0 0 60px rgba(107,45,122,0.4); } 
+        }
+        
+        .shadow-window { 
+            position: fixed; bottom: 30px; right: 110px; 
+            width: 380px; height: 480px; max-height: calc(100vh - 60px); 
+            background: var(--terminal-bg); border: 2px solid var(--red);
+            box-shadow: 0 0 20px rgba(200,16,46,0.5), inset 0 0 20px rgba(0,0,0,0.8), 0 0 60px rgba(0,0,0,0.9);
+            z-index: 9998; display: flex; flex-direction: column; overflow: hidden;
+            opacity: 0; transform: translateX(20px) scale(0.9); filter: blur(10px);
+            pointer-events: none; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .shadow-window::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.03) 2px, rgba(0,255,65,0.03) 4px);
+            pointer-events: none; z-index: 10;
+        }
+        .shadow-window::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+            pointer-events: none; z-index: 11;
+        }
+        .shadow-window.open { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); pointer-events: all; }
+        
+        .shadow-header { 
+            padding: 12px 16px; background: linear-gradient(90deg, rgba(200,16,46,0.3) 0%, rgba(107,45,122,0.3) 100%);
+            border-bottom: 2px solid var(--red); display: flex; justify-content: space-between; align-items: center;
+            position: relative; z-index: 12;
+        }
+        .shadow-header-title { 
+            color: var(--terminal-green); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; 
+            font-weight: 700; text-shadow: 0 0 10px var(--terminal-green);
+        }
+        .shadow-header-title::before { content: '> '; color: var(--red); }
+        .shadow-close { background: none; border: none; color: var(--red); font-size: 18px; cursor: pointer; font-weight: 900; transition: all 0.2s; }
+        .shadow-close:hover { color: #fff; text-shadow: 0 0 10px var(--red); }
+        
+        .shadow-body { 
+            flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;
+            position: relative; z-index: 12; background: rgba(0,0,0,0.3);
+        }
+        .shadow-msg { padding: 8px 12px; font-size: 13px; line-height: 1.4; max-width: 90%; font-family: 'Courier New', monospace; }
+        .shadow-msg.bot { 
+            background: rgba(0,255,65,0.05); border-left: 2px solid var(--terminal-green);
+            color: var(--terminal-green); align-self: flex-start; text-shadow: 0 0 5px rgba(0,255,65,0.5);
+        }
+        .shadow-msg.bot::before { content: '[СИСТЕМА] '; color: var(--red); font-weight: 700; }
+        .shadow-msg.user { 
+            background: rgba(200,16,46,0.1); border-right: 2px solid var(--red);
+            color: var(--text); align-self: flex-end; text-align: right;
+        }
+        .shadow-msg.user::before { content: '> '; color: var(--violet); }
+        
+        .shadow-options { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; position: relative; z-index: 12; }
+        .shadow-opt { 
+            padding: 8px 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,65,0.3);
+            color: var(--terminal-green); font-family: 'Courier New', monospace; font-size: 12px;
+            cursor: pointer; text-align: left; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .shadow-opt::before { content: '[ ] '; color: var(--red); }
+        .shadow-opt:hover { border-color: var(--terminal-green); background: rgba(0,255,65,0.1); text-shadow: 0 0 8px var(--terminal-green); }
+        .shadow-opt:hover::before { content: '[✓] '; }
+        .shadow-opt.direct { border-color: var(--red); color: var(--red); text-align: center; font-weight: 700; letter-spacing: 2px; }
+        .shadow-opt.direct::before { content: ''; }
+        .shadow-opt.direct:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px rgba(200,16,46,0.6); }
 
-        /* === ХАОС === */
+        /* === ФОРМА ОБРАТНОЙ СВЯЗИ === */
+        .contact-form { display: none; flex-direction: column; gap: 12px; margin-top: 12px; }
+        .contact-form.active { display: flex; }
+        .form-field { display: flex; flex-direction: column; gap: 6px; }
+        .form-label { color: var(--terminal-green); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        .form-label::before { content: '> '; color: var(--red); }
+        .form-input, .form-textarea {
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(0,255,65,0.3);
+            color: var(--terminal-green); padding: 10px 12px; font-family: 'Courier New', monospace;
+            font-size: 13px; outline: none; transition: all 0.2s;
+        }
+        .form-input:focus, .form-textarea:focus { border-color: var(--terminal-green); box-shadow: 0 0 10px rgba(0,255,65,0.3); }
+        .form-textarea { resize: vertical; min-height: 100px; }
+        .form-submit {
+            padding: 10px 16px; background: rgba(200,16,46,0.2); border: 1px solid var(--red);
+            color: var(--red); font-family: 'Courier New', monospace; font-size: 12px;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.2s;
+        }
+        .form-submit:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px rgba(200,16,46,0.6); }
+        .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+        .form-status { font-size: 12px; margin-top: 8px; }
+        .form-status.success { color: var(--terminal-green); }
+        .form-status.error { color: var(--red); }
+        
+        /* Галочка согласия */
+        .consent-field { display: flex; align-items: flex-start; gap: 8px; margin-top: 4px; }
+        .consent-checkbox {
+            appearance: none; -webkit-appearance: none; width: 16px; height: 16px; min-width: 16px;
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(0,255,65,0.3);
+            cursor: pointer; margin-top: 2px; position: relative;
+        }
+        .consent-checkbox:checked { background: rgba(0,255,65,0.2); border-color: var(--terminal-green); }
+        .consent-checkbox:checked::after {
+            content: '✓'; position: absolute; top: -2px; left: 2px;
+            color: var(--terminal-green); font-size: 14px; font-weight: 900;
+        }
+        .consent-label { color: var(--dim); font-size: 11px; line-height: 1.4; }
+        .consent-label a { color: var(--terminal-green); text-decoration: underline; cursor: pointer; }
+        .consent-label a:hover { color: #fff; }
+
+        /* === МОДАЛЬНОЕ ОКНО ПОЛИТИКИ === */
+        .privacy-modal {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 10001;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .privacy-modal.open { opacity: 1; pointer-events: all; }
+        .privacy-content {
+            width: 90%; max-width: 600px; max-height: 80vh;
+            background: var(--terminal-bg); border: 2px solid var(--red);
+            box-shadow: 0 0 40px rgba(200,16,46,0.5), inset 0 0 20px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; overflow: hidden;
+            transform: scale(0.9); transition: transform 0.3s;
+            position: relative;
+        }
+        .privacy-modal.open .privacy-content { transform: scale(1); }
+        .privacy-content::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.03) 2px, rgba(0,255,65,0.03) 4px);
+            pointer-events: none; z-index: 10;
+        }
+        .privacy-text {
+            flex: 1; overflow-y: auto; padding: 20px;
+            color: var(--terminal-green); font-size: 13px; line-height: 1.6;
+            position: relative; z-index: 12;
+        }
+        .privacy-text h3 {
+            color: var(--red); font-size: 14px; margin: 16px 0 8px 0;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .privacy-text h3:first-child { margin-top: 0; }
+        .privacy-text p { margin-bottom: 10px; }
+        .privacy-text strong { color: #fff; }
+
         #chaos-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
         .chaos-glitch { animation: chaosGlitch 0.1s ease-in-out; }
         @keyframes chaosGlitch {
@@ -230,6 +318,14 @@
         @keyframes staticFlicker { 0%, 95%, 100% { opacity: 0; } 96%, 98% { opacity: 0.3; } 97% { opacity: 0.6; } }
         .flicker { animation: textFlicker 3s infinite; }
         @keyframes textFlicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } 52% { opacity: 0.3; } 54% { opacity: 0.9; } }
+
+        @media (max-width: 600px) {
+            section { padding: 60px 0; } .hero { min-height: 80vh; }
+            .bot-header { flex-direction: column; align-items: flex-start; }
+            .contact-links { flex-direction: column; gap: 20px; }
+            .shadow-window { left: 15px; right: 15px; width: auto; bottom: 100px; max-height: calc(100vh - 170px); transform: translateY(20px) scale(0.95); }
+            .shadow-window.open { transform: translateY(0) scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -317,7 +413,7 @@
             <div class="section-title">// 05 — СВЯЗЬ</div>
             <h2 class="section-heading flicker">Напиши в логово</h2>
             <div class="contact-links">
-                <a href="mailto:your@email.com" class="contact-link">Email →</a>
+                <a href="mailto:veterok_breez@yandex.ru" class="contact-link">Email →</a>
                 <a href="https://vk.com/slamedia" target="_blank" class="contact-link">VK →</a>
             </div>
         </div>
@@ -326,21 +422,81 @@
     <footer>
         <div class="container">
             <p>© 2026 <span class="sig">CyberSLA</span> // Код. Звук. Смысл.</p>
+            <a class="privacy-link" id="privacyLink">[ ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ]</a>
         </div>
     </footer>
 
+    <!-- МОДАЛЬНОЕ ОКНО ПОЛИТИКИ -->
+    <div class="privacy-modal" id="privacyModal">
+        <div class="privacy-content">
+            <div class="shadow-header">
+                <span class="shadow-header-title">ПРОТОКОЛ КОНФИДЕНЦИАЛЬНОСТИ v1.0</span>
+                <button class="shadow-close" id="privacyClose">×</button>
+            </div>
+            <div class="privacy-text">
+                <h3>// 01. ОПЕРАТОР</h3>
+                <p>Оператором персональных данных является <strong>CyberSLA</strong> (далее — «Оператор»). Сайт: <strong>aka-botdev.github.io/cybersla</strong>.</p>
+                
+                <h3>// 02. ЧТО МЫ СОБИРАЕМ</h3>
+                <p>Только то, что ты сам передаёшь через форму обратной связи: <strong>email</strong> и <strong>текст сообщения</strong>. Мы не собираем cookies, не трекаем поведение, не используем аналитику третьих лиц без твоего согласия.</p>
+                
+                <h3>// 03. ЗАЧЕМ</h3>
+                <p>Единственная цель — ответить на твой запрос. Мы не передаём данные третьим лицам, не используем для рассылок, не продаём и не публикуем.</p>
+                
+                <h3>// 04. СКОЛЬКО ХРАНИМ</h3>
+                <p>До момента ответа на запрос и закрытия диалога. После этого данные удаляются из активных систем обработки в течение 30 дней. Резервные копии могут храниться до 90 дней согласно политике хостинг-провайдера.</p>
+                
+                <h3>// 05. ТВОИ ПРАВА (152-ФЗ)</h3>
+                <p>Ты имеешь право в любой момент: <strong>отозвать согласие</strong> на обработку данных, <strong>потребовать уточнения или удаления</strong> своих данных, <strong>получить информацию</strong> об их обработке. Для этого напиши на email, указанный в разделе «Связь».</p>
+                
+                <h3>// 06. БЕЗОПАСНОСТЬ</h3>
+                <p>Передача данных происходит по защищённому каналу (HTTPS). Хранение — на серверах с ограниченным доступом. Мы применяем технические меры защиты согласно требованиям 152-ФЗ.</p>
+                
+                <h3>// 07. СОГЛАСИЕ</h3>
+                <p>Отправляя форму на сайте, ты даёшь согласие на обработку персональных данных в соответствии с настоящим протоколом и Федеральным законом №152-ФЗ «О персональных данных».</p>
+                
+                <h3>// 08. ИЗМЕНЕНИЯ</h3>
+                <p>Оператор оставляет за собой право обновлять данный протокол. Актуальная версия всегда доступна по ссылке в футере сайта.</p>
+                
+                <p style="margin-top: 20px; color: var(--dim); font-size: 11px;">[ ДОКУМЕНТ ДЕЙСТВУЕТ С 16.11.2026 ]</p>
+            </div>
+        </div>
+    </div>
+
     <button class="shadow-btn" id="shadowBtn" title="Связаться с логовом">◈</button>
     <div class="shadow-window" id="shadowWindow">
-        <div class="shadow-header"><span class="shadow-header-title">// ТЕНЬ ONLINE</span><button class="shadow-close" id="shadowClose">×</button></div>
+        <div class="shadow-header">
+            <span class="shadow-header-title">ТЕНЬ v2.0.26</span>
+            <button class="shadow-close" id="shadowClose">×</button>
+        </div>
         <div class="shadow-body" id="shadowBody">
-            <div class="shadow-msg bot">Привет. Я — голос CyberSLA. Спрашивай, что нужно. Или выбирай ниже.</div>
+            <div class="shadow-msg bot">Инициализация связи...<br>Система готова. Ожидаю команды.</div>
             <div class="shadow-options" id="shadowOptions">
                 <button class="shadow-opt" data-q="skills">Что вы умеете?</button>
                 <button class="shadow-opt" data-q="price">Сколько стоит?</button>
                 <button class="shadow-opt" data-q="time">Сроки?</button>
                 <button class="shadow-opt" data-q="bots">Расскажите про ботов</button>
-                <button class="shadow-opt direct" data-q="direct">→ Написать напрямую</button>
+                <button class="shadow-opt direct" data-q="direct">→ НАПИСАТЬ НАПРЯМУЮ</button>
             </div>
+            <!-- ФОРМА ОБРАТНОЙ СВЯЗИ -->
+            <form class="contact-form" id="contactForm">
+                <div class="form-field">
+                    <label class="form-label">ТВОЙ EMAIL</label>
+                    <input type="email" class="form-input" id="formEmail" required placeholder="user@domain.com">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">СООБЩЕНИЕ</label>
+                    <textarea class="form-textarea" id="formMessage" required placeholder="Опиши задачу..."></textarea>
+                </div>
+                <div class="consent-field">
+                    <input type="checkbox" class="consent-checkbox" id="consentCheckbox" required>
+                    <label class="consent-label" for="consentCheckbox">
+                        Даю согласие на обработку персональных данных согласно <a id="openPrivacy">Протоколу конфиденциальности</a> (152-ФЗ)
+                    </label>
+                </div>
+                <button type="submit" class="form-submit" id="formSubmit">ОТПРАВИТЬ СИГНАЛ</button>
+                <div class="form-status" id="formStatus"></div>
+            </form>
         </div>
     </div>
 
@@ -348,18 +504,13 @@
         // === ИСКРЫ НА ФОНЕ (CANVAS) ===
         const canvas = document.getElementById('chaos-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const particles = [];
-        const colors = ['#c8102e', '#6b2d7a', '#ff0040', '#9d00ff'];
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const particles = []; const colors = ['#c8102e', '#6b2d7a', '#ff0040', '#9d00ff'];
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 2;
-                this.vy = (Math.random() - 0.5) * 2;
-                this.size = Math.random() * 2 + 1;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2; this.vy = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 2 + 1; this.color = colors[Math.floor(Math.random() * colors.length)];
             }
             update() {
                 this.x += this.vx; this.y += this.vy;
@@ -377,12 +528,10 @@
             particles.forEach(p => { p.update(); p.draw(); });
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
+                    const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     if (distance < 120) {
-                        ctx.strokeStyle = `rgba(200, 16, 46, ${0.2 * (1 - distance / 120)})`;
-                        ctx.lineWidth = 0.5;
+                        ctx.strokeStyle = `rgba(200, 16, 46, ${0.2 * (1 - distance / 120)})`; ctx.lineWidth = 0.5;
                         ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
                     }
                 }
@@ -392,79 +541,146 @@
         animate();
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-        // === ИСКРЫ ИЗ ЗАГОЛОВКА ===
         const glitchWrap = document.querySelector('.glitch-wrap');
-        const sparkContainer = document.createElement('div');
-        sparkContainer.className = 'spark-container';
-        glitchWrap.appendChild(sparkContainer);
+        const sparkContainer = document.createElement('div'); sparkContainer.className = 'spark-container'; glitchWrap.appendChild(sparkContainer);
         function spawnSpark() {
-            const spark = document.createElement('div');
-            spark.className = 'spark';
+            const spark = document.createElement('div'); spark.className = 'spark';
             const rect = glitchWrap.getBoundingClientRect();
-            spark.style.left = Math.random() * rect.width + 'px';
-            spark.style.top = Math.random() * rect.height + 'px';
-            const angle = Math.random() * Math.PI * 2;
-            const distance = 40 + Math.random() * 80;
-            spark.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
-            spark.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+            spark.style.left = Math.random() * rect.width + 'px'; spark.style.top = Math.random() * rect.height + 'px';
+            const angle = Math.random() * Math.PI * 2; const distance = 40 + Math.random() * 80;
+            spark.style.setProperty('--tx', Math.cos(angle) * distance + 'px'); spark.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
             spark.style.animationDuration = (0.8 + Math.random() * 0.8) + 's';
-            sparkContainer.appendChild(spark);
-            setTimeout(() => spark.remove(), 1600);
+            sparkContainer.appendChild(spark); setTimeout(() => spark.remove(), 1600);
         }
         setInterval(spawnSpark, 80);
 
-        // === СЛУЧАЙНЫЕ ГЛИТЧИ НА КАРТОЧКАХ ===
         const glitchElements = document.querySelectorAll('.card, .bot-item, .section-heading');
         setInterval(() => {
             const randomElement = glitchElements[Math.floor(Math.random() * glitchElements.length)];
-            randomElement.classList.add('chaos-glitch');
-            setTimeout(() => randomElement.classList.remove('chaos-glitch'), 100);
+            randomElement.classList.add('chaos-glitch'); setTimeout(() => randomElement.classList.remove('chaos-glitch'), 100);
         }, 3000);
 
-        // === СЛУЧАЙНОЕ МЕРЦАНИЕ БУКВ ===
         const letters = document.querySelectorAll('.letter');
         setInterval(() => {
             const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-            randomLetter.style.opacity = '0.3';
-            setTimeout(() => { randomLetter.style.opacity = '1'; }, 100);
+            randomLetter.style.opacity = '0.3'; setTimeout(() => { randomLetter.style.opacity = '1'; }, 100);
         }, 2000);
 
-        // === ПОМОЩНИК "ТЕНЬ" ===
+        // === ПОМОЩНИК "ТЕНЬ" + ФОРМА ===
         const btn = document.getElementById('shadowBtn');
         const win = document.getElementById('shadowWindow');
         const close = document.getElementById('shadowClose');
         const body = document.getElementById('shadowBody');
         const opts = document.getElementById('shadowOptions');
+        const contactForm = document.getElementById('contactForm');
+        const formEmail = document.getElementById('formEmail');
+        const formMessage = document.getElementById('formMessage');
+        const formSubmit = document.getElementById('formSubmit');
+        const formStatus = document.getElementById('formStatus');
+        const consentCheckbox = document.getElementById('consentCheckbox');
+        
         const answers = {
-            skills: 'Код: боты (Telegram, Discord), парсинг, софт. Сайты: от одностраничников до порталов. Звук: сценарии, тексты, музыка под ключ — энигматика, психоделика, транс.',
-            price: 'Бюджет на старте? Найдём решение. Цена зависит от задачи. Приходи с хаосом — обсудим у костра и превратим в структуру.',
-            time: 'Простые боты и сайты — 3-7 дней. Сложные проекты — от 2 недель. Музыка и тексты — по договорённости.',
-            bots: 'У нас есть парсеры соцсетей, боты-уведомления, алерты. Каждый бот раскрывается в разделе "Арсенал" — нажми на карточку, чтобы увидеть команды.',
+            skills: 'МОДУЛИ: боты (Telegram, Discord), парсинг, софт. Сайты: одностраничники, порталы. Звук: сценарии, тексты, музыка — энигматика, психоделика, транс.',
+            price: 'Бюджет минимальный? Решим. Цена зависит от задачи. Приходи с хаосом — обсудим у костра.',
+            time: 'Простые задачи: 3-7 дней. Сложные: от 2 недель. Музыка и тексты: по договорённости.',
+            bots: 'Арсенал: парсеры соцсетей, боты-уведомления, алерты. Раздел "Арсенал" на сайте — нажми на карточку.',
             direct: 'direct'
         };
-        btn.addEventListener('click', () => { win.classList.toggle('open'); if (win.classList.contains('open')) body.scrollTop = body.scrollHeight; });
-        close.addEventListener('click', () => win.classList.remove('open'));
+        
+        btn.addEventListener('click', () => { 
+            win.classList.toggle('open'); btn.classList.toggle('active');
+            if (win.classList.contains('open')) body.scrollTop = body.scrollHeight; 
+        });
+        close.addEventListener('click', () => { win.classList.remove('open'); btn.classList.remove('active'); });
+        
         document.querySelectorAll('.shadow-opt').forEach(opt => {
             opt.addEventListener('click', () => {
                 const q = opt.dataset.q;
-                const userMsg = document.createElement('div');
-                userMsg.className = 'shadow-msg user';
-                userMsg.textContent = opt.textContent.replace('→ ', '');
-                body.insertBefore(userMsg, opts);
+                if (q === 'direct') {
+                    opts.style.display = 'none';
+                    contactForm.classList.add('active');
+                    return;
+                }
+                const userMsg = document.createElement('div'); userMsg.className = 'shadow-msg user';
+                userMsg.textContent = opt.textContent.replace('→ ', '').replace('[ ] ', '');
+                body.insertBefore(userMsg, contactForm);
                 setTimeout(() => {
-                    if (q === 'direct') {
-                        const directMsg = document.createElement('div');
-                        directMsg.className = 'shadow-msg bot';
-                        directMsg.innerHTML = 'Выбирай канал связи:<br><br><a href="mailto:your@email.com" style="color:var(--red)">Email</a> · <a href="https://vk.com/slamedia" target="_blank" style="color:var(--red)">VK</a>';
-                        body.insertBefore(directMsg, opts);
-                    } else {
-                        const botMsg = document.createElement('div');
-                        botMsg.className = 'shadow-msg bot';
-                        botMsg.textContent = answers[q];
-                        body.insertBefore(botMsg, opts);
-                    }
+                    const botMsg = document.createElement('div'); botMsg.className = 'shadow-msg bot';
+                    botMsg.textContent = answers[q]; body.insertBefore(botMsg, contactForm);
                     body.scrollTop = body.scrollHeight;
                 }, 400);
+            });
+        });
+
+        // === МОДАЛЬНОЕ ОКНО ПОЛИТИКИ ===
+        const privacyModal = document.getElementById('privacyModal');
+        const privacyLink = document.getElementById('privacyLink');
+        const privacyClose = document.getElementById('privacyClose');
+        const openPrivacy = document.getElementById('openPrivacy');
+        
+        function openPrivacyModal(e) {
+            if (e) e.preventDefault();
+            privacyModal.classList.add('open');
+        }
+        function closePrivacyModal() {
+            privacyModal.classList.remove('open');
+        }
+        
+        privacyLink.addEventListener('click', openPrivacyModal);
+        openPrivacy.addEventListener('click', openPrivacyModal);
+        privacyClose.addEventListener('click', closePrivacyModal);
+        privacyModal.addEventListener('click', (e) => {
+            if (e.target === privacyModal) closePrivacyModal();
+        });
+
+        // === ОТПРАВКА ФОРМЫ ЧЕРЕЗ FORMSUBMIT ===
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (!consentCheckbox.checked) {
+                formStatus.textContent = '[ОШИБКА] ТРЕБУЕТСЯ СОГЛАСИЕ НА ОБРАБОТКУ ДАННЫХ.';
+                formStatus.className = 'form-status error';
+                return;
+            }
+            
+            formSubmit.disabled = true;
+            formSubmit.textContent = 'ПЕРЕДАЧА ДАННЫХ...';
+            formStatus.textContent = '';
+            formStatus.className = 'form-status';
+
+            const formData = new FormData();
+            formData.append('name', formEmail.value);
+            formData.append('message', formMessage.value);
+            formData.append('email', formEmail.value);
+            formData.append('_subject', 'Новый сигнал с сайта CyberSLA');
+            formData.append('_captcha', 'false');
+            formData.append('_template', 'table');
+
+            fetch('https://formsubmit.co/ajax/veterok_breez@yandex.ru', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === "true" || data.success === true) {
+                    formStatus.textContent = '[СИСТЕМА] СООБЩЕНИЕ ПЕРЕДАНО. ОЖИДАЙ ОТВЕТА.';
+                    formStatus.className = 'form-status success';
+                    formSubmit.textContent = 'ОТПРАВЛЕНО';
+                    formEmail.value = ''; formMessage.value = ''; consentCheckbox.checked = false;
+                    setTimeout(() => {
+                        formSubmit.disabled = false;
+                        formSubmit.textContent = 'ОТПРАВИТЬ СИГНАЛ';
+                    }, 3000);
+                } else {
+                    throw new Error('fail');
+                }
+            })
+            .catch(() => {
+                formStatus.textContent = '[ОШИБКА] СБОЙ ПЕРЕДАЧИ. ПОВТОРИ ПОПЫТКУ.';
+                formStatus.className = 'form-status error';
+                formSubmit.disabled = false;
+                formSubmit.textContent = 'ОТПРАВИТЬ СИГНАЛ';
             });
         });
     </script>

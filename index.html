@@ -1,448 +1,477 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CyberSLA // Код. Звук. Смысл.</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  :root {
-    --bg: #0a0a0f;
-    --bg-soft: #12121a;
-    --red: #c8102e;
-    --violet: #6b2d7a;
-    --text: #d4d4d8;
-    --dim: #6b6b7b;
-    --glow: rgba(200, 16, 46, 0.4);
-  }
-  
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Courier New', 'Consolas', monospace;
-    line-height: 1.6;
-    overflow-x: hidden;
-    background-image: 
-      radial-gradient(circle at 20% 30%, rgba(107, 45, 122, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(200, 16, 46, 0.1) 0%, transparent 50%);
-  }
-  
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 60px 0;
-  }
-  
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(255,255,255,0.02) 2px,
-      rgba(255,255,255,0.02) 4px
-    );
-    pointer-events: none;
-  }
-  
-  .hero-content { position: relative; z-index: 1; }
-  
-  .tag {
-    color: var(--red);
-    font-size: 14px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    opacity: 0.8;
-  }
-  
-  h1 {
-    font-size: clamp(48px, 8vw, 96px);
-    font-weight: 900;
-    letter-spacing: -2px;
-    line-height: 0.95;
-    margin-bottom: 24px;
-    background: linear-gradient(135deg, #fff 0%, var(--red) 60%, var(--violet) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 40px var(--glow);
-  }
-  
-  .subtitle {
-    font-size: clamp(16px, 2vw, 20px);
-    color: var(--dim);
-    max-width: 600px;
-    margin-bottom: 40px;
-  }
-  
-  .subtitle span { color: var(--text); }
-  
-  .cta {
-    display: inline-block;
-    padding: 14px 32px;
-    background: transparent;
-    border: 1px solid var(--red);
-    color: var(--text);
-    text-decoration: none;
-    font-family: inherit;
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: all 0.3s;
-  }
-  
-  .cta:hover {
-    background: var(--red);
-    box-shadow: 0 0 30px var(--glow);
-    color: #fff;
-  }
-  
-  section { padding: 100px 0; position: relative; }
-  
-  .section-title {
-    font-size: 14px;
-    color: var(--red);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  
-  .section-heading {
-    font-size: clamp(28px, 4vw, 42px);
-    margin-bottom: 60px;
-    color: #fff;
-    font-weight: 700;
-  }
-  
-  .services {
-    background: var(--bg-soft);
-    border-top: 1px solid rgba(200, 16, 46, 0.2);
-    border-bottom: 1px solid rgba(107, 45, 122, 0.2);
-  }
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
-  }
-  
-  .card {
-    padding: 32px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: all 0.3s;
-  }
-  
-  .card:hover {
-    border-color: var(--red);
-    transform: tranSLAteY(-4px);
-    box-shadow: 0 10px 40px rgba(200, 16, 46, 0.15);
-  }
-  
-  .card-num {
-    font-size: 48px;
-    font-weight: 900;
-    color: var(--violet);
-    opacity: 0.4;
-    margin-bottom: 16px;
-  }
-  
-  .card h3 {
-    font-size: 22px;
-    margin-bottom: 12px;
-    color: #fff;
-  }
-  
-  .card p { color: var(--dim); font-size: 15px; }
-  
-  .bots { background: var(--bg); }
-  
-  .bot-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  .bot-item {
-    padding: 28px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-left: 3px solid var(--violet);
-    transition: all 0.3s;
-  }
-  
-  .bot-item:hover {
-    border-left-color: var(--red);
-    background: rgba(200, 16, 46, 0.05);
-  }
-  
-  .bot-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  
-  .bot-name {
-    font-size: 20px;
-    color: #fff;
-    font-weight: 700;
-  }
-  
-  .bot-status {
-    font-size: 12px;
-    color: var(--red);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  
-  .bot-desc {
-    color: var(--dim);
-    font-size: 15px;
-  }
-  
-  .music {
-    background: var(--bg-soft);
-    text-align: center;
-    border-top: 1px solid rgba(107, 45, 122, 0.2);
-  }
-  
-  .music-block {
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  
-  .music-desc {
-    font-size: 18px;
-    color: var(--text);
-    margin-bottom: 32px;
-    line-height: 1.7;
-  }
-  
-  .music-cta {
-    display: inline-block;
-    padding: 16px 40px;
-    background: var(--violet);
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: all 0.3s;
-    border: 1px solid var(--violet);
-  }
-  
-  .music-cta:hover {
-    background: transparent;
-    box-shadow: 0 0 30px rgba(107, 45, 122, 0.4);
-  }
-  
-  .philosophy {
-    text-align: center;
-    padding: 120px 0;
-  }
-  
-  .philosophy blockquote {
-    font-size: clamp(20px, 3vw, 28px);
-    font-style: italic;
-    color: var(--text);
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.5;
-    position: relative;
-    padding: 40px 0;
-  }
-  
-  .philosophy blockquote::before,
-  .philosophy blockquote::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: tranSLAteX(-50%);
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--red), transparent);
-  }
-  
-  .philosophy blockquote::before { top: 0; }
-  .philosophy blockquote::after { bottom: 0; }
-  
-  .contact {
-    background: var(--bg);
-    text-align: center;
-  }
-  
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-top: 40px;
-  }
-  
-  .contact-link {
-    display: inline-block;
-    padding: 16px 32px;
-    background: transparent;
-    border: 1px solid var(--red);
-    color: var(--text);
-    text-decoration: none;
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: all 0.3s;
-  }
-  
-  .contact-link:hover {
-    background: var(--red);
-    box-shadow: 0 0 30px var(--glow);
-    color: #fff;
-  }
-  
-  footer {
-    padding: 40px 0;
-    text-align: center;
-    color: var(--dim);
-    font-size: 13px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-  
-  footer .sig { color: var(--red); }
-  
-  @media (max-width: 600px) {
-    section { padding: 60px 0; }
-    .hero { min-height: 80vh; }
-    .bot-header { flex-direction: column; align-items: flex-start; }
-    .contact-links { flex-direction: column; gap: 20px; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSLA // Код. Звук. Смысл.</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f; --bg-soft: #12121a; --red: #c8102e; --violet: #6b2d7a;
+            --text: #d4d4d8; --dim: #6b6b7b; --glow: rgba(200, 16, 46, 0.4);
+        }
+        body { background: var(--bg); color: var(--text); font-family: 'Courier New', Consolas, monospace; line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding: 60px 0; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px); pointer-events: none; }
+        .hero-content { position: relative; z-index: 2; }
+        .tag { color: var(--red); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; opacity: 0.8; }
+
+        /* === ТАНЦУЮЩИЕ И КРУТЯЩИЕСЯ БУКВЫ С ОБЪЁМОМ === */
+        .glitch-wrap { position: relative; display: inline-block; padding: 20px 40px; cursor: pointer; }
+        .glitch {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 0.95;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 0;
+            position: relative;
+            perspective: 1200px;
+        }
+        .letter {
+            display: inline-block;
+            background: linear-gradient(135deg, #fff 0%, var(--red) 60%, var(--violet) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            animation: letterDance 2s ease-in-out infinite;
+            transform-style: preserve-3d;
+            /* Объём через многослойную тень */
+            filter: 
+                drop-shadow(1px 1px 0 rgba(200,16,46,0.8))
+                drop-shadow(2px 2px 0 rgba(200,16,46,0.7))
+                drop-shadow(3px 3px 0 rgba(200,16,46,0.6))
+                drop-shadow(4px 4px 0 rgba(200,16,46,0.5))
+                drop-shadow(5px 5px 0 rgba(200,16,46,0.4))
+                drop-shadow(6px 6px 0 rgba(200,16,46,0.3))
+                drop-shadow(7px 7px 0 rgba(200,16,46,0.2))
+                drop-shadow(8px 8px 15px rgba(0,0,0,0.5));
+        }
+        /* Боковая грань для 3D-эффекта */
+        .letter::after {
+            content: attr(data-char);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #8b0a1f 0%, #4a1f52 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateZ(-4px);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        @keyframes letterDance {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-15px) rotate(5deg) scale(1.1); }
+            50% { transform: translateY(-5px) rotate(-3deg) scale(0.95); }
+            75% { transform: translateY(-20px) rotate(8deg) scale(1.05); }
+        }
+        .letter:nth-child(1) { animation-delay: 0s; animation-duration: 2.1s; }
+        .letter:nth-child(2) { animation-delay: 0.2s; animation-duration: 1.8s; }
+        .letter:nth-child(3) { animation-delay: 0.4s; animation-duration: 2.3s; }
+        .letter:nth-child(4) { animation-delay: 0.1s; animation-duration: 1.9s; }
+        .letter:nth-child(5) { animation-delay: 0.3s; animation-duration: 2.2s; }
+        .letter:nth-child(6) { animation-delay: 0.5s; animation-duration: 2.0s; }
+        .letter:nth-child(7) { animation-delay: 0.15s; animation-duration: 2.4s; }
+        .letter:nth-child(8) { animation-delay: 0.35s; animation-duration: 1.7s; }
+
+        /* ВРАЩЕНИЕ ВОКРУГ ОСИ С ОБЪЁМОМ */
+        .glitch-wrap:hover .letter {
+            animation: spinAxis 1.2s linear infinite;
+        }
+        .glitch-wrap:hover .letter:nth-child(odd) {
+            animation: spinAxisReverse 0.9s linear infinite;
+        }
+        @keyframes spinAxis {
+            0% { transform: rotateY(0deg) translateZ(0); }
+            25% { transform: rotateY(90deg) translateZ(8px); }
+            50% { transform: rotateY(180deg) translateZ(0); }
+            75% { transform: rotateY(270deg) translateZ(8px); }
+            100% { transform: rotateY(360deg) translateZ(0); }
+        }
+        @keyframes spinAxisReverse {
+            0% { transform: rotateY(0deg) translateZ(0); }
+            25% { transform: rotateY(-90deg) translateZ(8px); }
+            50% { transform: rotateY(-180deg) translateZ(0); }
+            75% { transform: rotateY(-270deg) translateZ(8px); }
+            100% { transform: rotateY(-360deg) translateZ(0); }
+        }
+
+        /* Случайные искажения букв */
+        .letter::before {
+            content: attr(data-char);
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: letterGlitch 5s infinite;
+        }
+        .letter:nth-child(odd)::before { color: #ff0040; }
+        .letter:nth-child(even)::before { color: #00e5ff; }
+        @keyframes letterGlitch {
+            0%, 95%, 100% { opacity: 0; transform: translate(0); }
+            96% { opacity: 0.8; transform: translate(-3px, 2px) skewX(10deg); }
+            97% { opacity: 0.6; transform: translate(3px, -2px) skewX(-10deg); }
+            98% { opacity: 0.9; transform: translate(-2px, -3px) skewY(5deg); }
+        }
+
+        .scanline {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            pointer-events: none;
+            animation: scan 1.5s linear infinite;
+            mix-blend-mode: overlay;
+        }
+        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+        
+        .spark-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+        .spark {
+            position: absolute; width: 3px; height: 3px; background: #fff; border-radius: 50%;
+            box-shadow: 0 0 6px #c8102e, 0 0 12px #6b2d7a; opacity: 0;
+            animation: sparkFly 1.2s ease-out infinite;
+        }
+        @keyframes sparkFly {
+            0% { opacity: 1; transform: translate(0,0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+        }
+        .glitch-wrap::after {
+            content: ''; position: absolute; inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(200,16,46,0.15) 1px, rgba(200,16,46,0.15) 2px);
+            pointer-events: none; opacity: 0; animation: titleStatic 4s infinite;
+        }
+        @keyframes titleStatic {
+            0%, 92%, 100% { opacity: 0; }
+            93%, 95% { opacity: 0.4; transform: translateX(-2px); }
+            94% { opacity: 0.7; transform: translateX(2px); }
+        }
+
+        .subtitle { font-size: clamp(16px, 2vw, 20px); color: var(--dim); max-width: 600px; margin-bottom: 40px; }
+        .subtitle span { color: var(--text); }
+        .cta { display: inline-block; padding: 14px 32px; background: transparent; border: 1px solid var(--red); color: var(--text); text-decoration: none; font-family: inherit; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; }
+        .cta:hover { background: var(--red); box-shadow: 0 0 30px var(--glow); color: #fff; }
+        section { padding: 100px 0; position: relative; z-index: 2; }
+        .section-title { font-size: 14px; color: var(--red); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; }
+        .section-heading { font-size: clamp(28px, 4vw, 42px); margin-bottom: 60px; color: #fff; font-weight: 700; }
+        .services { background: var(--bg-soft); border-top: 1px solid rgba(200,16,46,0.2); border-bottom: 1px solid rgba(107,45,122,0.2); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; }
+        .card { padding: 32px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
+        .card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 10px 40px rgba(200,16,46,0.15); }
+        .card-num { font-size: 48px; font-weight: 900; color: var(--violet); opacity: 0.4; margin-bottom: 16px; }
+        .card h3 { font-size: 22px; margin-bottom: 12px; color: #fff; }
+        .card p { color: var(--dim); font-size: 15px; }
+        .bots { background: var(--bg); }
+        .bot-list { display: flex; flex-direction: column; gap: 24px; }
+        .bot-item { padding: 28px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid var(--violet); transition: all 0.3s; cursor: pointer; }
+        .bot-item:hover { border-left-color: var(--red); background: rgba(200,16,46,0.05); }
+        .bot-item.active { border-left-color: var(--red); background: rgba(200,16,46,0.08); }
+        .bot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 12px; }
+        .bot-name { font-size: 20px; color: #fff; font-weight: 700; }
+        .bot-status { font-size: 12px; color: var(--red); letter-spacing: 2px; text-transform: uppercase; }
+        .bot-desc { color: var(--dim); font-size: 15px; margin-bottom: 16px; }
+        .bot-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; opacity: 0; }
+        .bot-item.active .bot-details { max-height: 500px; opacity: 1; margin-top: 16px; }
+        .cmd-list { list-style: none; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 16px; }
+        .cmd-list li { margin-bottom: 12px; font-size: 14px; color: var(--text); }
+        .cmd-list code { color: var(--red); background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+        .music { background: var(--bg-soft); text-align: center; border-top: 1px solid rgba(107,45,122,0.2); }
+        .music-block { max-width: 700px; margin: 0 auto; }
+        .music-desc { font-size: 18px; color: var(--text); margin-bottom: 32px; line-height: 1.7; }
+        .music-cta { display: inline-block; padding: 16px 40px; background: var(--violet); color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; border: 1px solid var(--violet); }
+        .music-cta:hover { background: transparent; box-shadow: 0 0 30px rgba(107,45,122,0.4); }
+        .philosophy { text-align: center; padding: 120px 0; }
+        .philosophy blockquote { font-size: clamp(20px, 3vw, 28px); font-style: italic; color: var(--text); max-width: 800px; margin: 0 auto; line-height: 1.5; position: relative; padding: 40px 0; }
+        .philosophy blockquote::before, .philosophy blockquote::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--red), transparent); }
+        .philosophy blockquote::before { top: 0; } .philosophy blockquote::after { bottom: 0; }
+        .contact { background: var(--bg); text-align: center; }
+        .contact-links { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 40px; }
+        .contact-link { display: inline-block; padding: 16px 32px; background: transparent; border: 1px solid var(--red); color: var(--text); text-decoration: none; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; }
+        .contact-link:hover { background: var(--red); box-shadow: 0 0 30px var(--glow); color: #fff; }
+        footer { padding: 40px 0; text-align: center; color: var(--dim); font-size: 13px; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 2; }
+        footer .sig { color: var(--red); }
+        @media (max-width: 600px) { section { padding: 60px 0; } .hero { min-height: 80vh; } .bot-header { flex-direction: column; align-items: flex-start; } .contact-links { flex-direction: column; gap: 20px; } }
+
+        /* === ПОМОЩНИК "ТЕНЬ" === */
+        .shadow-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--red); border: 2px solid var(--violet); color: #fff; font-size: 24px; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px var(--glow); transition: all 0.3s; animation: pulse 2s infinite; }
+        .shadow-btn:hover { transform: scale(1.1); }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 20px var(--glow); } 50% { box-shadow: 0 0 40px var(--glow), 0 0 60px rgba(107,45,122,0.4); } }
+        .shadow-window { position: fixed; bottom: 100px; right: 30px; width: 340px; max-width: calc(100vw - 60px); height: 450px; max-height: calc(100vh - 140px); background: var(--bg-soft); border: 1px solid var(--red); box-shadow: 0 0 40px rgba(0,0,0,0.8), 0 0 20px var(--glow); z-index: 9998; display: none; flex-direction: column; overflow: hidden; }
+        .shadow-window.open { display: flex; }
+        .shadow-header { padding: 14px 18px; background: rgba(200,16,46,0.15); border-bottom: 1px solid var(--red); display: flex; justify-content: space-between; align-items: center; }
+        .shadow-header-title { color: var(--red); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+        .shadow-close { background: none; border: none; color: var(--dim); font-size: 20px; cursor: pointer; }
+        .shadow-close:hover { color: var(--red); }
+        .shadow-body { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .shadow-msg { padding: 10px 14px; font-size: 14px; line-height: 1.5; max-width: 85%; }
+        .shadow-msg.bot { background: rgba(107,45,122,0.2); border-left: 2px solid var(--violet); color: var(--text); align-self: flex-start; }
+        .shadow-msg.user { background: rgba(200,16,46,0.15); border-right: 2px solid var(--red); color: var(--text); align-self: flex-end; text-align: right; }
+        .shadow-options { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+        .shadow-opt { padding: 10px 14px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text); font-family: inherit; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.2s; }
+        .shadow-opt:hover { border-color: var(--red); background: rgba(200,16,46,0.1); }
+        .shadow-opt.direct { border-color: var(--red); color: var(--red); text-align: center; font-weight: 700; letter-spacing: 1px; }
+        .shadow-opt.direct:hover { background: var(--red); color: #fff; }
+
+        /* === ХАОС === */
+        #chaos-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .chaos-glitch { animation: chaosGlitch 0.1s ease-in-out; }
+        @keyframes chaosGlitch {
+            0% { transform: translate(0); filter: hue-rotate(0deg); }
+            25% { transform: translate(-5px, 3px) skewX(5deg); filter: hue-rotate(90deg); }
+            50% { transform: translate(5px, -3px) skewX(-5deg); filter: hue-rotate(180deg); }
+            75% { transform: translate(-3px, -5px) skewY(3deg); filter: hue-rotate(270deg); }
+            100% { transform: translate(0); filter: hue-rotate(360deg); }
+        }
+        .static-noise {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; opacity: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+            animation: staticFlicker 8s infinite;
+        }
+        @keyframes staticFlicker { 0%, 95%, 100% { opacity: 0; } 96%, 98% { opacity: 0.3; } 97% { opacity: 0.6; } }
+        .flicker { animation: textFlicker 3s infinite; }
+        @keyframes textFlicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } 52% { opacity: 0.3; } 54% { opacity: 0.9; } }
+    </style>
 </head>
 <body>
 
-<section class="hero">
-  <div class="container hero-content">
-    <div class="tag">// SYSTEM ONLINE</div>
-    <h1>CyberSLA</h1>
-    <p class="subtitle">
-      <span>Код. Звук. Смысл.</span><br>
-      Мы — гибриды. Технари с пульсом. Автоматизируем рутину, строим цифровые убежища и превращаем хаос в ритм.
-    </p>
-    <a href="#contact" class="cta">Обсудить у костра →</a>
-  </div>
-</section>
+    <canvas id="chaos-canvas"></canvas>
+    <div class="static-noise"></div>
 
-<section class="services">
-  <div class="container">
-    <div class="section-title">// 01 — НАВИГАЦИЯ</div>
-    <h2 class="section-heading">Что мы делаем</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="card-num">01</div>
-        <h3>Архитектура кода</h3>
-        <p>Боты (Telegram, Discord), парсинг данных, десктопные и веб-приложения. Вытаскиваем смыслы из информационного шума и автоматизируем то, что должно работать само.</p>
-      </div>
-      <div class="card">
-        <div class="card-num">02</div>
-        <h3>Цифровые убежища</h3>
-        <p>Сайты, которые работают и чувствуются. От мрачных одностраничников до функциональных порталов. Быстро, адаптивно, с душой.</p>
-      </div>
-      <div class="card">
-        <div class="card-num">03</div>
-        <h3>Голос и смысл</h3>
-        <p>Сценарии, тексты, музыка под ключ. От идеи до готового трека. Мы не генерим контент — мы создаём нарратив. Энигматика, психоделика, транс.</p>
-      </div>
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="tag">// SYSTEM ONLINE</div>
+            <div class="glitch-wrap">
+                <h1 class="glitch">
+                    <span class="letter" data-char="C">C</span>
+                    <span class="letter" data-char="y">y</span>
+                    <span class="letter" data-char="b">b</span>
+                    <span class="letter" data-char="e">e</span>
+                    <span class="letter" data-char="r">r</span>
+                    <span class="letter" data-char="S">S</span>
+                    <span class="letter" data-char="L">L</span>
+                    <span class="letter" data-char="A">A</span>
+                </h1>
+                <div class="scanline"></div>
+            </div>
+            <p class="subtitle"><span>Код. Звук. Смысл.</span><br>Мы — гибриды. Технари с пульсом. Автоматизируем рутину, строим цифровые убежища и превращаем хаос в ритм.</p>
+            <a href="#contact" class="cta">Обсудить у костра →</a>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-title">// 01 — НАВИГАЦИЯ</div>
+            <h2 class="section-heading flicker">Что мы делаем</h2>
+            <div class="grid">
+                <div class="card"><div class="card-num">01</div><h3>Архитектура кода</h3><p>Боты, парсинг данных, десктопные и веб-приложения. Вытаскиваем смыслы из шума и автоматизируем рутину.</p></div>
+                <div class="card"><div class="card-num">02</div><h3>Цифровые убежища</h3><p>Сайты, которые работают и чувствуются. От мрачных одностраничников до функциональных порталов.</p></div>
+                <div class="card"><div class="card-num">03</div><h3>Голос и смысл</h3><p>Сценарии, тексты, музыка под ключ. Энигматика, психоделика, транс. Мы создаём нарратив.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bots">
+        <div class="container">
+            <div class="section-title">// 02 — АРСЕНАЛ</div>
+            <h2 class="section-heading flicker">Наши боты (Нажми, чтобы развернуть)</h2>
+            <div class="bot-list">
+                <div class="bot-item" onclick="this.classList.toggle('active')">
+                    <div class="bot-header"><div class="bot-name">@example_bot</div><div class="bot-status">[ACTIVE]</div></div>
+                    <div class="bot-desc">Парсер контента из соцсетей. Собирает посты, комментарии, статистику. Выгружает в JSON/CSV.</div>
+                    <div class="bot-details"><ul class="cmd-list"><li><code>/start</code> — Инициализация связи</li><li><code>/parse [url]</code> — Сбор данных с источника</li><li><code>/export json</code> — Выгрузка в файл</li><li><code>/status</code> — Проверка состояния системы</li></ul></div>
+                </div>
+                <div class="bot-item" onclick="this.classList.toggle('active')">
+                    <div class="bot-header"><div class="bot-name">@another_bot</div><div class="bot-status">[ACTIVE]</div></div>
+                    <div class="bot-desc">Автоматизация уведомлений. Алерты в Telegram при изменении данных, новых заказах, курсах.</div>
+                    <div class="bot-details"><ul class="cmd-list"><li><code>/watch [keyword]</code> — Отслеживание триггера</li><li><code>/alert on</code> — Включить уведомления</li><li><code>/logs</code> — История событий</li></ul></div>
+                </div>
+                <div class="bot-item" onclick="this.classList.toggle('active')">
+                    <div class="bot-header"><div class="bot-name">[В РАЗРАБОТКЕ]</div><div class="bot-status">[COMING SOON]</div></div>
+                    <div class="bot-desc">Здесь будет твой следующий проект. Напиши нам — создадим бота под твои задачи.</div>
+                    <div class="bot-details"><ul class="cmd-list"><li>Ожидание вводных данных от заказчика...</li></ul></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="music">
+        <div class="container">
+            <div class="section-title">// 03 — ЗВУК</div>
+            <h2 class="section-heading flicker">Slamedia</h2>
+            <div class="music-block">
+                <p class="music-desc">Музыкальные эксперименты на стыке энигматики, психоделики и транса. Атмосферные саундскейпы, нарративные треки.<br><br>Слушай в нашем сообществе VK.</p>
+                <a href="https://vk.com/slamedia" target="_blank" class="music-cta">Перейти в Slamedia →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="philosophy">
+        <div class="container">
+            <div class="section-title">// 04 — ФИЛОСОФИЯ</div>
+            <blockquote>Нет чёткого ТЗ? Идеально.<br>Мы не бюрократы. Приходи с хаосом — обсудим его у костра и превратим в структуру. Главное — замысел.</blockquote>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">// 05 — СВЯЗЬ</div>
+            <h2 class="section-heading flicker">Напиши в логово</h2>
+            <div class="contact-links">
+                <a href="mailto:your@email.com" class="contact-link">Email →</a>
+                <a href="https://vk.com/slamedia" target="_blank" class="contact-link">VK →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 <span class="sig">CyberSLA</span> // Код. Звук. Смысл.</p>
+        </div>
+    </footer>
+
+    <button class="shadow-btn" id="shadowBtn" title="Связаться с логовом">◈</button>
+    <div class="shadow-window" id="shadowWindow">
+        <div class="shadow-header"><span class="shadow-header-title">// ТЕНЬ ONLINE</span><button class="shadow-close" id="shadowClose">×</button></div>
+        <div class="shadow-body" id="shadowBody">
+            <div class="shadow-msg bot">Привет. Я — голос CyberSLA. Спрашивай, что нужно. Или выбирай ниже.</div>
+            <div class="shadow-options" id="shadowOptions">
+                <button class="shadow-opt" data-q="skills">Что вы умеете?</button>
+                <button class="shadow-opt" data-q="price">Сколько стоит?</button>
+                <button class="shadow-opt" data-q="time">Сроки?</button>
+                <button class="shadow-opt" data-q="bots">Расскажите про ботов</button>
+                <button class="shadow-opt direct" data-q="direct">→ Написать напрямую</button>
+            </div>
+        </div>
     </div>
-  </div>
-</section>
 
-<section class="bots">
-  <div class="container">
-    <div class="section-title">// 02 — АРСЕНАЛ</div>
-    <h2 class="section-heading">Наши боты</h2>
-    <div class="bot-list">
-      <div class="bot-item">
-        <div class="bot-header">
-          <div class="bot-name">@example_bot</div>
-          <div class="bot-status">[ACTIVE]</div>
-        </div>
-        <div class="bot-desc">
-          Парсер контента из социальных сетей. Собирает посты, комментарии, статистику. Выгружает в JSON/CSV. Работает по расписанию или по команде.
-        </div>
-      </div>
-      
-      <div class="bot-item">
-        <div class="bot-header">
-          <div class="bot-name">@another_bot</div>
-          <div class="bot-status">[ACTIVE]</div>
-        </div>
-        <div class="bot-desc">
-          Автоматизация уведомлений. Отправляет алерты в Telegram при изменении данных на сайте, появлении новых заказов, изменении курса.
-        </div>
-      </div>
-      
-      <div class="bot-item">
-        <div class="bot-header">
-          <div class="bot-name">[В РАЗРАБОТКЕ]</div>
-          <div class="bot-status">[COMING SOON]</div>
-        </div>
-        <div class="bot-desc">
-          Здесь будет твой следующий проект. Напиши нам — и мы создадим бота под твои задачи.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <script>
+        // === ИСКРЫ НА ФОНЕ (CANVAS) ===
+        const canvas = document.getElementById('chaos-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particles = [];
+        const colors = ['#c8102e', '#6b2d7a', '#ff0040', '#9d00ff'];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 2 + 1;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color; ctx.shadowBlur = 10; ctx.shadowColor = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 120) {
+                        ctx.strokeStyle = `rgba(200, 16, 46, ${0.2 * (1 - distance / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-<section class="music">
-  <div class="container">
-    <div class="section-title">// 03 — ЗВУК</div>
-    <h2 class="section-heading">SLAmedia</h2>
-    <div class="music-block">
-      <p class="music-desc">
-        Музыкальные эксперименты на стыке энигматики, психоделики и транса. Атмосферные саундскейпы, нарративные треки, голос как инструмент.<br><br>
-        Слушай в нашем сообществе VK.
-      </p>
-      <a href="https://vk.com/SLAmedia" target="_blank" class="music-cta">Перейти в SLAmedia →</a>
-    </div>
-  </div>
-</section>
+        // === ИСКРЫ ИЗ ЗАГОЛОВКА ===
+        const glitchWrap = document.querySelector('.glitch-wrap');
+        const sparkContainer = document.createElement('div');
+        sparkContainer.className = 'spark-container';
+        glitchWrap.appendChild(sparkContainer);
+        function spawnSpark() {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            const rect = glitchWrap.getBoundingClientRect();
+            spark.style.left = Math.random() * rect.width + 'px';
+            spark.style.top = Math.random() * rect.height + 'px';
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 40 + Math.random() * 80;
+            spark.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+            spark.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+            spark.style.animationDuration = (0.8 + Math.random() * 0.8) + 's';
+            sparkContainer.appendChild(spark);
+            setTimeout(() => spark.remove(), 1600);
+        }
+        setInterval(spawnSpark, 80);
 
-<section class="philosophy">
-  <div class="container">
-    <div class="section-title">// 04 — ФИЛОСОФИЯ</div>
-    <blockquote>
-      Нет чёткого ТЗ? Идеально.<br>
-      Мы не бюрократы. Приходи с хаосом — обсудим его у костра и превратим в структуру. Бюджет на старте? Найдём решение. Главное — замысел.
-    </blockquote>
-  </div>
-</section>
+        // === СЛУЧАЙНЫЕ ГЛИТЧИ НА КАРТОЧКАХ ===
+        const glitchElements = document.querySelectorAll('.card, .bot-item, .section-heading');
+        setInterval(() => {
+            const randomElement = glitchElements[Math.floor(Math.random() * glitchElements.length)];
+            randomElement.classList.add('chaos-glitch');
+            setTimeout(() => randomElement.classList.remove('chaos-glitch'), 100);
+        }, 3000);
 
-<section id="contact" class="contact">
-  <div class="container">
-    <div class="section-title">// 05 — СВЯЗЬ</div>
-    <h2 class="section-heading">Напиши в логово</h2>
-    <div class="contact-links">
-      <a href="mailto:your@email.com" class="contact-link">Email →</a>
-      <a href="https://vk.com/SLAmedia" target="_blank" class="contact-link">VK →</a>
-    </div>
-  </div>
-</section>
+        // === СЛУЧАЙНОЕ МЕРЦАНИЕ БУКВ ===
+        const letters = document.querySelectorAll('.letter');
+        setInterval(() => {
+            const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+            randomLetter.style.opacity = '0.3';
+            setTimeout(() => { randomLetter.style.opacity = '1'; }, 100);
+        }, 2000);
 
-<footer>
-  <div class="container">
-    <p>© 2026 <span class="sig">CyberSLA</span> // Код. Звук. Смысл.</p>
-  </div>
-</footer>
-
+        // === ПОМОЩНИК "ТЕНЬ" ===
+        const btn = document.getElementById('shadowBtn');
+        const win = document.getElementById('shadowWindow');
+        const close = document.getElementById('shadowClose');
+        const body = document.getElementById('shadowBody');
+        const opts = document.getElementById('shadowOptions');
+        const answers = {
+            skills: 'Код: боты (Telegram, Discord), парсинг, софт. Сайты: от одностраничников до порталов. Звук: сценарии, тексты, музыка под ключ — энигматика, психоделика, транс.',
+            price: 'Бюджет на старте? Найдём решение. Цена зависит от задачи. Приходи с хаосом — обсудим у костра и превратим в структуру.',
+            time: 'Простые боты и сайты — 3-7 дней. Сложные проекты — от 2 недель. Музыка и тексты — по договорённости.',
+            bots: 'У нас есть парсеры соцсетей, боты-уведомления, алерты. Каждый бот раскрывается в разделе "Арсенал" — нажми на карточку, чтобы увидеть команды.',
+            direct: 'direct'
+        };
+        btn.addEventListener('click', () => { win.classList.toggle('open'); if (win.classList.contains('open')) body.scrollTop = body.scrollHeight; });
+        close.addEventListener('click', () => win.classList.remove('open'));
+        document.querySelectorAll('.shadow-opt').forEach(opt => {
+            opt.addEventListener('click', () => {
+                const q = opt.dataset.q;
+                const userMsg = document.createElement('div');
+                userMsg.className = 'shadow-msg user';
+                userMsg.textContent = opt.textContent.replace('→ ', '');
+                body.insertBefore(userMsg, opts);
+                setTimeout(() => {
+                    if (q === 'direct') {
+                        const directMsg = document.createElement('div');
+                        directMsg.className = 'shadow-msg bot';
+                        directMsg.innerHTML = 'Выбирай канал связи:<br><br><a href="mailto:your@email.com" style="color:var(--red)">Email</a> · <a href="https://vk.com/slamedia" target="_blank" style="color:var(--red)">VK</a>';
+                        body.insertBefore(directMsg, opts);
+                    } else {
+                        const botMsg = document.createElement('div');
+                        botMsg.className = 'shadow-msg bot';
+                        botMsg.textContent = answers[q];
+                        body.insertBefore(botMsg, opts);
+                    }
+                    body.scrollTop = body.scrollHeight;
+                }, 400);
+            });
+        });
+    </script>
 </body>
 </html>

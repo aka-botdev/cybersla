@@ -146,7 +146,6 @@
         }
         .privacy-link:hover { color: var(--terminal-green); text-shadow: 0 0 8px var(--terminal-green); }
 
-        /* === ПОМОЩНИК "ТЕНЬ" === */
         .shadow-btn { 
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
             border-radius: 50%; background: var(--red); border: 2px solid var(--violet); 
@@ -224,7 +223,6 @@
         .shadow-opt.direct::before { content: ''; }
         .shadow-opt.direct:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px rgba(200,16,46,0.6); }
 
-        /* === ФОРМА ОБРАТНОЙ СВЯЗИ === */
         .contact-form { display: none; flex-direction: column; gap: 12px; margin-top: 12px; }
         .contact-form.active { display: flex; }
         .form-field { display: flex; flex-direction: column; gap: 6px; }
@@ -248,7 +246,6 @@
         .form-status.success { color: var(--terminal-green); }
         .form-status.error { color: var(--red); }
         
-        /* Галочка согласия */
         .consent-field { display: flex; align-items: flex-start; gap: 8px; margin-top: 4px; }
         .consent-checkbox {
             appearance: none; -webkit-appearance: none; width: 16px; height: 16px; min-width: 16px;
@@ -264,7 +261,6 @@
         .consent-label a { color: var(--terminal-green); text-decoration: underline; cursor: pointer; }
         .consent-label a:hover { color: #fff; }
 
-        /* === МОДАЛЬНОЕ ОКНО ПОЛИТИКИ === */
         .privacy-modal {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85);
@@ -413,7 +409,7 @@
             <div class="section-title">// 05 — СВЯЗЬ</div>
             <h2 class="section-heading flicker">Напиши в логово</h2>
             <div class="contact-links">
-                <a href="mailto:veterok_breez@yandex.ru" class="contact-link">Email →</a>
+                <a href="mailto:veterok.breez2024@gmail.com" class="contact-link">Email →</a>
                 <a href="https://vk.com/slamedia" target="_blank" class="contact-link">VK →</a>
             </div>
         </div>
@@ -426,7 +422,6 @@
         </div>
     </footer>
 
-    <!-- МОДАЛЬНОЕ ОКНО ПОЛИТИКИ -->
     <div class="privacy-modal" id="privacyModal">
         <div class="privacy-content">
             <div class="shadow-header">
@@ -435,29 +430,19 @@
             </div>
             <div class="privacy-text">
                 <h3>// 01. ОПЕРАТОР</h3>
-                <p>Оператором персональных данных является <strong>CyberSLA</strong> (далее — «Оператор»). Сайт: <strong>aka-botdev.github.io/cybersla</strong>.</p>
-                
+                <p>Оператором персональных данных является <strong>CyberSLA</strong>. Сайт: <strong>aka-botdev.github.io/cybersla</strong>.</p>
                 <h3>// 02. ЧТО МЫ СОБИРАЕМ</h3>
-                <p>Только то, что ты сам передаёшь через форму обратной связи: <strong>email</strong> и <strong>текст сообщения</strong>. Мы не собираем cookies, не трекаем поведение, не используем аналитику третьих лиц без твоего согласия.</p>
-                
+                <p>Только то, что ты сам передаёшь через форму: <strong>email</strong> и <strong>текст сообщения</strong>. Мы не собираем cookies и не трекаем поведение.</p>
                 <h3>// 03. ЗАЧЕМ</h3>
-                <p>Единственная цель — ответить на твой запрос. Мы не передаём данные третьим лицам, не используем для рассылок, не продаём и не публикуем.</p>
-                
+                <p>Единственная цель — ответить на твой запрос. Мы не передаём данные третьим лицам и не используем для рассылок.</p>
                 <h3>// 04. СКОЛЬКО ХРАНИМ</h3>
-                <p>До момента ответа на запрос и закрытия диалога. После этого данные удаляются из активных систем обработки в течение 30 дней. Резервные копии могут храниться до 90 дней согласно политике хостинг-провайдера.</p>
-                
+                <p>До момента ответа на запрос. После этого данные удаляются из активных систем в течение 30 дней.</p>
                 <h3>// 05. ТВОИ ПРАВА (152-ФЗ)</h3>
-                <p>Ты имеешь право в любой момент: <strong>отозвать согласие</strong> на обработку данных, <strong>потребовать уточнения или удаления</strong> своих данных, <strong>получить информацию</strong> об их обработке. Для этого напиши на email, указанный в разделе «Связь».</p>
-                
+                <p>Ты имеешь право в любой момент отозвать согласие, потребовать удаления данных или получить информацию об их обработке, написав на email в разделе «Связь».</p>
                 <h3>// 06. БЕЗОПАСНОСТЬ</h3>
-                <p>Передача данных происходит по защищённому каналу (HTTPS). Хранение — на серверах с ограниченным доступом. Мы применяем технические меры защиты согласно требованиям 152-ФЗ.</p>
-                
+                <p>Передача данных происходит по защищённому каналу (HTTPS). Мы применяем технические меры защиты согласно 152-ФЗ.</p>
                 <h3>// 07. СОГЛАСИЕ</h3>
-                <p>Отправляя форму на сайте, ты даёшь согласие на обработку персональных данных в соответствии с настоящим протоколом и Федеральным законом №152-ФЗ «О персональных данных».</p>
-                
-                <h3>// 08. ИЗМЕНЕНИЯ</h3>
-                <p>Оператор оставляет за собой право обновлять данный протокол. Актуальная версия всегда доступна по ссылке в футере сайта.</p>
-                
+                <p>Отправляя форму, ты даёшь согласие на обработку персональных данных в соответствии с этим протоколом и 152-ФЗ.</p>
                 <p style="margin-top: 20px; color: var(--dim); font-size: 11px;">[ ДОКУМЕНТ ДЕЙСТВУЕТ С 16.11.2026 ]</p>
             </div>
         </div>
@@ -476,32 +461,30 @@
                 <button class="shadow-opt" data-q="price">Сколько стоит?</button>
                 <button class="shadow-opt" data-q="time">Сроки?</button>
                 <button class="shadow-opt" data-q="bots">Расскажите про ботов</button>
-                <button class="shadow-opt direct" data-q="direct">→ НАПИСАТЬ НАПРЯМУЮ</button>
+                <button class="shadow-opt direct" data-q="direct">→ ОТПРАВИТЬ СИГНАЛ</button>
             </div>
-            <!-- ФОРМА ОБРАТНОЙ СВЯЗИ -->
             <form class="contact-form" id="contactForm">
                 <div class="form-field">
                     <label class="form-label">ТВОЙ EMAIL</label>
-                    <input type="email" class="form-input" id="formEmail" required placeholder="user@domain.com">
+                    <input type="email" name="email" class="form-input" id="formEmail" required placeholder="user@domain.com">
                 </div>
                 <div class="form-field">
                     <label class="form-label">СООБЩЕНИЕ</label>
-                    <textarea class="form-textarea" id="formMessage" required placeholder="Опиши задачу..."></textarea>
+                    <textarea name="message" class="form-textarea" id="formMessage" required placeholder="Опиши задачу..."></textarea>
                 </div>
                 <div class="consent-field">
                     <input type="checkbox" class="consent-checkbox" id="consentCheckbox" required>
                     <label class="consent-label" for="consentCheckbox">
-                        Даю согласие на обработку персональных данных согласно <a id="openPrivacy">Протоколу конфиденциальности</a> (152-ФЗ)
+                        Даю согласие на обработку данных согласно <a id="openPrivacy">Протоколу</a> (152-ФЗ)
                     </label>
                 </div>
-                <button type="submit" class="form-submit" id="formSubmit">ОТПРАВИТЬ СИГНАЛ</button>
+                <button type="submit" class="form-submit" id="formSubmit">ОТПРАВИТЬ В ЛОГОВО</button>
                 <div class="form-status" id="formStatus"></div>
             </form>
         </div>
     </div>
 
     <script>
-        // === ИСКРЫ НА ФОНЕ (CANVAS) ===
         const canvas = document.getElementById('chaos-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -566,7 +549,6 @@
             randomLetter.style.opacity = '0.3'; setTimeout(() => { randomLetter.style.opacity = '1'; }, 100);
         }, 2000);
 
-        // === ПОМОЩНИК "ТЕНЬ" + ФОРМА ===
         const btn = document.getElementById('shadowBtn');
         const win = document.getElementById('shadowWindow');
         const close = document.getElementById('shadowClose');
@@ -580,10 +562,10 @@
         const consentCheckbox = document.getElementById('consentCheckbox');
         
         const answers = {
-            skills: 'МОДУЛИ: боты (Telegram, Discord), парсинг, софт. Сайты: одностраничники, порталы. Звук: сценарии, тексты, музыка — энигматика, психоделика, транс.',
+            skills: 'МОДУЛИ: боты, парсинг, софт. Сайты: одностраничники, порталы. Звук: сценарии, тексты, музыка.',
             price: 'Бюджет минимальный? Решим. Цена зависит от задачи. Приходи с хаосом — обсудим у костра.',
-            time: 'Простые задачи: 3-7 дней. Сложные: от 2 недель. Музыка и тексты: по договорённости.',
-            bots: 'Арсенал: парсеры соцсетей, боты-уведомления, алерты. Раздел "Арсенал" на сайте — нажми на карточку.',
+            time: 'Простые задачи: 3-7 дней. Сложные: от 2 недель.',
+            bots: 'Арсенал: парсеры, алерты. Раздел "Арсенал" на сайте — нажми на карточку.',
             direct: 'direct'
         };
         
@@ -612,76 +594,49 @@
             });
         });
 
-        // === МОДАЛЬНОЕ ОКНО ПОЛИТИКИ ===
         const privacyModal = document.getElementById('privacyModal');
         const privacyLink = document.getElementById('privacyLink');
         const privacyClose = document.getElementById('privacyClose');
         const openPrivacy = document.getElementById('openPrivacy');
         
-        function openPrivacyModal(e) {
-            if (e) e.preventDefault();
-            privacyModal.classList.add('open');
-        }
-        function closePrivacyModal() {
-            privacyModal.classList.remove('open');
-        }
+        function openPrivacyModal(e) { if (e) e.preventDefault(); privacyModal.classList.add('open'); }
+        function closePrivacyModal() { privacyModal.classList.remove('open'); }
         
         privacyLink.addEventListener('click', openPrivacyModal);
         openPrivacy.addEventListener('click', openPrivacyModal);
         privacyClose.addEventListener('click', closePrivacyModal);
-        privacyModal.addEventListener('click', (e) => {
-            if (e.target === privacyModal) closePrivacyModal();
-        });
+        privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
 
-        // === ОТПРАВКА ФОРМЫ ЧЕРЕЗ FORMSUBMIT ===
+        // === АБСОЛЮТНО НЕУБИВАЕМЫЙ MAILTO: ===
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             if (!consentCheckbox.checked) {
-                formStatus.textContent = '[ОШИБКА] ТРЕБУЕТСЯ СОГЛАСИЕ НА ОБРАБОТКУ ДАННЫХ.';
+                formStatus.textContent = '[ОШИБКА] ТРЕБУЕТСЯ СОГЛАСИЕ.';
                 formStatus.className = 'form-status error';
                 return;
             }
             
-            formSubmit.disabled = true;
-            formSubmit.textContent = 'ПЕРЕДАЧА ДАННЫХ...';
-            formStatus.textContent = '';
-            formStatus.className = 'form-status';
-
-            const formData = new FormData();
-            formData.append('name', formEmail.value);
-            formData.append('message', formMessage.value);
-            formData.append('email', formEmail.value);
-            formData.append('_subject', 'Новый сигнал с сайта CyberSLA');
-            formData.append('_captcha', 'false');
-            formData.append('_template', 'table');
-
-            fetch('https://formsubmit.co/ajax/veterok_breez@yandex.ru', {
-                method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success === "true" || data.success === true) {
-                    formStatus.textContent = '[СИСТЕМА] СООБЩЕНИЕ ПЕРЕДАНО. ОЖИДАЙ ОТВЕТА.';
-                    formStatus.className = 'form-status success';
-                    formSubmit.textContent = 'ОТПРАВЛЕНО';
-                    formEmail.value = ''; formMessage.value = ''; consentCheckbox.checked = false;
-                    setTimeout(() => {
-                        formSubmit.disabled = false;
-                        formSubmit.textContent = 'ОТПРАВИТЬ СИГНАЛ';
-                    }, 3000);
-                } else {
-                    throw new Error('fail');
-                }
-            })
-            .catch(() => {
-                formStatus.textContent = '[ОШИБКА] СБОЙ ПЕРЕДАЧИ. ПОВТОРИ ПОПЫТКУ.';
-                formStatus.className = 'form-status error';
+            const email = formEmail.value;
+            const message = formMessage.value;
+            
+            // Формируем тему и тело письма
+            const subject = encodeURIComponent('Новый сигнал с сайта CyberSLA');
+            const body = encodeURIComponent(`От: ${email}\n\nСообщение:\n${message}`);
+            
+            // Открываем почтовый клиент пользователя
+            window.location.href = `mailto:veterok.breez2024@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Визуальное подтверждение для пользователя
+            formStatus.textContent = '[СИСТЕМА] ОТКРЫТ ПОЧТОВЫЙ КЛИЕНТ. НАЖМИ "ОТПРАВИТЬ" В НЁМ.';
+            formStatus.className = 'form-status success';
+            formSubmit.textContent = 'ОТКРЫТО';
+            
+            setTimeout(() => {
                 formSubmit.disabled = false;
-                formSubmit.textContent = 'ОТПРАВИТЬ СИГНАЛ';
-            });
+                formSubmit.textContent = 'ОТПРАВИТЬ В ЛОГОВО';
+                formStatus.textContent = '';
+                contactForm.reset();
+            }, 5000);
         });
     </script>
 </body>

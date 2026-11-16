@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberSLA // Код. Звук. Смысл.</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="CyberSLA — разработка Telegram-ботов, парсинг данных и создание атмосферных сайтов. Постсоветский кибер-нуар. Автоматизируем хаос.">
+    <meta name="keywords" content="разработка ботов, telegram бот, парсинг, создание сайтов, киберпанк, фриланс, автоматизация">
+    <meta name="author" content="CyberSLA">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph (для красивых ссылок в VK и Telegram) -->
+    <meta property="og:title" content="CyberSLA // Код. Звук. Смысл.">
+    <meta property="og:description" content="Разработка ботов, сайтов и музыки. Превращаем хаос в ритм.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aka-botdev.github.io/cybersla/">
+    
+    <!-- Фавиконка (встроенная, без внешних файлов) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23c8102e'>◈</text></svg>">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -368,17 +384,17 @@
             <h2 class="section-heading flicker">Наши боты (Нажми, чтобы развернуть)</h2>
             <div class="bot-list">
                 <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">@example_bot</div><div class="bot-status">[ACTIVE]</div></div>
-                    <div class="bot-desc">Парсер контента из соцсетей. Собирает посты, комментарии, статистику. Выгружает в JSON/CSV.</div>
-                    <div class="bot-details"><ul class="cmd-list"><li><code>/start</code> — Инициализация связи</li><li><code>/parse [url]</code> — Сбор данных с источника</li><li><code>/export json</code> — Выгрузка в файл</li><li><code>/status</code> — Проверка состояния системы</li></ul></div>
+                    <div class="bot-header"><div class="bot-name">[ ДЕМО: ПАРСЕР ]</div><div class="bot-status">[SANDBOX]</div></div>
+                    <div class="bot-desc">Демонстрационный модуль. Собирает данные по заданным триггерам из соцсетей и выгружает в JSON/CSV. Для доступа к рабочим версиям оставь заявку.</div>
+                    <div class="bot-details"><ul class="cmd-list"><li><code>/start</code> — Инициализация связи</li><li><code>/parse [url]</code> — Сбор данных с источника</li><li><code>/export json</code> — Выгрузка в файл</li></ul></div>
                 </div>
                 <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">@another_bot</div><div class="bot-status">[ACTIVE]</div></div>
-                    <div class="bot-desc">Автоматизация уведомлений. Алерты в Telegram при изменении данных, новых заказах, курсах.</div>
+                    <div class="bot-header"><div class="bot-name">[ ДЕМО: АЛЕРТЫ ]</div><div class="bot-status">[SANDBOX]</div></div>
+                    <div class="bot-desc">Демонстрационный модуль автоматизации уведомлений. Отслеживает изменения данных и шлёт сигналы в Telegram. Для кастомной разработки пиши в логово.</div>
                     <div class="bot-details"><ul class="cmd-list"><li><code>/watch [keyword]</code> — Отслеживание триггера</li><li><code>/alert on</code> — Включить уведомления</li><li><code>/logs</code> — История событий</li></ul></div>
                 </div>
                 <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">[В РАЗРАБОТКЕ]</div><div class="bot-status">[COMING SOON]</div></div>
+                    <div class="bot-header"><div class="bot-name">[ ТВОЙ ПРОЕКТ ]</div><div class="bot-status">[COMING SOON]</div></div>
                     <div class="bot-desc">Здесь будет твой следующий проект. Напиши нам — создадим бота под твои задачи.</div>
                     <div class="bot-details"><ul class="cmd-list"><li>Ожидание вводных данных от заказчика...</li></ul></div>
                 </div>
@@ -622,7 +638,6 @@
             const message = formMessage.value;
             const text = `🚀 СИГНАЛ С CYBERSLA\n\n📧 От: ${email}\n💬 Сообщение:\n${message}`;
 
-            // Функция копирования с фоллбэком для старых браузеров
             const copyToClipboard = async () => {
                 try {
                     await navigator.clipboard.writeText(text);

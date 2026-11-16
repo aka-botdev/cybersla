@@ -410,7 +410,7 @@
             <h2 class="section-heading flicker">Напиши в логово</h2>
             <div class="contact-links">
                 <a href="mailto:veterok.breez2024@gmail.com" class="contact-link">Email →</a>
-                <a href="https://vk.com/slamedia" target="_blank" class="contact-link">VK →</a>
+                <a href="https://vk.com/veter_ok_breeze" target="_blank" class="contact-link">VK →</a>
             </div>
         </div>
     </section>
@@ -479,6 +479,7 @@
                     </label>
                 </div>
                 <button type="submit" class="form-submit" id="formSubmit">ОТПРАВИТЬ В ЛОГОВО</button>
+                <a href="https://vk.com/veter_ok_breeze" target="_blank" class="form-submit vk-open" id="vkOpen" style="display:none; text-decoration:none; text-align:center; margin-top: 8px;">→ ОТКРЫТЬ ДИАЛОГ VK</a>
                 <div class="form-status" id="formStatus"></div>
             </form>
         </div>
@@ -560,6 +561,7 @@
         const formSubmit = document.getElementById('formSubmit');
         const formStatus = document.getElementById('formStatus');
         const consentCheckbox = document.getElementById('consentCheckbox');
+        const vkOpen = document.getElementById('vkOpen');
         
         const answers = {
             skills: 'МОДУЛИ: боты, парсинг, софт. Сайты: одностраничники, порталы. Звук: сценарии, тексты, музыка.',
@@ -607,7 +609,7 @@
         privacyClose.addEventListener('click', closePrivacyModal);
         privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
 
-        // === АБСОЛЮТНО НЕУБИВАЕМЫЙ MAILTO: ===
+        // === НЕУБИВАЕМЫЙ МЕХАНИЗМ: КОПИРОВАНИЕ + VK ===
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             if (!consentCheckbox.checked) {
@@ -615,28 +617,55 @@
                 formStatus.className = 'form-status error';
                 return;
             }
-            
+
             const email = formEmail.value;
             const message = formMessage.value;
-            
-            // Формируем тему и тело письма
-            const subject = encodeURIComponent('Новый сигнал с сайта CyberSLA');
-            const body = encodeURIComponent(`От: ${email}\n\nСообщение:\n${message}`);
-            
-            // Открываем почтовый клиент пользователя
-            window.location.href = `mailto:veterok.breez2024@gmail.com?subject=${subject}&body=${body}`;
-            
-            // Визуальное подтверждение для пользователя
-            formStatus.textContent = '[СИСТЕМА] ОТКРЫТ ПОЧТОВЫЙ КЛИЕНТ. НАЖМИ "ОТПРАВИТЬ" В НЁМ.';
-            formStatus.className = 'form-status success';
-            formSubmit.textContent = 'ОТКРЫТО';
-            
-            setTimeout(() => {
-                formSubmit.disabled = false;
-                formSubmit.textContent = 'ОТПРАВИТЬ В ЛОГОВО';
-                formStatus.textContent = '';
-                contactForm.reset();
-            }, 5000);
+            const text = `🚀 СИГНАЛ С CYBERSLA\n\n📧 От: ${email}\n💬 Сообщение:\n${message}`;
+
+            // Функция копирования с фоллбэком для старых браузеров
+            const copyToClipboard = async () => {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch (err) {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-9999px";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        return true;
+                    } catch (err) {
+                        return false;
+                    } finally {
+                        document.body.removeChild(textArea);
+                    }
+                }
+            };
+
+            copyToClipboard().then(success => {
+                if (success) {
+                    formStatus.textContent = '[СИСТЕМА] ТЕКСТ СКОПИРОВАН. НАЖМИ КНОПКУ НИЖЕ И ВСТАВЬ (CTRL+V).';
+                    formStatus.className = 'form-status success';
+                    formSubmit.textContent = 'СКОПИРОВАНО';
+                    vkOpen.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        formSubmit.disabled = false;
+                        formSubmit.textContent = 'ОТПРАВИТЬ В ЛОГОВО';
+                        formStatus.textContent = '';
+                        vkOpen.style.display = 'none';
+                        contactForm.reset();
+                    }, 8000);
+                } else {
+                    formStatus.textContent = '[ОШИБКА] НЕ УДАЛОСЬ СКОПИРОВАТЬ. НАПИШИ ВРУЧНУЮ.';
+                    formStatus.className = 'form-status error';
+                    vkOpen.style.display = 'block';
+                }
+            });
         });
     </script>
 </body>

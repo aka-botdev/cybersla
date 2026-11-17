@@ -460,205 +460,208 @@
         </div>
         <div class="shadow-body" id="shadowBody"></div>
     </div>
-
-    <script>
-        const btn = document.getElementById('shadowBtn');
-        const win = document.getElementById('shadowWindow');
-        const close = document.getElementById('shadowClose');
-        const body = document.getElementById('shadowBody');
+<script>
+    const btn = document.getElementById('shadowBtn');
+    const win = document.getElementById('shadowWindow');
+    const close = document.getElementById('shadowClose');
+    const body = document.getElementById('shadowBody');
+    
+    const VK_URL = 'https://vk.com/veter_ok_breeze';
+    
+    let currentStep = 0;
+    let botState = { interest: '', task: '', contact: '' };
+    let userHistory = []; // Для кнопки "Назад"
+    
+    const botFlow = [
+        { type: 'bot', text: 'Инициализация связи...\nСистема готова. Ожидаю команды.' },
+        { type: 'bot', text: 'Приветствую. Я — голос логова CyberSLA.\nРасскажи, что тебя интересует:' },
+        {
+            type: 'options',
+            field: 'interest',
+            options: [
+                { label: 'БОТЫ И АВТОМАТИЗАЦИЯ', value: 'bots' },
+                { label: 'САЙТ / ВЕБ-РАЗРАБОТКА', value: 'site' },
+                { label: 'МУЗЫКА / СЦЕНАРИИ', value: 'music' },
+                { label: 'ДРУГОЕ / НЕ ЗНАЮ', value: 'other' }
+            ]
+        },
+        { type: 'bot', textFn: (s) => `Принято: ${s.interest}.\n\nОпиши задачу в двух словах. Можно хаосом — разберёмся у костра.` },
+        { type: 'input', field: 'task', placeholder: 'Опиши задачу...', textarea: true },
+        { type: 'bot', textFn: (s) => `Понял. Задача зафиксирована.\n\nКак с тобой связаться? Email или VK.` },
+        { type: 'input', field: 'contact', placeholder: 'user@domain.com или vk.com/...', textarea: false },
+        { type: 'bot', textFn: (s) => `СИГНАЛ СФОРМИРОВАН.\n\n📌 Интерес: ${s.interest}\n📝 Задача: ${s.task}\n📧 Контакт: ${s.contact}\n\nНажми кнопку ниже — текст скопируется, откроется диалог VK. Вставь и отправь.` },
+        { type: 'final' }
+    ];
+    
+    function addMessage(text, type) {
+        const msg = document.createElement('div');
+        msg.className = `shadow-msg ${type}`;
+        msg.textContent = text;
+        body.appendChild(msg);
+        body.scrollTop = body.scrollHeight;
+    }
+    
+    function addOptions(options, field) {
+        const wrap = document.createElement('div');
+        wrap.className = 'shadow-options';
+        wrap.dataset.field = field;
         
-        const VK_URL = 'https://vk.com/veter_ok_breeze';
+        options.forEach(opt => {
+            const b = document.createElement('button');
+            b.className = 'shadow-opt';
+            b.textContent = opt.label;
+            b.onclick = () => {
+                wrap.remove();
+                addMessage(opt.label, 'user');
+                botState[field] = opt.label;
+                userHistory.push({ type: 'options', field, value: opt.label });
+                setTimeout(() => nextStep(), 400);
+            };
+            wrap.appendChild(b);
+        });
         
-        let history = [];
-        let botState = { interest: '', task: '', contact: '' };
-        
-        const botFlow = [
-            { type: 'bot', text: 'Инициализация связи...\nСистема готова. Ожидаю команды.' },
-            { type: 'bot', text: 'Приветствую. Я — голос логова CyberSLA.\nРасскажи, что тебя интересует:' },
-            {
-                type: 'options',
-                field: 'interest',
-                options: [
-                    { label: 'БОТЫ И АВТОМАТИЗАЦИЯ', value: 'bots' },
-                    { label: 'САЙТ / ВЕБ-РАЗРАБОТКА', value: 'site' },
-                    { label: 'МУЗЫКА / СЦЕНАРИИ', value: 'music' },
-                    { label: 'ДРУГОЕ / НЕ ЗНАЮ', value: 'other' }
-                ]
-            },
-            { type: 'bot', textFn: (s) => `Принято: ${s.interest}.\n\nОпиши задачу в двух словах. Можно хаосом — разберёмся у костра.` },
-            { type: 'input', field: 'task', placeholder: 'Опиши задачу...', textarea: true },
-            { type: 'bot', textFn: (s) => `Понял. Задача зафиксирована.\n\nКак с тобой связаться? Email или VK.` },
-            { type: 'input', field: 'contact', placeholder: 'user@domain.com или vk.com/...', textarea: false },
-            { type: 'bot', textFn: (s) => `СИГНАЛ СФОРМИРОВАН.\n\n📌 Интерес: ${s.interest}\n📝 Задача: ${s.task}\n📧 Контакт: ${s.contact}\n\nНажми кнопку ниже — текст скопируется, откроется диалог VK. Вставь и отправь.` },
-            { type: 'final' }
-        ];
-        
-        let currentStep = 0;
-        
-        function render() {
-            body.innerHTML = '';
-            
-            history.forEach((entry, idx) => {
-                if (entry.type === 'bot') {
-                    const msg = document.createElement('div');
-                    msg.className = 'shadow-msg bot';
-                    msg.textContent = entry.text;
-                    body.appendChild(msg);
-                } else if (entry.type === 'options') {
-                    const wrap = document.createElement('div');
-                    wrap.className = 'shadow-options';
-                    entry.options.forEach(opt => {
-                        const b = document.createElement('button');
-                        b.className = 'shadow-opt';
-                        b.textContent = opt.label;
-                        if (opt.selected) {
-                            b.style.background = 'rgba(200,16,46,0.3)';
-                            b.style.borderColor = 'var(--red)';
-                            b.style.color = '#fff';
-                        }
-                        b.onclick = () => selectOption(idx, opt);
-                        wrap.appendChild(b);
-                    });
-                    
-                    if (idx > 0) {
-                        const back = document.createElement('button');
-                        back.className = 'shadow-opt';
-                        back.textContent = '← НАЗАД К ПРЕДЫДУЩЕМУ';
-                        back.style.marginTop = '6px';
-                        back.onclick = () => goBack(idx);
-                        wrap.appendChild(back);
-                    }
-                    body.appendChild(wrap);
-                } else if (entry.type === 'input') {
-                    const wrap = document.createElement('div');
-                    wrap.className = 'bot-input-wrap';
-                    
-                    const input = document.createElement(entry.textarea ? 'textarea' : 'input');
-                    input.className = `bot-input ${entry.textarea ? 'bot-textarea' : ''}`;
-                    input.placeholder = entry.placeholder;
-                    if (!entry.textarea) input.type = 'text';
-                    if (entry.value) input.value = entry.value;
-                    
-                    const submit = document.createElement('button');
-                    submit.className = 'bot-submit';
-                    submit.textContent = '→ ОТПРАВИТЬ ОТВЕТ';
-                    
-                    submit.onclick = () => {
-                        const val = input.value.trim();
-                        if (!val) {
-                            input.style.borderColor = 'var(--red)';
-                            return;
-                        }
-                        submitInput(idx, val);
-                    };
-                    
-                    input.addEventListener('keypress', (e) => {
-                        if (e.key === 'Enter' && !entry.textarea) submit.click();
-                    });
-                    
-                    wrap.appendChild(input);
-                    wrap.appendChild(submit);
-                    
-                    if (idx > 0) {
-                        const back = document.createElement('button');
-                        back.className = 'shadow-opt';
-                        back.textContent = '← НАЗАД К ПРЕДЫДУЩЕМУ';
-                        back.style.marginTop = '6px';
-                        back.onclick = () => goBack(idx);
-                        wrap.appendChild(back);
-                    }
-                    
-                    body.appendChild(wrap);
-                } else if (entry.type === 'final') {
-                    const wrap = document.createElement('div');
-                    wrap.className = 'bot-input-wrap';
-                    
-                    const submit = document.createElement('button');
-                    submit.className = 'bot-submit';
-                    submit.textContent = '📋 СКОПИРОВАТЬ И ОТКРЫТЬ VK';
-                    submit.onclick = () => copyAndOpen();
-                    wrap.appendChild(submit);
-                    
-                    const restart = document.createElement('button');
-                    restart.className = 'shadow-opt';
-                    restart.textContent = '↺ НАЧАТЬ ДИАЛОГ ЗАНОВО';
-                    restart.style.marginTop = '6px';
-                    restart.onclick = () => resetBot();
-                    wrap.appendChild(restart);
-                    
-                    body.appendChild(wrap);
-                }
-            });
-            
-            body.scrollTop = body.scrollHeight;
+        if (userHistory.length > 0) {
+            const back = document.createElement('button');
+            back.className = 'shadow-opt';
+            back.textContent = '← НАЗАД';
+            back.style.marginTop = '6px';
+            back.onclick = () => goBack();
+            wrap.appendChild(back);
         }
         
-        function selectOption(entryIdx, option) {
-            history[entryIdx].options.forEach(o => o.selected = false);
-            option.selected = true;
-            botState[history[entryIdx].field] = option.label;
-            
-            history.push({ type: 'user', text: option.label });
-            currentStep = entryIdx + 1;
-            advance();
-        }
+        body.appendChild(wrap);
+        body.scrollTop = body.scrollHeight;
+    }
+    
+    function addInput(field, placeholder, textarea) {
+        const wrap = document.createElement('div');
+        wrap.className = 'bot-input-wrap';
         
-        function submitInput(entryIdx, value) {
-            history[entryIdx].value = value;
-            botState[history[entryIdx].field] = value;
-            
-            history.push({ type: 'user', text: value });
-            currentStep = entryIdx + 1;
-            advance();
-        }
+        const input = document.createElement(textarea ? 'textarea' : 'input');
+        input.className = `bot-input ${textarea ? 'bot-textarea' : ''}`;
+        input.placeholder = placeholder;
+        if (!textarea) input.type = 'text';
         
-        function advance() {
-            if (currentStep >= botFlow.length) return;
-            
-            const step = botFlow[currentStep];
-            
-            if (step.type === 'bot') {
-                const text = step.textFn ? step.textFn(botState) : step.text;
-                history.push({ type: 'bot', text: text });
-                currentStep++;
-                setTimeout(() => {
-                    if (currentStep < botFlow.length && botFlow[currentStep].type === 'bot') {
-                        advance();
-                    }
-                }, 400);
-            } else {
-                history.push(JSON.parse(JSON.stringify(step)));
+        const submit = document.createElement('button');
+        submit.className = 'bot-submit';
+        submit.textContent = '→ ОТПРАВИТЬ ОТВЕТ';
+        
+        submit.onclick = () => {
+            const val = input.value.trim();
+            if (!val) {
+                input.style.borderColor = 'var(--red)';
+                return;
             }
-            
-            render();
+            wrap.remove();
+            addMessage(val, 'user');
+            botState[field] = val;
+            userHistory.push({ type: 'input', field, value: val });
+            setTimeout(() => nextStep(), 400);
+        };
+        
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !textarea) submit.click();
+        });
+        
+        wrap.appendChild(input);
+        wrap.appendChild(submit);
+        
+        if (userHistory.length > 0) {
+            const back = document.createElement('button');
+            back.className = 'shadow-opt';
+            back.textContent = '← НАЗАД';
+            back.style.marginTop = '6px';
+            back.onclick = () => goBack();
+            wrap.appendChild(back);
         }
         
-        function goBack(entryIdx) {
-            history = history.slice(0, entryIdx);
-            recalcState();
-            currentStep = entryIdx;
-            render();
+        body.appendChild(wrap);
+        body.scrollTop = body.scrollHeight;
+        input.focus();
+    }
+    
+    function addFinal() {
+        const wrap = document.createElement('div');
+        wrap.className = 'bot-input-wrap';
+        
+        const submit = document.createElement('button');
+        submit.className = 'bot-submit';
+        submit.textContent = '📋 СКОПИРОВАТЬ И ОТКРЫТЬ VK';
+        submit.onclick = () => copyAndOpen();
+        wrap.appendChild(submit);
+        
+        const restart = document.createElement('button');
+        restart.className = 'shadow-opt';
+        restart.textContent = '↺ НАЧАТЬ ЗАНОВО';
+        restart.style.marginTop = '6px';
+        restart.onclick = () => resetBot();
+        wrap.appendChild(restart);
+        
+        body.appendChild(wrap);
+        body.scrollTop = body.scrollHeight;
+    }
+    
+    function nextStep() {
+        if (currentStep >= botFlow.length) return;
+        
+        const step = botFlow[currentStep];
+        currentStep++;
+        
+        if (step.type === 'bot') {
+            const text = step.textFn ? step.textFn(botState) : step.text;
+            addMessage(text, 'bot');
+            setTimeout(() => nextStep(), 600);
+        } else if (step.type === 'options') {
+            addOptions(step.options, step.field);
+        } else if (step.type === 'input') {
+            addInput(step.field, step.placeholder, step.textarea);
+        } else if (step.type === 'final') {
+            addFinal();
+        }
+    }
+    
+    function goBack() {
+        if (userHistory.length === 0) return;
+        
+        const lastAction = userHistory.pop();
+        botState[lastAction.field] = '';
+        
+        // Откатываем currentStep
+        currentStep--;
+        // Если предыдущий шаг был bot, откатываем ещё
+        while (currentStep > 0 && botFlow[currentStep - 1].type === 'bot') {
+            currentStep--;
         }
         
-        function recalcState() {
-            botState = { interest: '', task: '', contact: '' };
-            history.forEach(h => {
-                if (h.type === 'options') {
-                    const selected = h.options.find(o => o.selected);
-                    if (selected) botState[h.field] = selected.label;
-                } else if (h.type === 'input' && h.value) {
-                    botState[h.field] = h.value;
-                }
-            });
-        }
+        // Перерисовываем всё
+        body.innerHTML = '';
+        currentStep = 0;
+        userHistory.forEach(h => {
+            if (h.type === 'options') {
+                addMessage(h.value, 'user');
+            } else if (h.type === 'input') {
+                addMessage(h.value, 'user');
+            }
+        });
         
-        function copyAndOpen() {
-            const text = `🚀 СИГНАЛ С CYBERSLA\n\n📌 Интерес: ${botState.interest}\n📝 Задача: ${botState.task}\n📧 Контакт: ${botState.contact}`;
-            
-            const done = (ok) => {
-                const wrap = body.querySelector('.bot-input-wrap');
-                const submit = wrap.querySelector('.bot-submit');
-                submit.textContent = ok ? '✓ СКОПИРОВАНО' : '✗ НЕ УДАЛОСЬ СКОПИРОВАТЬ';
+        // Восстанавливаем состояние
+        userHistory.forEach(h => {
+            botState[h.field] = h.value;
+        });
+        
+        // Продолжаем с текущего шага
+        setTimeout(() => nextStep(), 400);
+    }
+    
+    function copyAndOpen() {
+        const text = `🚀 СИГНАЛ С CYBERSLA\n\n📌 Интерес: ${botState.interest}\n📝 Задача: ${botState.task}\n📧 Контакт: ${botState.contact}`;
+        
+        const wrap = body.querySelector('.bot-input-wrap');
+        const submit = wrap.querySelector('.bot-submit');
+        
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                submit.textContent = '✓ СКОПИРОВАНО';
                 submit.disabled = true;
                 
                 const link = document.createElement('a');
@@ -668,59 +671,64 @@
                 link.textContent = '→ ОТКРЫТЬ ДИАЛОГ VK';
                 wrap.appendChild(link);
                 
-                const msg = document.createElement('div');
-                msg.className = 'shadow-msg bot';
-                msg.textContent = ok 
-                    ? '[СИСТЕМА] Текст в буфере. Вставь в диалог VK (Ctrl+V).' 
-                    : '[СИСТЕМА] Скопируй вручную и открой VK.';
-                body.appendChild(msg);
-                body.scrollTop = body.scrollHeight;
-            };
-            
-            navigator.clipboard.writeText(text)
-                .then(() => done(true))
-                .catch(() => {
-                    const ta = document.createElement('textarea');
-                    ta.value = text;
-                    ta.style.position = 'fixed';
-                    ta.style.left = '-9999px';
-                    document.body.appendChild(ta);
-                    ta.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(ta);
-                    done(true);
-                });
+                addMessage('[СИСТЕМА] Текст в буфере. Вставь в диалог VK (Ctrl+V).', 'bot');
+            })
+            .catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                
+                submit.textContent = '✓ СКОПИРОВАНО';
+                submit.disabled = true;
+                
+                const link = document.createElement('a');
+                link.href = VK_URL;
+                link.target = '_blank';
+                link.className = 'vk-link';
+                link.textContent = '→ ОТКРЫТЬ ДИАЛОГ VK';
+                wrap.appendChild(link);
+                
+                addMessage('[СИСТЕМА] Текст в буфере. Вставь в диалог VK.', 'bot');
+            });
+    }
+    
+    function resetBot() {
+        body.innerHTML = '';
+        currentStep = 0;
+        botState = { interest: '', task: '', contact: '' };
+        userHistory = [];
+        nextStep();
+    }
+    
+    btn.addEventListener('click', () => {
+        win.classList.toggle('open');
+        btn.classList.toggle('active');
+        if (win.classList.contains('open') && body.children.length === 0) {
+            resetBot();
         }
-        
-        function resetBot() {
-            history = [];
-            botState = { interest: '', task: '', contact: '' };
-            currentStep = 0;
-            advance();
-        }
-        
-        btn.addEventListener('click', () => {
-            win.classList.toggle('open');
-            btn.classList.toggle('active');
-            if (win.classList.contains('open') && history.length === 0) {
-                resetBot();
-            }
-        });
-        close.addEventListener('click', () => {
-            win.classList.remove('open');
-            btn.classList.remove('active');
-        });
-        
-        const privacyModal = document.getElementById('privacyModal');
-        const privacyLink = document.getElementById('privacyLink');
-        const privacyClose = document.getElementById('privacyClose');
-        
-        function openPrivacyModal(e) { if (e) e.preventDefault(); privacyModal.classList.add('open'); }
-        function closePrivacyModal() { privacyModal.classList.remove('open'); }
-        
-        privacyLink.addEventListener('click', openPrivacyModal);
-        privacyClose.addEventListener('click', closePrivacyModal);
-        privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
-    </script>
+    });
+    
+    close.addEventListener('click', () => {
+        win.classList.remove('open');
+        btn.classList.remove('active');
+    });
+    
+    const privacyModal = document.getElementById('privacyModal');
+    const privacyLink = document.getElementById('privacyLink');
+    const privacyClose = document.getElementById('privacyClose');
+    
+    function openPrivacyModal(e) { if (e) e.preventDefault(); privacyModal.classList.add('open'); }
+    function closePrivacyModal() { privacyModal.classList.remove('open'); }
+    
+    privacyLink.addEventListener('click', openPrivacyModal);
+    privacyClose.addEventListener('click', closePrivacyModal);
+    privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
+</script>
+ 
 </body>
 </html>

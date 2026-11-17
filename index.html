@@ -100,7 +100,6 @@
         .card h3 { font-size: 22px; margin-bottom: 12px; color: #fff; }
         .card p { color: var(--dim); font-size: 15px; }
         .bots { background: var(--bg); }
-        .bot-list { display: flex; flex-direction: column; gap: 24px; }
         .bot-item { padding: 28px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid var(--violet); transition: all 0.3s; cursor: pointer; }
         .bot-item:hover { border-left-color: var(--red); background: rgba(200,16,46,0.05); }
         .bot-item.active { border-left-color: var(--red); background: rgba(200,16,46,0.08); }
@@ -209,10 +208,7 @@
         .shadow-opt::before { content: '[ ] '; color: var(--red); }
         .shadow-opt:hover { border-color: var(--terminal-green); background: rgba(0,255,65,0.1); text-shadow: 0 0 8px var(--terminal-green); }
         .shadow-opt:hover::before { content: '[✓] '; }
-        .shadow-opt.direct { border-color: var(--red); color: var(--red); text-align: center; font-weight: 700; letter-spacing: 2px; }
-        .shadow-opt.direct::before { content: ''; }
-        .shadow-opt.direct:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px rgba(200,16,46,0.6); }
-
+        
         .bot-input-wrap { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; position: relative; z-index: 12; }
         .bot-input {
             background: rgba(0,0,0,0.6); border: 1px solid rgba(0,255,65,0.3);
@@ -324,272 +320,72 @@
             
             <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 01 ] СБОР ДАННЫХ И МОНИТОРИНГ</div>
             <div class="category-content">
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">HARVESTER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Парсинг постов, комментариев и метаданных из VK/Telegram по ключевым словам.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Экспорт в CSV/JSON/Excel</li><li>Обход базовых защит</li><li>Работа по расписанию</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">PRICE_WATCH</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Мониторинг изменения цен на сайтах конкурентов или маркетплейсах.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Мгновенные алерты в Telegram</li><li>История изменений в графике</li><li>Отслеживание наличия товара</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">LEAD_MINER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Сборщик открытых контактов и лидов из целевых чатов и каналов.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Фильтрация по ключевым словам</li><li>Очистка от дубликатов</li><li>Выгрузка в CRM-формате</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">NEWS_HUB</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Агрегатор новостей из заданных RSS-лент или каналов с модерацией контента.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Автоперевод иностранных источников</li><li>Удаление дублей</li><li>Постинг в ваш канал</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">JOB_SCOUT</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Парсер вакансий с HH.ru, Habr Career и LinkedIn по заданным фильтрам.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Уведомления о новых вакансиях</li><li>Сбор статистики по зарплатам</li><li>Экспорт списка компаний</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">UPTIME_GUARD</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Мониторинг доступности ваших веб-сайтов и API в реальном времени.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Проверка каждые 1-5 минут</li><li>Алерты при падении или ошибке 5xx</li><li>Отчет о времени безотказной работы</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">REVIEW_TRACKER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Сбор отзывов с Яндекс.Карт, 2ГИС, Avito и Ozon в единую панель.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Анализ тональности (позитив/негатив)</li><li>Уведомления о новых отзывах</li><li>Экспорт для отдела качества</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">WEB_DIFF</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Трекер визуальных и текстовых изменений на конкретных веб-страницах.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Игнорирование динамической рекламы</li><li>Скриншоты "до" и "после"</li><li>Гибкие триггеры изменений</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">DATA_BRIDGE</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Автоматическая синхронизация данных между Google Sheets, Excel и вашими системами.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Двусторонняя синхронизация</li><li>Трансформация форматов на лету</li><li>Работа по расписанию или вебхуку</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">SENTIMENT_ANALYZER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Анализ эмоциональной окраски комментариев и упоминаний бренда.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Оценка от 1 до 10</li><li>Выявление токсичных комментариев</li><li>Сводный отчет за неделю/месяц</li></ul></div>
-                </div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">HARVESTER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Парсинг постов, комментариев и метаданных из VK/Telegram по ключевым словам.</div><div class="bot-details"><ul class="feature-list"><li>Экспорт в CSV/JSON/Excel</li><li>Обход базовых защит</li><li>Работа по расписанию</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">PRICE_WATCH</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Мониторинг изменения цен на сайтах конкурентов или маркетплейсах.</div><div class="bot-details"><ul class="feature-list"><li>Мгновенные алерты в Telegram</li><li>История изменений в графике</li><li>Отслеживание наличия товара</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">LEAD_MINER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Сборщик открытых контактов и лидов из целевых чатов и каналов.</div><div class="bot-details"><ul class="feature-list"><li>Фильтрация по ключевым словам</li><li>Очистка от дубликатов</li><li>Выгрузка в CRM-формате</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">NEWS_HUB</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Агрегатор новостей из заданных RSS-лент или каналов с модерацией контента.</div><div class="bot-details"><ul class="feature-list"><li>Автоперевод иностранных источников</li><li>Удаление дублей</li><li>Постинг в ваш канал</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">JOB_SCOUT</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Парсер вакансий с HH.ru, Habr Career и LinkedIn по заданным фильтрам.</div><div class="bot-details"><ul class="feature-list"><li>Уведомления о новых вакансиях</li><li>Сбор статистики по зарплатам</li><li>Экспорт списка компаний</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">UPTIME_GUARD</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Мониторинг доступности ваших веб-сайтов и API в реальном времени.</div><div class="bot-details"><ul class="feature-list"><li>Проверка каждые 1-5 минут</li><li>Алерты при падении или ошибке 5xx</li><li>Отчет о времени безотказной работы</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">REVIEW_TRACKER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Сбор отзывов с Яндекс.Карт, 2ГИС, Avito и Ozon в единую панель.</div><div class="bot-details"><ul class="feature-list"><li>Анализ тональности (позитив/негатив)</li><li>Уведомления о новых отзывах</li><li>Экспорт для отдела качества</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">WEB_DIFF</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Трекер визуальных и текстовых изменений на конкретных веб-страницах.</div><div class="bot-details"><ul class="feature-list"><li>Игнорирование динамической рекламы</li><li>Скриншоты "до" и "после"</li><li>Гибкие триггеры изменений</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">DATA_BRIDGE</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Автоматическая синхронизация данных между Google Sheets, Excel и вашими системами.</div><div class="bot-details"><ul class="feature-list"><li>Двусторонняя синхронизация</li><li>Трансформация форматов на лету</li><li>Работа по расписанию или вебхуку</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">SENTIMENT_ANALYZER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Анализ эмоциональной окраски комментариев и упоминаний бренда.</div><div class="bot-details"><ul class="feature-list"><li>Оценка от 1 до 10</li><li>Выявление токсичных комментариев</li><li>Сводный отчет за неделю/месяц</li></ul></div></div>
             </div>
 
             <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 02 ] АВТОМАТИЗАЦИЯ И УПРАВЛЕНИЕ</div>
             <div class="category-content">
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">AUTO_POSTER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Умный планировщик и автопостинг контента в Telegram, VK и другие соцсети.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Отложенный постинг с точностью до минуты</li><li>Ротация контента из базы</li><li>Автодобавление водяных знаков</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">SECRETARY</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Бот-администратор для записи клиентов на услуги с интеграцией календаря.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Выбор свободных слотов</li><li>Автоматические напоминания за 24ч и 1ч</li><li>Синхронизация с Google Calendar</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">REPORT_GENERATOR</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Сводит данные из разных источников в красивый PDF или Excel-отчет.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Настраиваемые шаблоны</li><li>Графики и диаграммы</li><li>Отправка по расписанию</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">FEEDBACK_LOOP</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Система автоматического сбора обратной связи и NPS-опросов.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Ненавязчивые опросы</li><li>Эскалация негативных отзывов менеджеру</li><li>Выгрузка статистики удовлетворенности</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">SAFE_MAILER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Инструмент для безопасной рассылки сообщений по базе без попадания в спам-бан.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Имитация человеческих задержек</li><li>Ротация текстов (спинтакс)</li><li>Автоматическая чистка отписавшихся</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">ONBOARDING_GUIDE</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Интерактивный бот для адаптации и обучения новых сотрудников.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Пошаговые инструкции и тесты</li><li>База знаний с быстрым поиском</li><li>Отчет о прогрессе обучения для HR</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">TASK_MASTER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Трекер задач и дедлайнов прямо в Telegram с делегированием.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Создание задач голосом или текстом</li><li>Назначение исполнителей</li><li>Напоминания о горящих дедлайнах</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">RESOURCE_BOOKER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Система бронирования внутренних ресурсов: переговорок, оборудования, автомобилей.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Проверка занятости в реальном времени</li><li>Уведомления о конфликтах бронирования</li><li>Журнал использования</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">PROMO_ENGINE</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Генератор и валидатор уникальных промокодов и скидочных купонов.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Одноразовые или многоразовые коды</li><li>Ограничение по времени или количеству</li><li>Интеграция с кассой</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">POLYGLOT</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Автоматический перевод сообщений в мультиязычных чатах или переписке.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Поддержка 50+ языков</li><li>Сохранение форматирования</li><li>Словарь пользовательских терминов</li></ul></div>
-                </div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">AUTO_POSTER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Умный планировщик и автопостинг контента в Telegram, VK и другие соцсети.</div><div class="bot-details"><ul class="feature-list"><li>Отложенный постинг с точностью до минуты</li><li>Ротация контента из базы</li><li>Автодобавление водяных знаков</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">SECRETARY</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Бот-администратор для записи клиентов на услуги с интеграцией календаря.</div><div class="bot-details"><ul class="feature-list"><li>Выбор свободных слотов</li><li>Автоматические напоминания за 24ч и 1ч</li><li>Синхронизация с Google Calendar</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">REPORT_GENERATOR</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Сводит данные из разных источников в красивый PDF или Excel-отчет.</div><div class="bot-details"><ul class="feature-list"><li>Настраиваемые шаблоны</li><li>Графики и диаграммы</li><li>Отправка по расписанию</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">FEEDBACK_LOOP</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Система автоматического сбора обратной связи и NPS-опросов.</div><div class="bot-details"><ul class="feature-list"><li>Ненавязчивые опросы</li><li>Эскалация негативных отзывов менеджеру</li><li>Выгрузка статистики удовлетворенности</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">SAFE_MAILER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Инструмент для безопасной рассылки сообщений по базе без попадания в спам-бан.</div><div class="bot-details"><ul class="feature-list"><li>Имитация человеческих задержек</li><li>Ротация текстов (спинтакс)</li><li>Автоматическая чистка отписавшихся</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">ONBOARDING_GUIDE</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Интерактивный бот для адаптации и обучения новых сотрудников.</div><div class="bot-details"><ul class="feature-list"><li>Пошаговые инструкции и тесты</li><li>База знаний с быстрым поиском</li><li>Отчет о прогрессе обучения для HR</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">TASK_MASTER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Трекер задач и дедлайнов прямо в Telegram с делегированием.</div><div class="bot-details"><ul class="feature-list"><li>Создание задач голосом или текстом</li><li>Назначение исполнителей</li><li>Напоминания о горящих дедлайнах</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">RESOURCE_BOOKER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Система бронирования внутренних ресурсов: переговорок, оборудования, автомобилей.</div><div class="bot-details"><ul class="feature-list"><li>Проверка занятости в реальном времени</li><li>Уведомления о конфликтах бронирования</li><li>Журнал использования</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">PROMO_ENGINE</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Генератор и валидатор уникальных промокодов и скидочных купонов.</div><div class="bot-details"><ul class="feature-list"><li>Одноразовые или многоразовые коды</li><li>Ограничение по времени или количеству</li><li>Интеграция с кассой</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">POLYGLOT</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Автоматический перевод сообщений в мультиязычных чатах или переписке.</div><div class="bot-details"><ul class="feature-list"><li>Поддержка 50+ языков</li><li>Сохранение форматирования</li><li>Словарь пользовательских терминов</li></ul></div></div>
             </div>
 
             <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 03 ] МОДЕРАЦИЯ И БЕЗОПАСНОСТЬ</div>
             <div class="category-content">
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">GATEKEEPER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Умный фильтр для чатов: блокирует спам, мат, ссылки и флуд.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Настраиваемые черные списки</li><li>Защита от рейдов и ботоводов</li><li>Тихий режим (удаление без бана)</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">CAPTCHA_GUARD</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Система приветствия с проверкой на человечность для новых участников.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Кнопка, математический пример или текст</li><li>Автоматический бан при невыполнении</li><li>Логирование попыток входа</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">REPORT_SYSTEM</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Система жалоб и репортов в чате с интерфейсом для модераторов.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Пересылка сообщения модератору в 1 клик</li><li>История нарушений пользователя</li><li>Автоматический мут при N жалобах</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">VERIFIER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Бот для верификации пользователей через подтверждение телефона или email.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Выдача роли "Проверенный" после успеха</li><li>Защита закрытых чатов от фейков</li><li>Экспорт базы верифицированных ID</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">ARCHIVIST</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Автоматическое резервное копирование истории сообщений чата.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Экспорт в HTML или JSON</li><li>Сохранение медиафайлов</li><li>Работа в фоновом режиме</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">PHISHING_SHIELD</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Детектор мошеннических ссылок, фишинга и скам-каналов.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Проверка по базам опасных доменов</li><li>Предупреждение пользователя перед переходом</li><li>Автоудаление опасных сообщений</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">RAFFLE_MASTER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Честный рандомизатор для проведения розыгрышей и конкурсов.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Проверка подписки на канал</li><li>Фильтрация ботов и накрутчиков</li><li>Публичный и прозрачный выбор победителя</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">ANTI_FLOOD</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Защита от флуда: ограничивает частоту сообщений от одного пользователя.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Гибкая настройка лимита сообщений в минуту</li><li>Временный мут нарушителя</li><li>Игнор-листы для администраторов</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">ROLE_MANAGER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Автоматическое управление ролями и правами доступа.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Выдача ролей за достижение целей</li><li>Понижение прав при неактивности</li><li>Синхронизация с внешними базами</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">MOD_LOGGER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Невидимый логгер действий администраторов и модераторов в чате.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Фиксация банов, мутов и удалений</li><li>Отметка времени и ID модератора</li><li>Защищенный канал только для владельцев</li></ul></div>
-                </div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">GATEKEEPER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Умный фильтр для чатов: блокирует спам, мат, ссылки и флуд.</div><div class="bot-details"><ul class="feature-list"><li>Настраиваемые черные списки</li><li>Защита от рейдов и ботоводов</li><li>Тихий режим (удаление без бана)</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">CAPTCHA_GUARD</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Система приветствия с проверкой на человечность для новых участников.</div><div class="bot-details"><ul class="feature-list"><li>Кнопка, математический пример или текст</li><li>Автоматический бан при невыполнении</li><li>Логирование попыток входа</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">REPORT_SYSTEM</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Система жалоб и репортов в чате с интерфейсом для модераторов.</div><div class="bot-details"><ul class="feature-list"><li>Пересылка сообщения модератору в 1 клик</li><li>История нарушений пользователя</li><li>Автоматический мут при N жалобах</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">VERIFIER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Бот для верификации пользователей через подтверждение телефона или email.</div><div class="bot-details"><ul class="feature-list"><li>Выдача роли "Проверенный" после успеха</li><li>Защита закрытых чатов от фейков</li><li>Экспорт базы верифицированных ID</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">ARCHIVIST</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Автоматическое резервное копирование истории сообщений чата.</div><div class="bot-details"><ul class="feature-list"><li>Экспорт в HTML или JSON</li><li>Сохранение медиафайлов</li><li>Работа в фоновом режиме</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">PHISHING_SHIELD</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Детектор мошеннических ссылок, фишинга и скам-каналов.</div><div class="bot-details"><ul class="feature-list"><li>Проверка по базам опасных доменов</li><li>Предупреждение пользователя перед переходом</li><li>Автоудаление опасных сообщений</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">RAFFLE_MASTER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Честный рандомизатор для проведения розыгрышей и конкурсов.</div><div class="bot-details"><ul class="feature-list"><li>Проверка подписки на канал</li><li>Фильтрация ботов и накрутчиков</li><li>Публичный и прозрачный выбор победителя</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">ANTI_FLOOD</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Защита от флуда: ограничивает частоту сообщений от одного пользователя.</div><div class="bot-details"><ul class="feature-list"><li>Гибкая настройка лимита сообщений в минуту</li><li>Временный мут нарушителя</li><li>Игнор-листы для администраторов</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">ROLE_MANAGER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Автоматическое управление ролями и правами доступа.</div><div class="bot-details"><ul class="feature-list"><li>Выдача ролей за достижение целей</li><li>Понижение прав при неактивности</li><li>Синхронизация с внешними базами</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">MOD_LOGGER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Невидимый логгер действий администраторов и модераторов в чате.</div><div class="bot-details"><ul class="feature-list"><li>Фиксация банов, мутов и удалений</li><li>Отметка времени и ID модератора</li><li>Защищенный канал только для владельцев</li></ul></div></div>
             </div>
 
             <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 04 ] E-COMMERCE И ПРОДАЖИ</div>
             <div class="category-content">
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">SHOP_FRONT</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Полноценная витрина магазина внутри Telegram с корзиной и приемом оплат.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Каталог товаров с фото и описаниями</li><li>Интеграция ЮKassa, Robokassa или Crypto</li><li>Оформление заказа в 3 клика</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">ORDER_TRACKER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Бот для клиентов, позволяющий отслеживать статус их заказа.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Интеграция с 1С, МойСклад или CRM</li><li>Уведомления о смене статуса</li><li>Ссылка на трек-код службы доставки</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">SMART_CONSULTANT</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Интерактивный помощник по подбору товаров или услуг.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Пошаговый квиз для выявления потребностей</li><li>Рекомендации с ссылками на покупку</li><li>Передача сложного запроса живому оператору</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">LOYALTY_CORE</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Система программ лояльности и накопительных баллов.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Виртуальная карта клиента</li><li>Начисление и списание бонусов</li><li>Персональные предложения на основе истории</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">PRE_ORDER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Сбор предзаказов на новые товары или услуги с листом ожидания.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Уведомление о старте продаж первым в очереди</li><li>Сбор предоплаты или заморозка средств</li><li>Аналитика спроса до запуска</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">INVOICE_GEN</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Автоматическая генерация счетов и чеков для самозанятых и ИП.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Подстановка реквизитов из шаблона</li><li>Отправка PDF-файла в чат</li><li>Регистрация чека в ФНС</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">REVIEW_BONUS</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Стимулирование клиентов оставлять отзывы на внешних площадках за бонус.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Выдача промокода после проверки скриншота</li><li>Проверка наличия отзыва по ссылке</li><li>Автоматизация выдачи приза</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">REFERRAL_ENGINE</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Партнерская программа с трекингом приглашенных пользователей.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Уникальные реферальные ссылки</li><li>Прозрачная статистика для партнера</li><li>Автоматическое начисление вознаграждения</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">AUCTION_HOUSE</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Проведение аукционов и ставок на товары или услуги в чате.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Автоматическое продление времени при ставке</li><li>Уведомление о перебивке ставки</li><li>Определение победителя и выставление счета</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">STOCK_SYNC</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Синхронизация остатков на складе с ботом.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Обновление каждые N минут</li><li>Авто-скрытие товаров с нулевым остатком</li><li>Уведомление менеджера о критическом остатке</li></ul></div>
-                </div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">SHOP_FRONT</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Полноценная витрина магазина внутри Telegram с корзиной и приемом оплат.</div><div class="bot-details"><ul class="feature-list"><li>Каталог товаров с фото и описаниями</li><li>Интеграция ЮKassa, Robokassa или Crypto</li><li>Оформление заказа в 3 клика</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">ORDER_TRACKER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Бот для клиентов, позволяющий отслеживать статус их заказа.</div><div class="bot-details"><ul class="feature-list"><li>Интеграция с 1С, МойСклад или CRM</li><li>Уведомления о смене статуса</li><li>Ссылка на трек-код службы доставки</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">SMART_CONSULTANT</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Интерактивный помощник по подбору товаров или услуг.</div><div class="bot-details"><ul class="feature-list"><li>Пошаговый квиз для выявления потребностей</li><li>Рекомендации с ссылками на покупку</li><li>Передача сложного запроса живому оператору</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">LOYALTY_CORE</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Система программ лояльности и накопительных баллов.</div><div class="bot-details"><ul class="feature-list"><li>Виртуальная карта клиента</li><li>Начисление и списание бонусов</li><li>Персональные предложения на основе истории</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">PRE_ORDER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Сбор предзаказов на новые товары или услуги с листом ожидания.</div><div class="bot-details"><ul class="feature-list"><li>Уведомление о старте продаж первым в очереди</li><li>Сбор предоплаты или заморозка средств</li><li>Аналитика спроса до запуска</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">INVOICE_GEN</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Автоматическая генерация счетов и чеков для самозанятых и ИП.</div><div class="bot-details"><ul class="feature-list"><li>Подстановка реквизитов из шаблона</li><li>Отправка PDF-файла в чат</li><li>Регистрация чека в ФНС</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">REVIEW_BONUS</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Стимулирование клиентов оставлять отзывы на внешних площадках за бонус.</div><div class="bot-details"><ul class="feature-list"><li>Выдача промокода после проверки скриншота</li><li>Проверка наличия отзыва по ссылке</li><li>Автоматизация выдачи приза</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">REFERRAL_ENGINE</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Партнерская программа с трекингом приглашенных пользователей.</div><div class="bot-details"><ul class="feature-list"><li>Уникальные реферальные ссылки</li><li>Прозрачная статистика для партнера</li><li>Автоматическое начисление вознаграждения</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">AUCTION_HOUSE</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Проведение аукционов и ставок на товары или услуги в чате.</div><div class="bot-details"><ul class="feature-list"><li>Автоматическое продление времени при ставке</li><li>Уведомление о перебивке ставки</li><li>Определение победителя и выставление счета</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">STOCK_SYNC</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Синхронизация остатков на складе с ботом.</div><div class="bot-details"><ul class="feature-list"><li>Обновление каждые N минут</li><li>Авто-скрытие товаров с нулевым остатком</li><li>Уведомление менеджера о критическом остатке</li></ul></div></div>
             </div>
 
             <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 05 ] КРЕАТИВ, МЕДИА И УТИЛИТЫ</div>
             <div class="category-content">
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">COPYWRITER_AI</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Генерация описаний товаров, постов для соцсетей или заголовков.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Настройка тональности</li><li>Проверка на уникальность</li><li>Пакетная генерация</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">MEDIA_FORGE</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Конвертер медиафайлов: аудио в текст, видео в GIF, сжатие изображений.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Поддержка популярных форматов</li><li>Пакетная обработка</li><li>Удаление водяных знаков (базовое)</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">IDEA_SPARK</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Бот-планировщик контента, идеи для постов, сторис и видео.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Адаптация под нишу бизнеса</li><li>Привязка к инфоповодам и праздникам</li><li>Экспорт плана в таблицу</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">QR_BUILDER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Генератор стильных QR-кодов и цифровых визиток по шаблону.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Добавление логотипа в центр</li><li>Выбор цветовой схемы</li><li>Отслеживание количества сканирований</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">VISUAL_POLL</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Создание опросов и квизов с визуальными вариантами ответов.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Повышение вовлеченности за счет визуала</li><li>Мгновенная статистика по вариантам</li><li>Экспорт результатов</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">SLAMEDIA_DJ</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Музыкальный бот: поиск треков, создание плейлистов по настроению.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Интеграция с VK Music или Яндекс.Музыкой</li><li>Генерация фоновых эмбиент-треков (AI)</li><li>Шеринг плейлистов в один клик</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">ANON_LETTERS</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Бот для приема анонимных вопросов, отзывов или признаний.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Полная анонимность отправителя</li><li>Модерация контента перед публикацией</li><li>Возможность ответить анонимно</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">CRYPTO_WATCH</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Трекер курсов валют и криптовалют с алертами на достижение цены.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Данные с Binance, Bybit, ЦБ РФ</li><li>Графики изменений за 24ч</li><li>Мгновенные push-уведомления</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">MEMORY_KEEPER</div><div class="bot-status">[ГОТОВ]</div></div>
-                    <div class="bot-desc">Умный планировщик напоминаний о важных датах и продлении подписок.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Импорт дат из таблицы</li><li>Каскадные напоминания (за неделю, за день)</li><li>Шаблоны поздравительных сообщений</li></ul></div>
-                </div>
-                <div class="bot-item" onclick="this.classList.toggle('active')">
-                    <div class="bot-header"><div class="bot-name">CUSTOM_PROTOCOL</div><div class="bot-status">[ОЖИДАНИЕ ТЗ]</div></div>
-                    <div class="bot-desc">У тебя есть специфическая задача? Мы спроектируем архитектуру с нуля.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Анализ твоей бизнес-рутины</li><li>Проектирование уникальной логики</li><li>Превращаем хаос в рабочий код</li></ul></div>
-                </div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">COPYWRITER_AI</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Генерация описаний товаров, постов для соцсетей или заголовков.</div><div class="bot-details"><ul class="feature-list"><li>Настройка тональности</li><li>Проверка на уникальность</li><li>Пакетная генерация</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">MEDIA_FORGE</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Конвертер медиафайлов: аудио в текст, видео в GIF, сжатие изображений.</div><div class="bot-details"><ul class="feature-list"><li>Поддержка популярных форматов</li><li>Пакетная обработка</li><li>Удаление водяных знаков (базовое)</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">IDEA_SPARK</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Бот-планировщик контента, идеи для постов, сторис и видео.</div><div class="bot-details"><ul class="feature-list"><li>Адаптация под нишу бизнеса</li><li>Привязка к инфоповодам и праздникам</li><li>Экспорт плана в таблицу</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">QR_BUILDER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Генератор стильных QR-кодов и цифровых визиток по шаблону.</div><div class="bot-details"><ul class="feature-list"><li>Добавление логотипа в центр</li><li>Выбор цветовой схемы</li><li>Отслеживание количества сканирований</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">VISUAL_POLL</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Создание опросов и квизов с визуальными вариантами ответов.</div><div class="bot-details"><ul class="feature-list"><li>Повышение вовлеченности за счет визуала</li><li>Мгновенная статистика по вариантам</li><li>Экспорт результатов</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">SLAMEDIA_DJ</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Музыкальный бот: поиск треков, создание плейлистов по настроению.</div><div class="bot-details"><ul class="feature-list"><li>Интеграция с VK Music или Яндекс.Музыкой</li><li>Генерация фоновых эмбиент-треков (AI)</li><li>Шеринг плейлистов в один клик</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">ANON_LETTERS</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Бот для приема анонимных вопросов, отзывов или признаний.</div><div class="bot-details"><ul class="feature-list"><li>Полная анонимность отправителя</li><li>Модерация контента перед публикацией</li><li>Возможность ответить анонимно</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">CRYPTO_WATCH</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Трекер курсов валют и криптовалют с алертами на достижение цены.</div><div class="bot-details"><ul class="feature-list"><li>Данные с Binance, Bybit, ЦБ РФ</li><li>Графики изменений за 24ч</li><li>Мгновенные push-уведомления</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">MEMORY_KEEPER</div><div class="bot-status">[ГОТОВ]</div></div><div class="bot-desc">Умный планировщик напоминаний о важных датах и продлении подписок.</div><div class="bot-details"><ul class="feature-list"><li>Импорт дат из таблицы</li><li>Каскадные напоминания (за неделю, за день)</li><li>Шаблоны поздравительных сообщений</li></ul></div></div>
+                <div class="bot-item" onclick="this.classList.toggle('active')"><div class="bot-header"><div class="bot-name">CUSTOM_PROTOCOL</div><div class="bot-status">[ОЖИДАНИЕ ТЗ]</div></div><div class="bot-desc">У тебя есть специфическая задача? Мы спроектируем архитектуру с нуля.</div><div class="bot-details"><ul class="feature-list"><li>Анализ твоей бизнес-рутины</li><li>Проектирование уникальной логики</li><li>Превращаем хаос в рабочий код</li></ul></div></div>
             </div>
         </div>
     </section>
@@ -659,331 +455,272 @@
     <button class="shadow-btn" id="shadowBtn" title="Связаться с логовом">◈</button>
     <div class="shadow-window" id="shadowWindow">
         <div class="shadow-header">
-            <span class="shadow-header-title">ТЕНЬ v3.0 // ВЕБ-БОТ</span>
+            <span class="shadow-header-title">ТЕНЬ v3.1 // ВЕБ-БОТ</span>
             <button class="shadow-close" id="shadowClose">×</button>
         </div>
-        <div class="shadow-body" id="shadowBody">
-            <!-- Контент генерируется JS -->
-        </div>
+        <div class="shadow-body" id="shadowBody"></div>
     </div>
-<script>
-    // === ВЕБ-БОТ ЛОГОВО v3.1 С НАВИГАЦИЕЙ ===
-    const btn = document.getElementById('shadowBtn');
-    const win = document.getElementById('shadowWindow');
-    const close = document.getElementById('shadowClose');
-    const body = document.getElementById('shadowBody');
-    
-    const VK_URL = 'https://vk.com/veter_ok_breeze';
-    
-    // История диалога — массив шагов
-    let history = [];
-    
-    // Текущее состояние
-    let botState = { interest: '', task: '', contact: '' };
-    
-    // Сценарий бота
-    const botFlow = [
-        {
-            type: 'bot',
-            text: 'Инициализация связи...\nСистема готова. Ожидаю команды.'
-        },
-        {
-            type: 'bot',
-            text: 'Приветствую. Я — голос логова CyberSLA.\nРасскажи, что тебя интересует:'
-        },
-        {
-            type: 'options',
-            options: [
-                { label: 'БОТЫ И АВТОМАТИЗАЦИЯ', value: 'bots' },
-                { label: 'САЙТ / ВЕБ-РАЗРАБОТКА', value: 'site' },
-                { label: 'МУЗЫКА / СЦЕНАРИИ', value: 'music' },
-                { label: 'ДРУГОЕ / НЕ ЗНАЮ', value: 'other' }
-            ],
-            field: 'interest'
-        },
-        {
-            type: 'bot',
-            textFn: (s) => `Принято: ${s.interest}.\n\nОпиши задачу в двух словах. Можно хаосом — разберёмся у костра.`
-        },
-        {
-            type: 'input',
-            placeholder: 'Опиши задачу...',
-            textarea: true,
-            field: 'task'
-        },
-        {
-            type: 'bot',
-            textFn: (s) => `Понял. Задача зафиксирована.\n\nКак с тобой связаться? Email или VK.`
-        },
-        {
-            type: 'input',
-            placeholder: 'user@domain.com или vk.com/...',
-            textarea: false,
-            field: 'contact'
-        },
-        {
-            type: 'bot',
-            textFn: (s) => `СИГНАЛ СФОРМИРОВАН.\n\n📌 Интерес: ${s.interest}\n📝 Задача: ${s.task}\n📧 Контакт: ${s.contact}\n\nНажми кнопку ниже — текст скопируется, откроется диалог VK. Вставь и отправь.`
-        },
-        {
-            type: 'final'
-        }
-    ];
-    
-    // Индекс текущего шага в сценарии
-    let currentStep = 0;
-    
-    // === РЕНДЕР: перерисовывает всё окно из истории ===
-    function render() {
-        body.innerHTML = '';
+
+    <script>
+        const btn = document.getElementById('shadowBtn');
+        const win = document.getElementById('shadowWindow');
+        const close = document.getElementById('shadowClose');
+        const body = document.getElementById('shadowBody');
         
-        history.forEach((entry, idx) => {
-            if (entry.type === 'bot') {
+        const VK_URL = 'https://vk.com/veter_ok_breeze';
+        
+        let history = [];
+        let botState = { interest: '', task: '', contact: '' };
+        
+        const botFlow = [
+            { type: 'bot', text: 'Инициализация связи...\nСистема готова. Ожидаю команды.' },
+            { type: 'bot', text: 'Приветствую. Я — голос логова CyberSLA.\nРасскажи, что тебя интересует:' },
+            {
+                type: 'options',
+                field: 'interest',
+                options: [
+                    { label: 'БОТЫ И АВТОМАТИЗАЦИЯ', value: 'bots' },
+                    { label: 'САЙТ / ВЕБ-РАЗРАБОТКА', value: 'site' },
+                    { label: 'МУЗЫКА / СЦЕНАРИИ', value: 'music' },
+                    { label: 'ДРУГОЕ / НЕ ЗНАЮ', value: 'other' }
+                ]
+            },
+            { type: 'bot', textFn: (s) => `Принято: ${s.interest}.\n\nОпиши задачу в двух словах. Можно хаосом — разберёмся у костра.` },
+            { type: 'input', field: 'task', placeholder: 'Опиши задачу...', textarea: true },
+            { type: 'bot', textFn: (s) => `Понял. Задача зафиксирована.\n\nКак с тобой связаться? Email или VK.` },
+            { type: 'input', field: 'contact', placeholder: 'user@domain.com или vk.com/...', textarea: false },
+            { type: 'bot', textFn: (s) => `СИГНАЛ СФОРМИРОВАН.\n\n📌 Интерес: ${s.interest}\n📝 Задача: ${s.task}\n📧 Контакт: ${s.contact}\n\nНажми кнопку ниже — текст скопируется, откроется диалог VK. Вставь и отправь.` },
+            { type: 'final' }
+        ];
+        
+        let currentStep = 0;
+        
+        function render() {
+            body.innerHTML = '';
+            
+            history.forEach((entry, idx) => {
+                if (entry.type === 'bot') {
+                    const msg = document.createElement('div');
+                    msg.className = 'shadow-msg bot';
+                    msg.textContent = entry.text;
+                    body.appendChild(msg);
+                } else if (entry.type === 'options') {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'shadow-options';
+                    entry.options.forEach(opt => {
+                        const b = document.createElement('button');
+                        b.className = 'shadow-opt';
+                        b.textContent = opt.label;
+                        if (opt.selected) {
+                            b.style.background = 'rgba(200,16,46,0.3)';
+                            b.style.borderColor = 'var(--red)';
+                            b.style.color = '#fff';
+                        }
+                        b.onclick = () => selectOption(idx, opt);
+                        wrap.appendChild(b);
+                    });
+                    
+                    if (idx > 0) {
+                        const back = document.createElement('button');
+                        back.className = 'shadow-opt';
+                        back.textContent = '← НАЗАД К ПРЕДЫДУЩЕМУ';
+                        back.style.marginTop = '6px';
+                        back.onclick = () => goBack(idx);
+                        wrap.appendChild(back);
+                    }
+                    body.appendChild(wrap);
+                } else if (entry.type === 'input') {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'bot-input-wrap';
+                    
+                    const input = document.createElement(entry.textarea ? 'textarea' : 'input');
+                    input.className = `bot-input ${entry.textarea ? 'bot-textarea' : ''}`;
+                    input.placeholder = entry.placeholder;
+                    if (!entry.textarea) input.type = 'text';
+                    if (entry.value) input.value = entry.value;
+                    
+                    const submit = document.createElement('button');
+                    submit.className = 'bot-submit';
+                    submit.textContent = '→ ОТПРАВИТЬ ОТВЕТ';
+                    
+                    submit.onclick = () => {
+                        const val = input.value.trim();
+                        if (!val) {
+                            input.style.borderColor = 'var(--red)';
+                            return;
+                        }
+                        submitInput(idx, val);
+                    };
+                    
+                    input.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter' && !entry.textarea) submit.click();
+                    });
+                    
+                    wrap.appendChild(input);
+                    wrap.appendChild(submit);
+                    
+                    if (idx > 0) {
+                        const back = document.createElement('button');
+                        back.className = 'shadow-opt';
+                        back.textContent = '← НАЗАД К ПРЕДЫДУЩЕМУ';
+                        back.style.marginTop = '6px';
+                        back.onclick = () => goBack(idx);
+                        wrap.appendChild(back);
+                    }
+                    
+                    body.appendChild(wrap);
+                } else if (entry.type === 'final') {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'bot-input-wrap';
+                    
+                    const submit = document.createElement('button');
+                    submit.className = 'bot-submit';
+                    submit.textContent = '📋 СКОПИРОВАТЬ И ОТКРЫТЬ VK';
+                    submit.onclick = () => copyAndOpen();
+                    wrap.appendChild(submit);
+                    
+                    const restart = document.createElement('button');
+                    restart.className = 'shadow-opt';
+                    restart.textContent = '↺ НАЧАТЬ ДИАЛОГ ЗАНОВО';
+                    restart.style.marginTop = '6px';
+                    restart.onclick = () => resetBot();
+                    wrap.appendChild(restart);
+                    
+                    body.appendChild(wrap);
+                }
+            });
+            
+            body.scrollTop = body.scrollHeight;
+        }
+        
+        function selectOption(entryIdx, option) {
+            history[entryIdx].options.forEach(o => o.selected = false);
+            option.selected = true;
+            botState[history[entryIdx].field] = option.label;
+            
+            history.push({ type: 'user', text: option.label });
+            currentStep = entryIdx + 1;
+            advance();
+        }
+        
+        function submitInput(entryIdx, value) {
+            history[entryIdx].value = value;
+            botState[history[entryIdx].field] = value;
+            
+            history.push({ type: 'user', text: value });
+            currentStep = entryIdx + 1;
+            advance();
+        }
+        
+        function advance() {
+            if (currentStep >= botFlow.length) return;
+            
+            const step = botFlow[currentStep];
+            
+            if (step.type === 'bot') {
+                const text = step.textFn ? step.textFn(botState) : step.text;
+                history.push({ type: 'bot', text: text });
+                currentStep++;
+                setTimeout(() => {
+                    if (currentStep < botFlow.length && botFlow[currentStep].type === 'bot') {
+                        advance();
+                    }
+                }, 400);
+            } else {
+                history.push(JSON.parse(JSON.stringify(step)));
+            }
+            
+            render();
+        }
+        
+        function goBack(entryIdx) {
+            history = history.slice(0, entryIdx);
+            recalcState();
+            currentStep = entryIdx;
+            render();
+        }
+        
+        function recalcState() {
+            botState = { interest: '', task: '', contact: '' };
+            history.forEach(h => {
+                if (h.type === 'options') {
+                    const selected = h.options.find(o => o.selected);
+                    if (selected) botState[h.field] = selected.label;
+                } else if (h.type === 'input' && h.value) {
+                    botState[h.field] = h.value;
+                }
+            });
+        }
+        
+        function copyAndOpen() {
+            const text = `🚀 СИГНАЛ С CYBERSLA\n\n📌 Интерес: ${botState.interest}\n📝 Задача: ${botState.task}\n📧 Контакт: ${botState.contact}`;
+            
+            const done = (ok) => {
+                const wrap = body.querySelector('.bot-input-wrap');
+                const submit = wrap.querySelector('.bot-submit');
+                submit.textContent = ok ? '✓ СКОПИРОВАНО' : '✗ НЕ УДАЛОСЬ СКОПИРОВАТЬ';
+                submit.disabled = true;
+                
+                const link = document.createElement('a');
+                link.href = VK_URL;
+                link.target = '_blank';
+                link.className = 'vk-link';
+                link.textContent = '→ ОТКРЫТЬ ДИАЛОГ VK';
+                wrap.appendChild(link);
+                
                 const msg = document.createElement('div');
                 msg.className = 'shadow-msg bot';
-                msg.textContent = entry.text;
+                msg.textContent = ok 
+                    ? '[СИСТЕМА] Текст в буфере. Вставь в диалог VK (Ctrl+V).' 
+                    : '[СИСТЕМА] Скопируй вручную и открой VK.';
                 body.appendChild(msg);
-            } else if (entry.type === 'options') {
-                const wrap = document.createElement('div');
-                wrap.className = 'shadow-options';
-                entry.options.forEach(opt => {
-                    const b = document.createElement('button');
-                    b.className = 'shadow-opt';
-                    b.textContent = opt.label;
-                    if (opt.selected) {
-                        b.style.background = 'rgba(200,16,46,0.3)';
-                        b.style.borderColor = 'var(--red)';
-                        b.style.color = '#fff';
-                    }
-                    b.onclick = () => selectOption(idx, opt);
-                    wrap.appendChild(b);
+                body.scrollTop = body.scrollHeight;
+            };
+            
+            navigator.clipboard.writeText(text)
+                .then(() => done(true))
+                .catch(() => {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    done(true);
                 });
-                body.appendChild(wrap);
-                
-                // Кнопка "Назад" — только если это не первый шаг
-                if (idx > 0) {
-                    const back = document.createElement('button');
-                    back.className = 'shadow-opt';
-                    back.textContent = '← НАЗАД К ПРЕДЫДУЩЕМУ';
-                    back.style.marginTop = '6px';
-                    back.onclick = () => goBack(idx);
-                    wrap.appendChild(back);
-                }
-            } else if (entry.type === 'input') {
-                const wrap = document.createElement('div');
-                wrap.className = 'bot-input-wrap';
-                
-                const input = document.createElement(entry.textarea ? 'textarea' : 'input');
-                input.className = `bot-input ${entry.textarea ? 'bot-textarea' : ''}`;
-                input.placeholder = entry.placeholder;
-                if (!entry.textarea) input.type = 'text';
-                if (entry.value) input.value = entry.value;
-                
-                const submit = document.createElement('button');
-                submit.className = 'bot-submit';
-                submit.textContent = '→ ОТПРАВИТЬ ОТВЕТ';
-                
-                submit.onclick = () => {
-                    const val = input.value.trim();
-                    if (!val) {
-                        input.style.borderColor = 'var(--red)';
-                        return;
-                    }
-                    submitInput(idx, val);
-                };
-                
-                input.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' && !entry.textarea) submit.click();
-                });
-                
-                wrap.appendChild(input);
-                wrap.appendChild(submit);
-                
-                // Кнопка "Назад"
-                if (idx > 0) {
-                    const back = document.createElement('button');
-                    back.className = 'shadow-opt';
-                    back.textContent = '← НАЗАД К ПРЕДЫДУЩЕМУ';
-                    back.style.marginTop = '6px';
-                    back.onclick = () => goBack(idx);
-                    wrap.appendChild(back);
-                }
-                
-                body.appendChild(wrap);
-            } else if (entry.type === 'final') {
-                const wrap = document.createElement('div');
-                wrap.className = 'bot-input-wrap';
-                
-                const submit = document.createElement('button');
-                submit.className = 'bot-submit';
-                submit.textContent = '📋 СКОПИРОВАТЬ И ОТКРЫТЬ VK';
-                
-                submit.onclick = () => copyAndOpen();
-                wrap.appendChild(submit);
-                
-                // Кнопка "Начать заново"
-                const restart = document.createElement('button');
-                restart.className = 'shadow-opt';
-                restart.textContent = '↺ НАЧАТЬ ДИАЛОГ ЗАНОВО';
-                restart.style.marginTop = '6px';
-                restart.onclick = () => resetBot();
-                wrap.appendChild(restart);
-                
-                body.appendChild(wrap);
-            }
-        });
-        
-        body.scrollTop = body.scrollHeight;
-    }
-    
-    // === ДЕЙСТВИЯ ===
-    
-    function selectOption(entryIdx, option) {
-        // Отмечаем выбранный вариант
-        history[entryIdx].options.forEach(o => o.selected = false);
-        option.selected = true;
-        
-        // Сохраняем в состояние
-        botState[history[entryIdx].field] = option.label;
-        
-        // Показываем выбор как сообщение пользователя
-        history.push({ type: 'user', text: option.label });
-        
-        // Переходим к следующему шагу
-        currentStep = entryIdx + 1;
-        advance();
-    }
-    
-    function submitInput(entryIdx, value) {
-        history[entryIdx].value = value;
-        botState[history[entryIdx].field] = value;
-        
-        history.push({ type: 'user', text: value });
-        
-        currentStep = entryIdx + 1;
-        advance();
-    }
-    
-    function advance() {
-        if (currentStep >= botFlow.length) return;
-        
-        const step = botFlow[currentStep];
-        
-        if (step.type === 'bot') {
-            const text = step.textFn ? step.textFn(botState) : step.text;
-            history.push({ type: 'bot', text: text });
-            currentStep++;
-            // Автоматически идём дальше, если следующий шаг — бот
-            setTimeout(() => {
-                if (currentStep < botFlow.length && botFlow[currentStep].type === 'bot') {
-                    advance();
-                }
-            }, 400);
-        } else {
-            // Клонируем шаг в историю (чтобы рендер мог его отрисовать)
-            history.push(JSON.parse(JSON.stringify(step)));
         }
         
-        render();
-    }
-    
-    function goBack(entryIdx) {
-        // Удаляем всё после этого шага (включая пользовательский ответ)
-        // entryIdx — это шаг с options/input. До него был bot-шаг.
-        // Удаляем: пользовательский ответ (если есть) + текущий шаг
-        history = history.slice(0, entryIdx);
+        function resetBot() {
+            history = [];
+            botState = { interest: '', task: '', contact: '' };
+            currentStep = 0;
+            advance();
+        }
         
-        // Откатываем состояние
-        recalcState();
-        
-        currentStep = entryIdx;
-        render();
-    }
-    
-    function recalcState() {
-        botState = { interest: '', task: '', contact: '' };
-        history.forEach(h => {
-            if (h.type === 'options' && h.selected) {
-                const selected = h.options.find(o => o.selected);
-                if (selected) botState[h.field] = selected.label;
-            } else if (h.type === 'input' && h.value) {
-                botState[h.field] = h.value;
+        btn.addEventListener('click', () => {
+            win.classList.toggle('open');
+            btn.classList.toggle('active');
+            if (win.classList.contains('open') && history.length === 0) {
+                resetBot();
             }
         });
-    }
-    
-    function copyAndOpen() {
-        const text = `🚀 СИГНАЛ С CYBERSLA\n\n📌 Интерес: ${botState.interest}\n📝 Задача: ${botState.task}\n📧 Контакт: ${botState.contact}`;
+        close.addEventListener('click', () => {
+            win.classList.remove('open');
+            btn.classList.remove('active');
+        });
         
-        const done = (ok) => {
-            const wrap = body.querySelector('.bot-input-wrap');
-            const submit = wrap.querySelector('.bot-submit');
-            submit.textContent = ok ? '✓ СКОПИРОВАНО' : '✗ НЕ УДАЛОСЬ СКОПИРОВАТЬ';
-            submit.disabled = true;
-            
-            const link = document.createElement('a');
-            link.href = VK_URL;
-            link.target = '_blank';
-            link.className = 'vk-link';
-            link.textContent = '→ ОТКРЫТЬ ДИАЛОГ VK';
-            wrap.appendChild(link);
-            
-            const msg = document.createElement('div');
-            msg.className = 'shadow-msg bot';
-            msg.textContent = ok 
-                ? '[СИСТЕМА] Текст в буфере. Вставь в диалог VK (Ctrl+V).' 
-                : '[СИСТЕМА] Скопируй вручную и открой VK.';
-            body.appendChild(msg);
-            body.scrollTop = body.scrollHeight;
-        };
+        const privacyModal = document.getElementById('privacyModal');
+        const privacyLink = document.getElementById('privacyLink');
+        const privacyClose = document.getElementById('privacyClose');
         
-        navigator.clipboard.writeText(text)
-            .then(() => done(true))
-            .catch(() => {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                ta.style.position = 'fixed';
-                ta.style.left = '-9999px';
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                done(true);
-            });
-    }
-    
-    function resetBot() {
-        history = [];
-        botState = { interest: '', task: '', contact: '' };
-        currentStep = 0;
-        advance();
-    }
-    
-    // === ОТКРЫТИЕ/ЗАКРЫТИЕ ОКНА ===
-    btn.addEventListener('click', () => {
-        win.classList.toggle('open');
-        btn.classList.toggle('active');
-        if (win.classList.contains('open') && history.length === 0) {
-            resetBot();
-        }
-    });
-    close.addEventListener('click', () => {
-        win.classList.remove('open');
-        btn.classList.remove('active');
-    });
-    
-    // Политика конфиденциальности
-    const privacyModal = document.getElementById('privacyModal');
-    const privacyLink = document.getElementById('privacyLink');
-    const privacyClose = document.getElementById('privacyClose');
-    
-    function openPrivacyModal(e) { if (e) e.preventDefault(); privacyModal.classList.add('open'); }
-    function closePrivacyModal() { privacyModal.classList.remove('open'); }
-    
-    privacyLink.addEventListener('click', openPrivacyModal);
-    privacyClose.addEventListener('click', closePrivacyModal);
-    privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
-</script>
-    
+        function openPrivacyModal(e) { if (e) e.preventDefault(); privacyModal.classList.add('open'); }
+        function closePrivacyModal() { privacyModal.classList.remove('open'); }
+        
+        privacyLink.addEventListener('click', openPrivacyModal);
+        privacyClose.addEventListener('click', closePrivacyModal);
+        privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
+    </script>
 </body>
 </html>

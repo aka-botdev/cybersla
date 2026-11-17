@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ПУНКТ 1 и 2: Идеальный SEO-заголовок и описание -->
     <title>CyberSLA — разработка Telegram-ботов, парсеров и веб-приложений под заказ</title>
     <meta name="description" content="Разработка Telegram-ботов, парсеров и веб-приложений под заказ. Каталог готовых решений: от парсинга данных до магазинов и автоматизации бизнеса.">
-    
     <meta name="keywords" content="разработка ботов, telegram бот, парсинг данных, создание сайтов, автоматизация бизнеса, white-hat">
     <meta name="author" content="CyberSLA">
     <meta name="robots" content="index, follow">
     
     <meta property="og:title" content="CyberSLA — разработка ботов и автоматизация под заказ">
-    <meta property="og:description" content="Каталог из 46 готовых white-hat решений. Превращаем хаос в рабочий код.">
+    <meta property="og:description" content="Каталог готовых white-hat решений. Превращаем хаос в рабочий код.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aka-botdev.github.io/cybersla/">
     
@@ -52,7 +50,7 @@
             display: inline-block;
             background: linear-gradient(135deg, #fff 0%, var(--red) 60%, var(--violet) 100%);
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            position: relative; opacity: 0; transform: translateY(30px) scale(0.5);
+            position: relative; opacity: 0; transform: translateY(30px) scale(0.8);
             animation: letterAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, letterDance 2s ease-in-out infinite 2s;
         }
         .letter:nth-child(1) { animation-delay: 0.1s, 2s; }
@@ -64,10 +62,10 @@
         .letter:nth-child(7) { animation-delay: 1.3s, 2s; }
         .letter:nth-child(8) { animation-delay: 1.5s, 2s; }
 
+        /* ОПТИМИЗАЦИЯ 1: убраны drop-shadow и brightness — только transform и opacity */
         @keyframes letterAppear {
-            0% { opacity: 0; transform: translateY(30px) scale(0.5); filter: brightness(3) drop-shadow(0 0 30px #fff) drop-shadow(0 0 60px var(--red)); }
-            50% { opacity: 1; transform: translateY(-10px) scale(1.2); filter: brightness(2) drop-shadow(0 0 20px var(--red)) drop-shadow(0 0 40px var(--violet)); }
-            100% { opacity: 1; transform: translateY(0) scale(1); filter: brightness(1) drop-shadow(0 0 15px rgba(200,16,46,0.5)); }
+            0% { opacity: 0; transform: translateY(30px) scale(0.8); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes letterDance {
             0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
@@ -147,13 +145,14 @@
             border-radius: 50%; background: var(--red); border: 2px solid var(--violet); 
             color: #fff; font-size: 24px; cursor: pointer; z-index: 10000; 
             display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 0 30px var(--glow); transition: all 0.3s; animation: pulse 2s infinite; 
+            box-shadow: 0 0 10px var(--glow); transition: all 0.3s; animation: pulse 2s infinite; 
         }
         .shadow-btn:hover { transform: scale(1.1); }
         .shadow-btn.active { background: var(--violet); }
+        /* ОПТИМИЗАЦИЯ 2: снижен радиус свечения пульсации */
         @keyframes pulse { 
-            0%, 100% { box-shadow: 0 0 20px var(--glow); } 
-            50% { box-shadow: 0 0 40px var(--glow), 0 0 60px rgba(107,45,122,0.4); } 
+            0%, 100% { box-shadow: 0 0 10px var(--glow); } 
+            50% { box-shadow: 0 0 20px var(--glow); } 
         }
         
         .shadow-window { 
@@ -268,11 +267,28 @@
         .flicker { animation: textFlicker 3s infinite; }
         @keyframes textFlicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } 52% { opacity: 0.3; } 54% { opacity: 0.9; } }
 
-        @media (max-width: 600px) {
+        /* ОПТИМИЗАЦИЯ 3: мобильные — отключаем шум и бесконечный танец букв */
+        @media (max-width: 600px), (hover: none) {
+            .static-noise { display: none; }
+            .letter { animation: letterAppear 0.6s ease-out forwards !important; }
+            .scanline { animation-duration: 3s; }
+            
             section { padding: 60px 0; } .hero { min-height: 80vh; }
             .bot-header { flex-direction: column; align-items: flex-start; }
             .contact-links { flex-direction: column; gap: 20px; }
             .shadow-window { left: 15px; right: 15px; width: auto; bottom: 100px; max-height: calc(100vh - 170px); }
+        }
+
+        /* ОПТИМИЗАЦИЯ 4: доступность — уважение к prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .letter { opacity: 1 !important; transform: none !important; }
+            .shadow-btn { animation: none !important; }
+            .scanline, .static-noise { display: none !important; }
         }
     </style>
 </head>
@@ -725,7 +741,7 @@
         privacyClose.addEventListener('click', closePrivacyModal);
         privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
 
-        // ПУНКТ 8: Цели Метрики для отслеживания воронки
+        // Цели Метрики: CTA, Тень, VK
         document.querySelectorAll('.cta').forEach(el => {
             el.addEventListener('click', () => ym(114268588, 'reachGoal', 'cta_click'));
         });

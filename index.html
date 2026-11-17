@@ -3,28 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Yandex Verification -->
-    <meta name="yandex-verification" content="2a795b4c4c0fb42a" />
-    
     <title>CyberSLA // Код. Звук. Смысл.</title>
     
-    <!-- SEO -->
-    <meta name="description" content="CyberSLA — разработка Telegram-ботов, парсинг данных и создание атмосферных сайтов. Постсоветский кибер-нуар. Автоматизируем хаос.">
-    <meta name="keywords" content="разработка ботов, telegram бот, парсинг, создание сайтов, киберпанк, фриланс, автоматизация">
+    <meta name="description" content="CyberSLA — разработка Telegram-ботов, парсинг данных и создание атмосферных сайтов. Постсоветский кибер-нуар.">
+    <meta name="keywords" content="разработка ботов, telegram бот, парсинг, создание сайтов, киберпанк, фриланс">
     <meta name="author" content="CyberSLA">
     <meta name="robots" content="index, follow">
     
-    <!-- Open Graph -->
     <meta property="og:title" content="CyberSLA // Код. Звук. Смысл.">
     <meta property="og:description" content="Разработка ботов, сайтов и музыки. Превращаем хаос в ритм.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aka-botdev.github.io/cybersla/">
     
-    <!-- Фавиконка -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23c8102e'>◈</text></svg>">
 
-    <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -32,10 +24,8 @@
             for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
             k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
         })(window, document,'script','https://mc.webvisor.org/metrika/tag_ww.js?id=114268588', 'ym');
-
-        ym(114268588, 'init', {ssr:true, webvisor:true, trackHash:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+        ym(114268588, 'init', {ssr:true, webvisor:true, trackHash:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
     </script>
-    <!-- /Yandex.Metrika counter -->
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -62,7 +52,6 @@
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
             position: relative; opacity: 0; transform: translateY(30px) scale(0.5);
             animation: letterAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, letterDance 2s ease-in-out infinite 2s;
-            transition: filter 0.3s;
         }
         .letter:nth-child(1) { animation-delay: 0.1s, 2s; }
         .letter:nth-child(2) { animation-delay: 0.3s, 2s; }
@@ -84,24 +73,10 @@
             50% { transform: translateY(-5px) rotate(-3deg) scale(0.95); }
             75% { transform: translateY(-20px) rotate(8deg) scale(1.05); }
         }
-        .glitch-wrap:hover .letter { animation: spinAxis 1.2s linear infinite; filter: drop-shadow(0 0 20px rgba(200,16,46,0.6)); }
+        .glitch-wrap:hover .letter { animation: spinAxis 1.2s linear infinite; }
         .glitch-wrap:hover .letter:nth-child(odd) { animation: spinAxisReverse 0.9s linear infinite; }
         @keyframes spinAxis { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
         @keyframes spinAxisReverse { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-360deg); } }
-
-        .letter::before {
-            content: attr(data-char); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            opacity: 0; animation: letterGlitch 5s infinite;
-        }
-        .letter:nth-child(odd)::before { color: #ff0040; }
-        .letter:nth-child(even)::before { color: #00e5ff; }
-        @keyframes letterGlitch {
-            0%, 95%, 100% { opacity: 0; transform: translate(0); }
-            96% { opacity: 0.8; transform: translate(-3px, 2px) skewX(10deg); }
-            97% { opacity: 0.6; transform: translate(3px, -2px) skewX(-10deg); }
-            98% { opacity: 0.9; transform: translate(-2px, -3px) skewY(5deg); }
-        }
 
         .scanline {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -110,26 +85,6 @@
         }
         @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
         
-        .spark-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-        .spark {
-            position: absolute; width: 3px; height: 3px; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 6px #c8102e, 0 0 12px #6b2d7a; opacity: 0; animation: sparkFly 1.2s ease-out infinite;
-        }
-        @keyframes sparkFly {
-            0% { opacity: 1; transform: translate(0,0) scale(1); }
-            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
-        }
-        .glitch-wrap::after {
-            content: ''; position: absolute; inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(200,16,46,0.15) 1px, rgba(200,16,46,0.15) 2px);
-            pointer-events: none; opacity: 0; animation: titleStatic 4s infinite;
-        }
-        @keyframes titleStatic {
-            0%, 92%, 100% { opacity: 0; }
-            93%, 95% { opacity: 0.4; transform: translateX(-2px); }
-            94% { opacity: 0.7; transform: translateX(2px); }
-        }
-
         .subtitle { font-size: clamp(16px, 2vw, 20px); color: var(--dim); max-width: 600px; margin-bottom: 40px; }
         .subtitle span { color: var(--text); }
         .cta { display: inline-block; padding: 14px 32px; background: transparent; border: 1px solid var(--red); color: var(--text); text-decoration: none; font-family: inherit; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; }
@@ -155,9 +110,6 @@
         .bot-desc { color: var(--dim); font-size: 15px; margin-bottom: 16px; }
         .bot-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; opacity: 0; }
         .bot-item.active .bot-details { max-height: 500px; opacity: 1; margin-top: 16px; }
-        .cmd-list { list-style: none; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 16px; }
-        .cmd-list li { margin-bottom: 12px; font-size: 14px; color: var(--text); }
-        .cmd-list code { color: var(--red); background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px; font-family: monospace; }
         .feature-list { list-style: none; padding: 0; margin-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px; }
         .feature-list li { margin-bottom: 8px; font-size: 14px; color: var(--dim); padding-left: 16px; position: relative; line-height: 1.4; }
         .feature-list li::before { content: '›'; position: absolute; left: 0; color: var(--red); font-weight: 900; font-size: 16px; top: -1px; }
@@ -186,10 +138,7 @@
         .contact-link:hover { background: var(--red); box-shadow: 0 0 30px var(--glow); color: #fff; }
         footer { padding: 40px 0; text-align: center; color: var(--dim); font-size: 13px; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 2; }
         footer .sig { color: var(--red); }
-        .privacy-link { 
-            color: var(--dim); text-decoration: none; margin-top: 16px; display: inline-block;
-            transition: all 0.2s; cursor: pointer;
-        }
+        .privacy-link { color: var(--dim); text-decoration: none; margin-top: 16px; display: inline-block; transition: all 0.2s; cursor: pointer; }
         .privacy-link:hover { color: var(--terminal-green); text-shadow: 0 0 8px var(--terminal-green); }
 
         .shadow-btn { 
@@ -220,11 +169,6 @@
             background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.03) 2px, rgba(0,255,65,0.03) 4px);
             pointer-events: none; z-index: 10;
         }
-        .shadow-window::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%);
-            pointer-events: none; z-index: 11;
-        }
         .shadow-window.open { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); pointer-events: all; }
         
         .shadow-header { 
@@ -237,7 +181,7 @@
             font-weight: 700; text-shadow: 0 0 10px var(--terminal-green);
         }
         .shadow-header-title::before { content: '> '; color: var(--red); }
-        .shadow-close { background: none; border: none; color: var(--red); font-size: 18px; cursor: pointer; font-weight: 900; transition: all 0.2s; }
+        .shadow-close { background: none; border: none; color: var(--red); font-size: 18px; cursor: pointer; font-weight: 900; }
         .shadow-close:hover { color: #fff; text-shadow: 0 0 10px var(--red); }
         
         .shadow-body { 
@@ -249,7 +193,7 @@
             background: rgba(0,255,65,0.05); border-left: 2px solid var(--terminal-green);
             color: var(--terminal-green); align-self: flex-start; text-shadow: 0 0 5px rgba(0,255,65,0.5);
         }
-        .shadow-msg.bot::before { content: '[СИСТЕМА] '; color: var(--red); font-weight: 700; }
+        .shadow-msg.bot::before { content: '[ЛОГОВО] '; color: var(--red); font-weight: 700; }
         .shadow-msg.user { 
             background: rgba(200,16,46,0.1); border-right: 2px solid var(--red);
             color: var(--text); align-self: flex-end; text-align: right;
@@ -269,48 +213,35 @@
         .shadow-opt.direct::before { content: ''; }
         .shadow-opt.direct:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px rgba(200,16,46,0.6); }
 
-        .contact-form { display: none; flex-direction: column; gap: 12px; margin-top: 12px; }
-        .contact-form.active { display: flex; }
-        .form-field { display: flex; flex-direction: column; gap: 6px; }
-        .form-label { color: var(--terminal-green); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-        .form-label::before { content: '> '; color: var(--red); }
-        .form-input, .form-textarea {
+        .bot-input-wrap { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; position: relative; z-index: 12; }
+        .bot-input {
             background: rgba(0,0,0,0.6); border: 1px solid rgba(0,255,65,0.3);
             color: var(--terminal-green); padding: 10px 12px; font-family: 'Courier New', monospace;
-            font-size: 13px; outline: none; transition: all 0.2s;
+            font-size: 13px; outline: none; transition: all 0.2s; width: 100%;
         }
-        .form-input:focus, .form-textarea:focus { border-color: var(--terminal-green); box-shadow: 0 0 10px rgba(0,255,65,0.3); }
-        .form-textarea { resize: vertical; min-height: 100px; }
-        .form-submit {
+        .bot-input:focus { border-color: var(--terminal-green); box-shadow: 0 0 10px rgba(0,255,65,0.3); }
+        .bot-input::placeholder { color: var(--dim); }
+        .bot-textarea { resize: vertical; min-height: 80px; }
+        .bot-submit {
             padding: 10px 16px; background: rgba(200,16,46,0.2); border: 1px solid var(--red);
             color: var(--red); font-family: 'Courier New', monospace; font-size: 12px;
             text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.2s;
         }
-        .form-submit:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px rgba(200,16,46,0.6); }
-        .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-        .form-status { font-size: 12px; margin-top: 8px; }
-        .form-status.success { color: var(--terminal-green); }
-        .form-status.error { color: var(--red); }
+        .bot-submit:hover { background: var(--red); color: #fff; box-shadow: 0 0 20px rgba(200,16,46,0.6); }
+        .bot-submit:disabled { opacity: 0.5; cursor: not-allowed; }
         
-        .consent-field { display: flex; align-items: flex-start; gap: 8px; margin-top: 4px; }
-        .consent-checkbox {
-            appearance: none; -webkit-appearance: none; width: 16px; height: 16px; min-width: 16px;
-            background: rgba(0,0,0,0.6); border: 1px solid rgba(0,255,65,0.3);
-            cursor: pointer; margin-top: 2px; position: relative;
+        .vk-link {
+            display: block; margin-top: 8px; padding: 10px 16px;
+            background: rgba(107,45,122,0.2); border: 1px solid var(--violet);
+            color: var(--violet); text-decoration: none; text-align: center;
+            font-family: 'Courier New', monospace; font-size: 12px;
+            text-transform: uppercase; letter-spacing: 2px; transition: all 0.2s;
         }
-        .consent-checkbox:checked { background: rgba(0,255,65,0.2); border-color: var(--terminal-green); }
-        .consent-checkbox:checked::after {
-            content: '✓'; position: absolute; top: -2px; left: 2px;
-            color: var(--terminal-green); font-size: 14px; font-weight: 900;
-        }
-        .consent-label { color: var(--dim); font-size: 11px; line-height: 1.4; }
-        .consent-label a { color: var(--terminal-green); text-decoration: underline; cursor: pointer; }
-        .consent-label a:hover { color: #fff; }
+        .vk-link:hover { background: var(--violet); color: #fff; box-shadow: 0 0 20px rgba(107,45,122,0.6); }
 
         .privacy-modal {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 10001;
+            background: rgba(0,0,0,0.85); z-index: 10001;
             display: flex; align-items: center; justify-content: center;
             opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
@@ -320,37 +251,15 @@
             background: var(--terminal-bg); border: 2px solid var(--red);
             box-shadow: 0 0 40px rgba(200,16,46,0.5), inset 0 0 20px rgba(0,0,0,0.8);
             display: flex; flex-direction: column; overflow: hidden;
-            transform: scale(0.9); transition: transform 0.3s;
-            position: relative;
+            transform: scale(0.9); transition: transform 0.3s; position: relative;
         }
         .privacy-modal.open .privacy-content { transform: scale(1); }
-        .privacy-content::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.03) 2px, rgba(0,255,65,0.03) 4px);
-            pointer-events: none; z-index: 10;
-        }
-        .privacy-text {
-            flex: 1; overflow-y: auto; padding: 20px;
-            color: var(--terminal-green); font-size: 13px; line-height: 1.6;
-            position: relative; z-index: 12;
-        }
-        .privacy-text h3 {
-            color: var(--red); font-size: 14px; margin: 16px 0 8px 0;
-            text-transform: uppercase; letter-spacing: 2px;
-        }
+        .privacy-text { flex: 1; overflow-y: auto; padding: 20px; color: var(--terminal-green); font-size: 13px; line-height: 1.6; position: relative; z-index: 12; }
+        .privacy-text h3 { color: var(--red); font-size: 14px; margin: 16px 0 8px 0; text-transform: uppercase; letter-spacing: 2px; }
         .privacy-text h3:first-child { margin-top: 0; }
         .privacy-text p { margin-bottom: 10px; }
         .privacy-text strong { color: #fff; }
 
-        #chaos-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-        .chaos-glitch { animation: chaosGlitch 0.1s ease-in-out; }
-        @keyframes chaosGlitch {
-            0% { transform: translate(0); filter: hue-rotate(0deg); }
-            25% { transform: translate(-5px, 3px) skewX(5deg); filter: hue-rotate(90deg); }
-            50% { transform: translate(5px, -3px) skewX(-5deg); filter: hue-rotate(180deg); }
-            75% { transform: translate(-3px, -5px) skewY(3deg); filter: hue-rotate(270deg); }
-            100% { transform: translate(0); filter: hue-rotate(360deg); }
-        }
         .static-noise {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 1; opacity: 0;
@@ -365,8 +274,7 @@
             section { padding: 60px 0; } .hero { min-height: 80vh; }
             .bot-header { flex-direction: column; align-items: flex-start; }
             .contact-links { flex-direction: column; gap: 20px; }
-            .shadow-window { left: 15px; right: 15px; width: auto; bottom: 100px; max-height: calc(100vh - 170px); transform: translateY(20px) scale(0.95); }
-            .shadow-window.open { transform: translateY(0) scale(1); }
+            .shadow-window { left: 15px; right: 15px; width: auto; bottom: 100px; max-height: calc(100vh - 170px); }
         }
     </style>
 </head>
@@ -374,7 +282,6 @@
 
     <noscript><div><img src="https://mc.yandex.ru/watch/114268588" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
-    <canvas id="chaos-canvas"></canvas>
     <div class="static-noise"></div>
 
     <section class="hero">
@@ -415,9 +322,7 @@
             <div class="section-title">// 02 — КАТАЛОГ РЕШЕНИЙ</div>
             <h2 class="section-heading flicker">Модули автоматизации (Нажми на категорию или карточку)</h2>
             
-            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">
-                [ 01 ] СБОР ДАННЫХ И МОНИТОРИНГ
-            </div>
+            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 01 ] СБОР ДАННЫХ И МОНИТОРИНГ</div>
             <div class="category-content">
                 <div class="bot-item" onclick="this.classList.toggle('active')">
                     <div class="bot-header"><div class="bot-name">HARVESTER</div><div class="bot-status">[ГОТОВ]</div></div>
@@ -442,7 +347,7 @@
                 <div class="bot-item" onclick="this.classList.toggle('active')">
                     <div class="bot-header"><div class="bot-name">JOB_SCOUT</div><div class="bot-status">[ГОТОВ]</div></div>
                     <div class="bot-desc">Парсер вакансий с HH.ru, Habr Career и LinkedIn по заданным фильтрам.</div>
-                    <div class="bot-details"><ul class="feature-list"><li>Уведомления о новых подходящих вакансиях</li><li>Сбор статистики по зарплатам</li><li>Экспорт списка компаний</li></ul></div>
+                    <div class="bot-details"><ul class="feature-list"><li>Уведомления о новых вакансиях</li><li>Сбор статистики по зарплатам</li><li>Экспорт списка компаний</li></ul></div>
                 </div>
                 <div class="bot-item" onclick="this.classList.toggle('active')">
                     <div class="bot-header"><div class="bot-name">UPTIME_GUARD</div><div class="bot-status">[ГОТОВ]</div></div>
@@ -471,9 +376,7 @@
                 </div>
             </div>
 
-            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">
-                [ 02 ] АВТОМАТИЗАЦИЯ И УПРАВЛЕНИЕ
-            </div>
+            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 02 ] АВТОМАТИЗАЦИЯ И УПРАВЛЕНИЕ</div>
             <div class="category-content">
                 <div class="bot-item" onclick="this.classList.toggle('active')">
                     <div class="bot-header"><div class="bot-name">AUTO_POSTER</div><div class="bot-status">[ГОТОВ]</div></div>
@@ -527,9 +430,7 @@
                 </div>
             </div>
 
-            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">
-                [ 03 ] МОДЕРАЦИЯ И БЕЗОПАСНОСТЬ
-            </div>
+            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 03 ] МОДЕРАЦИЯ И БЕЗОПАСНОСТЬ</div>
             <div class="category-content">
                 <div class="bot-item" onclick="this.classList.toggle('active')">
                     <div class="bot-header"><div class="bot-name">GATEKEEPER</div><div class="bot-status">[ГОТОВ]</div></div>
@@ -583,9 +484,7 @@
                 </div>
             </div>
 
-            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">
-                [ 04 ] E-COMMERCE И ПРОДАЖИ
-            </div>
+            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 04 ] E-COMMERCE И ПРОДАЖИ</div>
             <div class="category-content">
                 <div class="bot-item" onclick="this.classList.toggle('active')">
                     <div class="bot-header"><div class="bot-name">SHOP_FRONT</div><div class="bot-status">[ГОТОВ]</div></div>
@@ -639,9 +538,7 @@
                 </div>
             </div>
 
-            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">
-                [ 05 ] КРЕАТИВ, МЕДИА И УТИЛИТЫ
-            </div>
+            <div class="category-header" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.classList.toggle('hidden');">[ 05 ] КРЕАТИВ, МЕДИА И УТИЛИТЫ</div>
             <div class="category-content">
                 <div class="bot-item" onclick="this.classList.toggle('active')">
                     <div class="bot-header"><div class="bot-name">COPYWRITER_AI</div><div class="bot-status">[ГОТОВ]</div></div>
@@ -694,7 +591,6 @@
                     <div class="bot-details"><ul class="feature-list"><li>Анализ твоей бизнес-рутины</li><li>Проектирование уникальной логики</li><li>Превращаем хаос в рабочий код</li></ul></div>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -744,15 +640,15 @@
                 <h3>// 01. ОПЕРАТОР</h3>
                 <p>Оператором персональных данных является <strong>CyberSLA</strong>. Сайт: <strong>aka-botdev.github.io/cybersla</strong>.</p>
                 <h3>// 02. ЧТО МЫ СОБИРАЕМ</h3>
-                <p>Через форму: <strong>email</strong> и <strong>текст сообщения</strong>. Дополнительно используется <strong>Яндекс.Метрика</strong> — анонимная статистика посещений (количество визитов, гео, тип устройства). Cookies Метрики включены только для подсчёта сессий.</p>
+                <p>Через форму: <strong>email</strong> и <strong>текст сообщения</strong>. Дополнительно используется <strong>Яндекс.Метрика</strong> — анонимная статистика посещений.</p>
                 <h3>// 03. ЗАЧЕМ</h3>
-                <p>Единственная цель — ответить на твой запрос. Мы не передаём данные третьим лицам и не используем для рассылок.</p>
+                <p>Единственная цель — ответить на твой запрос. Мы не передаём данные третьим лицам.</p>
                 <h3>// 04. СКОЛЬКО ХРАНИМ</h3>
-                <p>До момента ответа на запрос. После этого данные удаляются из активных систем в течение 30 дней.</p>
+                <p>До момента ответа на запрос. После этого данные удаляются в течение 30 дней.</p>
                 <h3>// 05. ТВОИ ПРАВА (152-ФЗ)</h3>
-                <p>Ты имеешь право в любой момент отозвать согласие, потребовать удаления данных или получить информацию об их обработке, написав на email в разделе «Связь».</p>
+                <p>Ты имеешь право в любой момент отозвать согласие, потребовать удаления данных, написав на email в разделе «Связь».</p>
                 <h3>// 06. БЕЗОПАСНОСТЬ</h3>
-                <p>Передача данных по HTTPS. Статистика обрабатывается Яндекс.Метрикой в обезличенном виде. Персональные данные из формы третьим лицам не передаются.</p>
+                <p>Передача данных по HTTPS. Статистика обрабатывается Яндекс.Метрикой в обезличенном виде.</p>
                 <h3>// 07. СОГЛАСИЕ</h3>
                 <p>Отправляя форму, ты даёшь согласие на обработку персональных данных в соответствии с этим протоколом и 152-ФЗ.</p>
                 <p style="margin-top: 20px; color: var(--dim); font-size: 11px;">[ ДОКУМЕНТ ДЕЙСТВУЕТ С 16.11.2026 ]</p>
@@ -763,220 +659,241 @@
     <button class="shadow-btn" id="shadowBtn" title="Связаться с логовом">◈</button>
     <div class="shadow-window" id="shadowWindow">
         <div class="shadow-header">
-            <span class="shadow-header-title">ТЕНЬ v2.0.26</span>
+            <span class="shadow-header-title">ТЕНЬ v3.0 // ВЕБ-БОТ</span>
             <button class="shadow-close" id="shadowClose">×</button>
         </div>
         <div class="shadow-body" id="shadowBody">
-            <div class="shadow-msg bot">Инициализация связи...<br>Система готова. Ожидаю команды.</div>
-            <div class="shadow-options" id="shadowOptions">
-                <button class="shadow-opt" data-q="skills">Что вы умеете?</button>
-                <button class="shadow-opt" data-q="price">Сколько стоит?</button>
-                <button class="shadow-opt" data-q="time">Сроки?</button>
-                <button class="shadow-opt" data-q="bots">Расскажите про ботов</button>
-                <button class="shadow-opt direct" data-q="direct">→ ОТПРАВИТЬ СИГНАЛ</button>
-            </div>
-            <form class="contact-form" id="contactForm">
-                <div class="form-field">
-                    <label class="form-label">ТВОЙ EMAIL</label>
-                    <input type="email" name="email" class="form-input" id="formEmail" required placeholder="user@domain.com">
-                </div>
-                <div class="form-field">
-                    <label class="form-label">СООБЩЕНИЕ</label>
-                    <textarea name="message" class="form-textarea" id="formMessage" required placeholder="Опиши задачу..."></textarea>
-                </div>
-                <div class="consent-field">
-                    <input type="checkbox" class="consent-checkbox" id="consentCheckbox" required>
-                    <label class="consent-label" for="consentCheckbox">
-                        Даю согласие на обработку данных согласно <a id="openPrivacy">Протоколу</a> (152-ФЗ)
-                    </label>
-                </div>
-                <button type="submit" class="form-submit" id="formSubmit">ОТПРАВИТЬ В ЛОГОВО</button>
-                <a href="https://vk.com/veter_ok_breeze" target="_blank" class="form-submit vk-open" id="vkOpen" style="display:none; text-decoration:none; text-align:center; margin-top: 8px;">→ ОТКРЫТЬ ДИАЛОГ VK</a>
-                <div class="form-status" id="formStatus"></div>
-            </form>
+            <!-- Контент генерируется JS -->
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('chaos-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        const particles = []; const colors = ['#c8102e', '#6b2d7a', '#ff0040', '#9d00ff'];
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 2; this.vy = (Math.random() - 0.5) * 2;
-                this.size = Math.random() * 2 + 1; this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.fillStyle = this.color; ctx.shadowBlur = 10; ctx.shadowColor = this.color;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-        for (let i = 0; i < 80; i++) particles.push(new Particle());
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 120) {
-                        ctx.strokeStyle = `rgba(200, 16, 46, ${0.2 * (1 - distance / 120)})`; ctx.lineWidth = 0.5;
-                        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-        animate();
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
-
-        const glitchWrap = document.querySelector('.glitch-wrap');
-        const sparkContainer = document.createElement('div'); sparkContainer.className = 'spark-container'; glitchWrap.appendChild(sparkContainer);
-        function spawnSpark() {
-            const spark = document.createElement('div'); spark.className = 'spark';
-            const rect = glitchWrap.getBoundingClientRect();
-            spark.style.left = Math.random() * rect.width + 'px'; spark.style.top = Math.random() * rect.height + 'px';
-            const angle = Math.random() * Math.PI * 2; const distance = 40 + Math.random() * 80;
-            spark.style.setProperty('--tx', Math.cos(angle) * distance + 'px'); spark.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
-            spark.style.animationDuration = (0.8 + Math.random() * 0.8) + 's';
-            sparkContainer.appendChild(spark); setTimeout(() => spark.remove(), 1600);
-        }
-        setInterval(spawnSpark, 80);
-
-        const glitchElements = document.querySelectorAll('.card, .bot-item, .section-heading');
-        setInterval(() => {
-            const randomElement = glitchElements[Math.floor(Math.random() * glitchElements.length)];
-            randomElement.classList.add('chaos-glitch'); setTimeout(() => randomElement.classList.remove('chaos-glitch'), 100);
-        }, 3000);
-
-        const letters = document.querySelectorAll('.letter');
-        setInterval(() => {
-            const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-            randomLetter.style.opacity = '0.3'; setTimeout(() => { randomLetter.style.opacity = '1'; }, 100);
-        }, 2000);
-
+        // === ВЕБ-БОТ ЛОГОВО ===
         const btn = document.getElementById('shadowBtn');
         const win = document.getElementById('shadowWindow');
         const close = document.getElementById('shadowClose');
         const body = document.getElementById('shadowBody');
-        const opts = document.getElementById('shadowOptions');
-        const contactForm = document.getElementById('contactForm');
-        const formEmail = document.getElementById('formEmail');
-        const formMessage = document.getElementById('formMessage');
-        const formSubmit = document.getElementById('formSubmit');
-        const formStatus = document.getElementById('formStatus');
-        const consentCheckbox = document.getElementById('consentCheckbox');
-        const vkOpen = document.getElementById('vkOpen');
         
-        const answers = {
-            skills: 'МОДУЛИ: боты, парсинг, софт. Сайты: одностраничники, порталы. Звук: сценарии, тексты, музыка.',
-            price: 'Бюджет минимальный? Решим. Цена зависит от задачи. Приходи с хаосом — обсудим у костра.',
-            time: 'Простые задачи: 3-7 дней. Сложные: от 2 недель.',
-            bots: 'Арсенал: парсеры, алерты. Раздел "Арсенал" на сайте — нажми на карточку.',
-            direct: 'direct'
+        const VK_URL = 'https://vk.com/veter_ok_breeze';
+        
+        // Состояние диалога
+        let botState = {
+            step: 0,
+            interest: '',
+            task: '',
+            contact: ''
         };
         
-        btn.addEventListener('click', () => { 
-            win.classList.toggle('open'); btn.classList.toggle('active');
-            if (win.classList.contains('open')) body.scrollTop = body.scrollHeight; 
-        });
-        close.addEventListener('click', () => { win.classList.remove('open'); btn.classList.remove('active'); });
+        const botFlow = [
+            {
+                type: 'bot',
+                text: 'Инициализация связи...\nСистема готова. Ожидаю команды.'
+            },
+            {
+                type: 'bot',
+                text: 'Приветствую. Я — голос логова CyberSLA.\nРасскажи, что тебя интересует:'
+            },
+            {
+                type: 'options',
+                options: [
+                    { label: 'БОТЫ И АВТОМАТИЗАЦИЯ', value: 'bots' },
+                    { label: 'САЙТ / ВЕБ-РАЗРАБОТКА', value: 'site' },
+                    { label: 'МУЗЫКА / СЦЕНАРИИ', value: 'music' },
+                    { label: 'ДРУГОЕ / НЕ ЗНАЮ', value: 'other' }
+                ]
+            },
+            {
+                type: 'bot',
+                textFn: (state) => `Принято: ${state.interest}.\n\nОпиши задачу в двух словах. Можно хаосом — разберёмся у костра.`
+            },
+            {
+                type: 'input',
+                placeholder: 'Опиши задачу...',
+                textarea: true,
+                saveTo: 'task'
+            },
+            {
+                type: 'bot',
+                textFn: (state) => `Понял. Задача зафиксирована.\n\nКак с тобой связаться? Email или VK.`
+            },
+            {
+                type: 'input',
+                placeholder: 'user@domain.com или vk.com/...',
+                textarea: false,
+                saveTo: 'contact'
+            },
+            {
+                type: 'bot',
+                textFn: (state) => `СИГНАЛ СФОРМИРОВАН.\n\nИнтерес: ${state.interest}\nЗадача: ${state.task}\nКонтакт: ${state.contact}\n\nНажми кнопку ниже — текст скопируется, откроется диалог VK. Вставь и отправь.`
+            },
+            {
+                type: 'final'
+            }
+        ];
         
-        document.querySelectorAll('.shadow-opt').forEach(opt => {
-            opt.addEventListener('click', () => {
-                const q = opt.dataset.q;
-                if (q === 'direct') {
-                    opts.style.display = 'none';
-                    contactForm.classList.add('active');
+        function addMessage(text, type) {
+            const msg = document.createElement('div');
+            msg.className = `shadow-msg ${type}`;
+            msg.textContent = text;
+            body.appendChild(msg);
+            body.scrollTop = body.scrollHeight;
+        }
+        
+        function addOptions(options) {
+            const wrap = document.createElement('div');
+            wrap.className = 'shadow-options';
+            options.forEach(opt => {
+                const b = document.createElement('button');
+                b.className = 'shadow-opt';
+                b.textContent = opt.label;
+                b.onclick = () => {
+                    wrap.remove();
+                    addMessage(opt.label, 'user');
+                    botState.interest = opt.label;
+                    setTimeout(() => renderNext(), 400);
+                };
+                wrap.appendChild(b);
+            });
+            body.appendChild(wrap);
+            body.scrollTop = body.scrollHeight;
+        }
+        
+        function addInput(placeholder, textarea, saveTo) {
+            const wrap = document.createElement('div');
+            wrap.className = 'bot-input-wrap';
+            
+            const input = document.createElement(textarea ? 'textarea' : 'input');
+            input.className = `bot-input ${textarea ? 'bot-textarea' : ''}`;
+            input.placeholder = placeholder;
+            if (!textarea) input.type = 'text';
+            
+            const submit = document.createElement('button');
+            submit.className = 'bot-submit';
+            submit.textContent = '→ ОТПРАВИТЬ ОТВЕТ';
+            
+            submit.onclick = () => {
+                const val = input.value.trim();
+                if (!val) {
+                    input.style.borderColor = 'var(--red)';
                     return;
                 }
-                const userMsg = document.createElement('div'); userMsg.className = 'shadow-msg user';
-                userMsg.textContent = opt.textContent.replace('→ ', '').replace('[ ] ', '');
-                body.insertBefore(userMsg, contactForm);
-                setTimeout(() => {
-                    const botMsg = document.createElement('div'); botMsg.className = 'shadow-msg bot';
-                    botMsg.textContent = answers[q]; body.insertBefore(botMsg, contactForm);
-                    body.scrollTop = body.scrollHeight;
-                }, 400);
+                wrap.remove();
+                addMessage(val, 'user');
+                botState[saveTo] = val;
+                setTimeout(() => renderNext(), 400);
+            };
+            
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !textarea) submit.click();
             });
+            
+            wrap.appendChild(input);
+            wrap.appendChild(submit);
+            body.appendChild(wrap);
+            body.scrollTop = body.scrollHeight;
+            input.focus();
+        }
+        
+        function addFinal() {
+            const wrap = document.createElement('div');
+            wrap.className = 'bot-input-wrap';
+            
+            const submit = document.createElement('button');
+            submit.className = 'bot-submit';
+            submit.textContent = '📋 СКОПИРОВАТЬ И ОТКРЫТЬ VK';
+            
+            submit.onclick = () => {
+                const text = `🚀 СИГНАЛ С CYBERSLA\n\n📌 Интерес: ${botState.interest}\n📝 Задача: ${botState.task}\n📧 Контакт: ${botState.contact}`;
+                
+                navigator.clipboard.writeText(text).then(() => {
+                    submit.textContent = '✓ СКОПИРОВАНО';
+                    submit.disabled = true;
+                    
+                    const link = document.createElement('a');
+                    link.href = VK_URL;
+                    link.target = '_blank';
+                    link.className = 'vk-link';
+                    link.textContent = '→ ОТКРЫТЬ ДИАЛОГ VK';
+                    wrap.appendChild(link);
+                    
+                    addMessage('[СИСТЕМА] Текст в буфере. Вставь в диалог VK (Ctrl+V).', 'bot');
+                }).catch(() => {
+                    // Фоллбэк
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    
+                    submit.textContent = '✓ СКОПИРОВАНО';
+                    submit.disabled = true;
+                    
+                    const link = document.createElement('a');
+                    link.href = VK_URL;
+                    link.target = '_blank';
+                    link.className = 'vk-link';
+                    link.textContent = '→ ОТКРЫТЬ ДИАЛОГ VK';
+                    wrap.appendChild(link);
+                    
+                    addMessage('[СИСТЕМА] Текст в буфере. Вставь в диалог VK.', 'bot');
+                });
+            };
+            
+            wrap.appendChild(submit);
+            body.appendChild(wrap);
+            body.scrollTop = body.scrollHeight;
+        }
+        
+        function renderNext() {
+            if (botState.step >= botFlow.length) return;
+            const step = botFlow[botState.step];
+            botState.step++;
+            
+            if (step.type === 'bot') {
+                const text = step.textFn ? step.textFn(botState) : step.text;
+                setTimeout(() => addMessage(text, 'bot'), 300);
+                setTimeout(() => renderNext(), 800);
+            } else if (step.type === 'options') {
+                setTimeout(() => addOptions(step.options), 300);
+            } else if (step.type === 'input') {
+                setTimeout(() => addInput(step.placeholder, step.textarea, step.saveTo), 300);
+            } else if (step.type === 'final') {
+                setTimeout(() => addFinal(), 300);
+            }
+        }
+        
+        function resetBot() {
+            body.innerHTML = '';
+            botState = { step: 0, interest: '', task: '', contact: '' };
+            renderNext();
+        }
+        
+        btn.addEventListener('click', () => {
+            win.classList.toggle('open');
+            btn.classList.toggle('active');
+            if (win.classList.contains('open') && body.children.length === 0) {
+                resetBot();
+            }
         });
-
+        close.addEventListener('click', () => {
+            win.classList.remove('open');
+            btn.classList.remove('active');
+        });
+        
+        // Политика конфиденциальности
         const privacyModal = document.getElementById('privacyModal');
         const privacyLink = document.getElementById('privacyLink');
         const privacyClose = document.getElementById('privacyClose');
-        const openPrivacy = document.getElementById('openPrivacy');
         
         function openPrivacyModal(e) { if (e) e.preventDefault(); privacyModal.classList.add('open'); }
         function closePrivacyModal() { privacyModal.classList.remove('open'); }
         
         privacyLink.addEventListener('click', openPrivacyModal);
-        openPrivacy.addEventListener('click', openPrivacyModal);
         privacyClose.addEventListener('click', closePrivacyModal);
         privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (!consentCheckbox.checked) {
-                formStatus.textContent = '[ОШИБКА] ТРЕБУЕТСЯ СОГЛАСИЕ.';
-                formStatus.className = 'form-status error';
-                return;
-            }
-
-            const email = formEmail.value;
-            const message = formMessage.value;
-            const text = `🚀 СИГНАЛ С CYBERSLA\n\n📧 От: ${email}\n💬 Сообщение:\n${message}`;
-
-            const copyToClipboard = async () => {
-                try {
-                    await navigator.clipboard.writeText(text);
-                    return true;
-                } catch (err) {
-                    const textArea = document.createElement("textarea");
-                    textArea.value = text;
-                    textArea.style.position = "fixed";
-                    textArea.style.left = "-9999px";
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    try {
-                        document.execCommand('copy');
-                        return true;
-                    } catch (err) {
-                        return false;
-                    } finally {
-                        document.body.removeChild(textArea);
-                    }
-                }
-            };
-
-            copyToClipboard().then(success => {
-                if (success) {
-                    formStatus.textContent = '[СИСТЕМА] ТЕКСТ СКОПИРОВАН. НАЖМИ КНОПКУ НИЖЕ И ВСТАВЬ (CTRL+V).';
-                    formStatus.className = 'form-status success';
-                    formSubmit.textContent = 'СКОПИРОВАНО';
-                    vkOpen.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        formSubmit.disabled = false;
-                        formSubmit.textContent = 'ОТПРАВИТЬ В ЛОГОВО';
-                        formStatus.textContent = '';
-                        vkOpen.style.display = 'none';
-                        contactForm.reset();
-                    }, 8000);
-                } else {
-                    formStatus.textContent = '[ОШИБКА] НЕ УДАЛОСЬ СКОПИРОВАТЬ. НАПИШИ ВРУЧНУЮ.';
-                    formStatus.className = 'form-status error';
-                    vkOpen.style.display = 'block';
-                }
-            });
-        });
     </script>
 </body>
 </html>

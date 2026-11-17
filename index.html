@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberSLA // Код. Звук. Смысл.</title>
     
-    <meta name="description" content="CyberSLA — разработка ботов, парсинг публичных данных и создание атмосферных сайтов. Постсоветский кибер-нуар. White-hat автоматизация.">
+    <!-- ШАГ 1: SEO-оптимизированные заголовок и описание -->
+    <title>CyberSLA // Разработка ботов, парсинг и сайты | White-hat автоматизация</title>
+    <meta name="description" content="CyberSLA: легальная разработка Telegram-ботов, парсинг публичных данных и создание сайтов в эстетике кибер-нуар. Превращаем хаос в рабочий код. Без спама и серых схем.">
+    
     <meta name="keywords" content="разработка ботов, telegram бот, парсинг публичных данных, создание сайтов, киберпанк, white-hat автоматизация">
     <meta name="author" content="CyberSLA">
     <meta name="robots" content="index, follow">
     
-    <meta property="og:title" content="CyberSLA // Код. Звук. Смысл.">
-    <meta property="og:description" content="Разработка ботов, сайтов и музыки. Превращаем хаос в ритм. Легальные white-hat решения.">
+    <meta property="og:title" content="CyberSLA // Разработка ботов, парсинг и сайты">
+    <meta property="og:description" content="Легальная автоматизация и кибер-нуар эстетика. Превращаем хаос в ритм.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aka-botdev.github.io/cybersla/">
     
@@ -297,7 +299,8 @@
                 <div class="scanline"></div>
             </div>
             <p class="subtitle"><span>Код. Звук. Смысл.</span><br>Мы — гибриды. Технари с пульсом. Автоматизируем рутину, строим цифровые убежища и превращаем хаос в ритм. Только white-hat решения.</p>
-            <a href="#contact" class="cta">Обсудить у костра →</a>
+            <!-- ШАГ 2: Уточненный CTA -->
+            <a href="#contact" class="cta">Обсудить проект у костра →</a>
         </div>
     </section>
 
@@ -404,7 +407,7 @@
     <section class="philosophy">
         <div class="container">
             <div class="section-title">// 04 — ФИЛОСОФИЯ</div>
-            <blockquote>Нет чёткого ТЗ? Идеально.<br>Мы не бюрократы. Приходи с хаосом — обсудим его у костра и превратим в структуру. Главное — замысел.</blockquote>
+            <blockquote>Нет чёткого ТЗ? Это нормально.<br>Мы структурируем хаос и превратим его в техническое задание. Главное — замысел.</blockquote>
         </div>
     </section>
 
@@ -722,6 +725,18 @@
         privacyLink.addEventListener('click', openPrivacyModal);
         privacyClose.addEventListener('click', closePrivacyModal);
         privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
+
+        // ШАГ 3: Цели Метрики для отслеживания воронки
+        btn.addEventListener('click', () => { 
+            if (win.classList.contains('open')) {
+                ym(114268588, 'reachGoal', 'shadow_open'); 
+            }
+        });
+        document.addEventListener('click', (e) => { 
+            if (e.target.closest('.vk-link')) {
+                ym(114268588, 'reachGoal', 'vk_redirect'); 
+            }
+        });
     </script>
 </body>
 </html>

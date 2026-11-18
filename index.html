@@ -10,7 +10,7 @@
     <meta name="author" content="CyberSLA">
     <meta name="robots" content="index, follow">
     
-    <meta property="og:title" content="CyberSLA — разработка ботов и автоматизация под заказ">
+    <meta property="og:title" content="CyberSLA — разработка ботов и автоматизации под заказ">
     <meta property="og:description" content="Каталог готовых white-hat решений. Превращаем хаос в рабочий код.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aka-botdev.github.io/cybersla/">
@@ -62,7 +62,6 @@
         .letter:nth-child(7) { animation-delay: 1.3s, 2s; }
         .letter:nth-child(8) { animation-delay: 1.5s, 2s; }
 
-        /* ОПТИМИЗАЦИЯ 1: убраны drop-shadow и brightness — только transform и opacity */
         @keyframes letterAppear {
             0% { opacity: 0; transform: translateY(30px) scale(0.8); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -149,7 +148,6 @@
         }
         .shadow-btn:hover { transform: scale(1.1); }
         .shadow-btn.active { background: var(--violet); }
-        /* ОПТИМИЗАЦИЯ 2: снижен радиус свечения пульсации */
         @keyframes pulse { 
             0%, 100% { box-shadow: 0 0 10px var(--glow); } 
             50% { box-shadow: 0 0 20px var(--glow); } 
@@ -267,7 +265,6 @@
         .flicker { animation: textFlicker 3s infinite; }
         @keyframes textFlicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } 52% { opacity: 0.3; } 54% { opacity: 0.9; } }
 
-        /* ОПТИМИЗАЦИЯ 3: мобильные — отключаем шум и бесконечный танец букв */
         @media (max-width: 600px), (hover: none) {
             .static-noise { display: none; }
             .letter { animation: letterAppear 0.6s ease-out forwards !important; }
@@ -279,7 +276,6 @@
             .shadow-window { left: 15px; right: 15px; width: auto; bottom: 100px; max-height: calc(100vh - 170px); }
         }
 
-        /* ОПТИМИЗАЦИЯ 4: доступность — уважение к prefers-reduced-motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -473,7 +469,7 @@
     <button class="shadow-btn" id="shadowBtn" title="Связаться с логовом">◈</button>
     <div class="shadow-window" id="shadowWindow">
         <div class="shadow-header">
-            <span class="shadow-header-title">ТЕНЬ v3.1 // ВЕБ-БОТ</span>
+            <span class="shadow-header-title">ТЕНЬ v3.2 // ВЕБ-БОТ</span>
             <button class="shadow-close" id="shadowClose">×</button>
         </div>
         <div class="shadow-body" id="shadowBody"></div>
@@ -508,7 +504,15 @@
             { type: 'input', field: 'task', placeholder: 'Опиши задачу...', textarea: true },
             { type: 'bot', textFn: (s) => `Понял. Задача зафиксирована.\n\nКак с тобой связаться? Email или VK.` },
             { type: 'input', field: 'contact', placeholder: 'user@domain.com или vk.com/...', textarea: false },
-            { type: 'bot', textFn: (s) => `СИГНАЛ СФОРМИРОВАН.\n\n📌 Интерес: ${s.interest}\n📝 Задача: ${s.task}\n📧 Контакт: ${s.contact}\n\nНажми кнопку ниже — текст скопируется, откроется диалог VK. Вставь и отправь.` },
+            { type: 'bot', textFn: (s) => `СИГНАЛ СФОРМИРОВАН.\n\n📌 Интерес: ${s.interest}\n📝 Задача: ${s.task}\n📧 Контакт: ${s.contact}` },
+            
+            // ШАГ СОГЛАСИЯ С ПОЛИТИКОЙ КОНФИДЕНЦИАЛЬНОСТИ
+            {
+                type: 'consent',
+                text: 'Нажимая кнопку ниже, ты даёшь согласие на обработку персональных данных в соответствии с Политикой конфиденциальности (152-ФЗ).\n\nДанные не хранятся на сервере — текст копируется в твой буфер для отправки через VK.',
+                link: '#privacy'
+            },
+            
             { type: 'final' }
         ];
         
@@ -599,6 +603,50 @@
             input.focus();
         }
         
+        // ШАГ СОГЛАСИЯ С ПОЛИТИКОЙ КОНФИДЕНЦИАЛЬНОСТИ
+        function addConsent(step) {
+            const wrap = document.createElement('div');
+            wrap.className = 'bot-input-wrap';
+            
+            const text = document.createElement('div');
+            text.className = 'shadow-msg bot';
+            text.textContent = step.text;
+            wrap.appendChild(text);
+            
+            const link = document.createElement('a');
+            link.href = step.link;
+            link.style.cssText = 'color: var(--terminal-green); font-size: 11px; text-decoration: underline; margin-bottom: 8px; display: block;';
+            link.textContent = '📄 Читать Политику конфиденциальности';
+            link.onclick = (e) => {
+                e.preventDefault();
+                document.getElementById('privacyModal').classList.add('open');
+            };
+            wrap.appendChild(link);
+            
+            const submit = document.createElement('button');
+            submit.className = 'bot-submit';
+            submit.textContent = '✓ СОГЛАСЕН С ПОЛИТИКОЙ';
+            submit.onclick = () => {
+                wrap.remove();
+                addMessage('✓ СОГЛАСЕН С ПОЛИТИКОЙ', 'user');
+                userHistory.push({ type: 'consent', value: 'accepted' });
+                setTimeout(() => nextStep(), 400);
+            };
+            wrap.appendChild(submit);
+            
+            if (userHistory.length > 0) {
+                const back = document.createElement('button');
+                back.className = 'shadow-opt';
+                back.textContent = '← НАЗАД';
+                back.style.marginTop = '6px';
+                back.onclick = () => goBack();
+                wrap.appendChild(back);
+            }
+            
+            body.appendChild(wrap);
+            body.scrollTop = body.scrollHeight;
+        }
+        
         function addFinal() {
             const wrap = document.createElement('div');
             wrap.className = 'bot-input-wrap';
@@ -634,6 +682,8 @@
                 addOptions(step.options, step.field);
             } else if (step.type === 'input') {
                 addInput(step.field, step.placeholder, step.textarea);
+            } else if (step.type === 'consent') {
+                addConsent(step);
             } else if (step.type === 'final') {
                 addFinal();
             }
@@ -655,11 +705,13 @@
             userHistory.forEach(h => {
                 if (h.type === 'options' || h.type === 'input') {
                     addMessage(h.value, 'user');
+                } else if (h.type === 'consent') {
+                    addMessage('✓ СОГЛАСЕН С ПОЛИТИКОЙ', 'user');
                 }
             });
             
             userHistory.forEach(h => {
-                botState[h.field] = h.value;
+                if (h.field) botState[h.field] = h.value;
             });
             
             setTimeout(() => nextStep(), 400);

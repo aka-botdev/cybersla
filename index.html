@@ -469,7 +469,7 @@
     <button class="shadow-btn" id="shadowBtn" title="Связаться с логовом">◈</button>
     <div class="shadow-window" id="shadowWindow">
         <div class="shadow-header">
-            <span class="shadow-header-title">ТЕНЬ v3.2 // ВЕБ-БОТ</span>
+            <span class="shadow-header-title">ТЕНЬ v3.3 // ВЕБ-БОТ</span>
             <button class="shadow-close" id="shadowClose">×</button>
         </div>
         <div class="shadow-body" id="shadowBody"></div>
@@ -505,14 +505,11 @@
             { type: 'bot', textFn: (s) => `Понял. Задача зафиксирована.\n\nКак с тобой связаться? Email или VK.` },
             { type: 'input', field: 'contact', placeholder: 'user@domain.com или vk.com/...', textarea: false },
             { type: 'bot', textFn: (s) => `СИГНАЛ СФОРМИРОВАН.\n\n📌 Интерес: ${s.interest}\n📝 Задача: ${s.task}\n📧 Контакт: ${s.contact}` },
-            
-            // ШАГ СОГЛАСИЯ С ПОЛИТИКОЙ КОНФИДЕНЦИАЛЬНОСТИ
             {
                 type: 'consent',
                 text: 'Нажимая кнопку ниже, ты даёшь согласие на обработку персональных данных в соответствии с Политикой конфиденциальности (152-ФЗ).\n\nДанные не хранятся на сервере — текст копируется в твой буфер для отправки через VK.',
                 link: '#privacy'
             },
-            
             { type: 'final' }
         ];
         
@@ -563,6 +560,8 @@
             const input = document.createElement(textarea ? 'textarea' : 'input');
             input.className = `bot-input ${textarea ? 'bot-textarea' : ''}`;
             input.placeholder = placeholder;
+            input.id = `field-${field}-${Date.now()}`;
+            input.name = field;
             if (!textarea) input.type = 'text';
             
             const submit = document.createElement('button');
@@ -603,7 +602,6 @@
             input.focus();
         }
         
-        // ШАГ СОГЛАСИЯ С ПОЛИТИКОЙ КОНФИДЕНЦИАЛЬНОСТИ
         function addConsent(step) {
             const wrap = document.createElement('div');
             wrap.className = 'bot-input-wrap';
@@ -615,7 +613,7 @@
             
             const link = document.createElement('a');
             link.href = step.link;
-            link.style.cssText = 'color: var(--terminal-green); font-size: 11px; text-decoration: underline; margin-bottom: 8px; display: block;';
+            link.style.cssText = 'color: var(--terminal-green); font-size: 11px; text-decoration: underline; margin-bottom: 8px; display: block; cursor: pointer;';
             link.textContent = '📄 Читать Политику конфиденциальности';
             link.onclick = (e) => {
                 e.preventDefault();
@@ -693,7 +691,7 @@
             if (userHistory.length === 0) return;
             
             const lastAction = userHistory.pop();
-            botState[lastAction.field] = '';
+            if (lastAction.field) botState[lastAction.field] = '';
             
             currentStep--;
             while (currentStep > 0 && botFlow[currentStep - 1].type === 'bot') {
@@ -793,7 +791,6 @@
         privacyClose.addEventListener('click', closePrivacyModal);
         privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
 
-        // Цели Метрики: CTA, Тень, VK
         document.querySelectorAll('.cta').forEach(el => {
             el.addEventListener('click', () => ym(114268588, 'reachGoal', 'cta_click'));
         });
